@@ -43,30 +43,35 @@ export default Vue.extend({
   components: { AnimeCard },
   watch: {
     search() {
+      const currentSearch = this.search;
       if (!this.search || this.search.trim() == '') {
         this.loading = false;
         this.results = [];
       }
-      if (!navigator.onLine) {
-        console.log('offline, checking for cached searches');
-        let cache = this.$q.localStorage.getItem('cache');
-        if (!cache) {
-          this.$q.localStorage.set('cache', {});
-          cache = this.$q.localStorage.getItem('cache');
-        }
-        /* @ts-ignore */
-        if (!cache.search) cache.search = {};
-        /* @ts-ignore */
-        if (cache.search[this.search]) {
-          /* @ts-ignore */
-          console.log('found some');
-          /* @ts-ignore */
+      console.log('checking for cached searches');
+      let cache = this.$q.localStorage.getItem('cache');
+      if (!cache) {
+        this.$q.localStorage.set('cache', {});
+        cache = this.$q.localStorage.getItem('cache');
+      }
+      /* @ts-ignore */
+      if (!cache.search) cache.search = {};
+      /* @ts-ignore */
+      if (cache.search[this.search]) {
+        if (currentSearch != this.search) return;
 
-          this.results = cache.search[this.search];
-          this.loading = false;
-          return;
-        } else {
-          console.log('none found');
+        /* @ts-ignore */
+        console.log('found some');
+        /* @ts-ignore */
+
+        this.results = cache.search[this.search];
+        this.loading = false;
+        return;
+      } else {
+        console.log('none found');
+        if (!navigator.onLine) {
+          if (currentSearch != this.search) return;
+
           this.$q.notify(
             "This search hasn't been cached, so we can't show you anything. Connect to the internet and try again."
           );
@@ -74,33 +79,35 @@ export default Vue.extend({
           this.results = [];
           return;
         }
-      } else {
-        axios
-          .get(
-            `https://api.jikan.moe/v3/search/anime?q=${encodeURIComponent(
-              this.search.trim()
-            )}&page=1`
-          )
-          .then(e => {
-            /* @ts-ignore */
-            let cache = this.$q.localStorage.getItem('cache');
-            /* @ts-ignore */
-            if (!cache) {
-              this.$q.localStorage.set('cache', {});
-              cache = this.$q.localStorage.getItem('cache');
-            }
-            /* @ts-ignore */
-            if (!cache.search) cache.search = {};
-            /* @ts-ignore */
-            cache.search[this.search] = e.data.results;
-            /* @ts-ignore */
-            cache.search[this.search].date = new Date();
-            this.$q.localStorage.set('cache', cache);
-            this.results = e.data.results;
-            this.loading = false;
-          })
-          .catch(e => console.log(e));
       }
+      axios
+        .get(
+          `https://api.jikan.moe/v3/search/anime?q=${encodeURIComponent(
+            this.search.trim()
+          )}&page=1`
+        )
+        .then(e => {
+          /* @ts-ignore */
+          let cache = this.$q.localStorage.getItem('cache');
+          /* @ts-ignore */
+          if (!cache) {
+            this.$q.localStorage.set('cache', {});
+            cache = this.$q.localStorage.getItem('cache');
+          }
+          /* @ts-ignore */
+          if (!cache.search) cache.search = {};
+          /* @ts-ignore */
+          cache.search[this.search] = e.data.results;
+          /* @ts-ignore */
+          cache.search[this.search].date = new Date();
+          if (currentSearch != this.search) return;
+
+          this.$q.localStorage.set('cache', cache);
+
+          this.results = e.data.results;
+          this.loading = false;
+        })
+        .catch(e => console.log(e));
     }
   },
   methods: {
