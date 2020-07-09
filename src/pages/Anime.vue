@@ -51,7 +51,6 @@ export default Vue.extend({
     };
   },
   created() {
-    console.log('created');
     // fetch the data when the view is created and the data is
     // already being observed
     this.fetchData();
@@ -76,7 +75,6 @@ export default Vue.extend({
       axios
         .get(`https://api.jikan.moe/v3/anime/${this.$route.params.id}`)
         .then(data => {
-          console.log(data.data);
           this.$q.loading.hide();
           this.anime = data.data;
           document.title = `${this.anime.title} | Mirai`;

@@ -35,7 +35,6 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import Vue from 'vue';
 import AnimeCard from 'components/AnimeCard.vue';
 import axios from 'axios';
@@ -48,18 +47,60 @@ export default Vue.extend({
         this.loading = false;
         this.results = [];
       }
-      axios
-        .get(
-          `https://api.jikan.moe/v3/search/anime?q=${encodeURIComponent(
-            this.search.trim()
-          )}&page=1`
-        )
-        .then(e => {
-          console.log(e.data);
-          this.results = e.data.results;
+      if (!navigator.onLine) {
+        console.log('offline, checking for cached searches');
+        let cache = this.$q.localStorage.getItem('cache');
+        if (!cache) {
+          this.$q.localStorage.set('cache', {});
+          cache = this.$q.localStorage.getItem('cache');
+        }
+        /* @ts-ignore */
+        if (!cache.search) cache.search = {};
+        /* @ts-ignore */
+        if (cache.search[this.search]) {
+          /* @ts-ignore */
+          console.log('found some');
+          /* @ts-ignore */
+
+          this.results = cache.search[this.search];
           this.loading = false;
-        })
-        .catch(e => console.log(e));
+          return;
+        } else {
+          console.log('none found');
+          this.$q.notify(
+            "This search hasn't been cached, so we can't show you anything. Connect to the internet and try again."
+          );
+          this.loading = false;
+          this.results = [];
+          return;
+        }
+      } else {
+        axios
+          .get(
+            `https://api.jikan.moe/v3/search/anime?q=${encodeURIComponent(
+              this.search.trim()
+            )}&page=1`
+          )
+          .then(e => {
+            /* @ts-ignore */
+            let cache = this.$q.localStorage.getItem('cache');
+            /* @ts-ignore */
+            if (!cache) {
+              this.$q.localStorage.set('cache', {});
+              cache = this.$q.localStorage.getItem('cache');
+            }
+            /* @ts-ignore */
+            if (!cache.search) cache.search = {};
+            /* @ts-ignore */
+            cache.search[this.search] = e.data.results;
+            /* @ts-ignore */
+            cache.search[this.search].date = new Date();
+            this.$q.localStorage.set('cache', cache);
+            this.results = e.data.results;
+            this.loading = false;
+          })
+          .catch(e => console.log(e));
+      }
     }
   },
   methods: {
@@ -71,7 +112,8 @@ export default Vue.extend({
     return {
       search: '',
       results: [],
-      loading: false
+      loading: false,
+      online: false
     };
   }
 });

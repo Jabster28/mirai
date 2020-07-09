@@ -22,7 +22,7 @@
     <q-drawer v-model="leftDrawerOpen" behavior="mobile" show-if-above bordered>
       <q-list>
         <q-item-label header class="text-grey-8">
-          Essential Links
+          Navigation
         </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
@@ -46,17 +46,19 @@
 </template>
 
 <script>
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 import EssentialLink from 'components/EssentialLink.vue';
 
 export default {
   name: 'MainLayout',
-
   components: {
     EssentialLink
   },
-
   data() {
     return {
+      online: navigator.onLine,
       leftDrawerOpen: false,
       essentialLinks: [
         {
@@ -73,6 +75,37 @@ export default {
         }
       ]
     };
+  },
+  mounted() {
+    window.addEventListener('online', this.checkConn);
+    window.addEventListener('offline', this.checkConn);
+  },
+  watch: {
+    online() {
+      if (this.online) {
+        // @ts-ignore
+        this.$q.notify({
+          message: 'Back online',
+          icon: 'signal_wifi_4_bar',
+          color: 'green'
+        });
+      } else {
+        // @ts-ignore
+        this.$q.notify({
+          message: 'Offline, only cached results shown',
+          icon: 'signal_wifi_off'
+        });
+      }
+    }
+  },
+  methods: {
+    checkConn() {
+      if (navigator.onLine) {
+        this.online = true;
+      } else {
+        this.online = false;
+      }
+    }
   }
 };
 </script>
