@@ -12,6 +12,11 @@ const routes: RouteConfig[] = [
     children: [{ path: '', component: () => import('pages/Search.vue') }]
   },
   {
+    path: '/search/:query',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Search.vue') }]
+  },
+  {
     path: '/anime/:id',
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/Anime.vue') }]

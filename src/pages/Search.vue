@@ -9,6 +9,7 @@
         label="Enter an anime..."
         :rules="[
           val =>
+            !val ||
             val.trim().length >= 3 ||
             val.trim() == '' ||
             'Minimum 3 characters.'
@@ -41,9 +42,24 @@ import axios from 'axios';
 export default Vue.extend({
   name: 'PageSearch',
   components: { AnimeCard },
+  mounted() {
+    if (this.$route.params.query && this.$route.params.query != this.search) {
+      this.search = this.$route.params.query;
+    }
+  },
   watch: {
     search() {
+      document.title = `${this.search} | Mirai`;
+      if (
+        !this.$route.params.query ||
+        this.$route.params.query != this.search
+      ) {
+        this.$router.replace(
+          '/search/' + encodeURIComponent(this.search || '')
+        );
+      }
       const currentSearch = this.search;
+      this.loading = true;
       if (!this.search || this.search.trim() == '') {
         this.loading = false;
         this.results = [];
