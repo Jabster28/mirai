@@ -55,9 +55,9 @@ export default Vue.extend({
         !this.$route.params.query ||
         this.$route.params.query != this.search
       ) {
-        this.$router.replace(
-          '/search/' + encodeURIComponent(this.search || '')
-        );
+        this.$router
+          .replace('/search/' + encodeURIComponent(this.search || ''))
+          .catch(e => console.log(e));
       }
       const currentSearch = this.search;
       this.loading = true;
