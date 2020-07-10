@@ -1,5 +1,7 @@
 <template>
-  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
+  <div
+    class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center"
+  >
     <div>
       <div style="font-size: 30vh">
         404
@@ -26,6 +28,9 @@
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'Error404'
+  name: 'Error404',
+  mounted() {
+    document.title = '404';
+  }
 });
 </script>
