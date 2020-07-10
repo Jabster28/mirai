@@ -6,7 +6,8 @@
   >
     <q-card
       :class="['q-ma-md', $q.screen.width > 400 ? 'col-2' : 'col-10']"
-      width="200px"
+      v-ripple
+      @click="goto('/anime/' + anime.mal_id)"
     >
       <q-img :src="anime.image_url">
         <div class="absolute-bottom">
@@ -18,12 +19,6 @@
           </div>
         </div>
       </q-img>
-
-      <q-card-actions>
-        <q-btn flat clickable tag="a" :to="'/anime/' + anime.mal_id"
-          >Open</q-btn
-        >
-      </q-card-actions>
     </q-card>
   </transition>
 </template>
@@ -35,6 +30,11 @@ export default {
     anime: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    goto(e) {
+      this.$router.push(e);
     }
   }
 };
