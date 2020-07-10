@@ -24,6 +24,8 @@
 </template>
 
 <script>
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 export default {
   name: 'AnimeCard',
   props: {
