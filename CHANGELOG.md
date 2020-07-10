@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.1.0](https://www.github.com/Jabster28/mirai/compare/v1.0.0...v1.1.0) (2020-07-10)
+
+
+### Features
+
+* add anime to cache ([20c6ee8](https://www.github.com/Jabster28/mirai/commit/20c6ee8ab48df81dba9e8864a55aeb6a36435a30))
+* anime cards are clickable now ([728e272](https://www.github.com/Jabster28/mirai/commit/728e272bd78b8d5f39b9fc078ccd1d6d549279bc))
+
+
+### Bug Fixes
+
+* **/search:** fix issue with clear throwing errors ([ae4d3f0](https://www.github.com/Jabster28/mirai/commit/ae4d3f023885dac8ee0d2018fbf21911cbd0a693))
+* **deps:** update dependency quasar to v1.12.10 ([74ec60a](https://www.github.com/Jabster28/mirai/commit/74ec60a3ad91882cd47d7638c74151a50caebfe9))
+* back button goes back to previous search ([061d6ae](https://www.github.com/Jabster28/mirai/commit/061d6aee5f766694a35ec6aafd66403c7884187f))
+* fixed janky display on bigger screens ([83bf871](https://www.github.com/Jabster28/mirai/commit/83bf87194f3b8ae1d6e952bd3d89dbd780406fe8))
+
 ## 1.0.0 (2020-07-10)
 
 
