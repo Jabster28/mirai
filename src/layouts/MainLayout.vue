@@ -15,7 +15,7 @@
           Mirai
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>{{ online ? 'ONLINE' : 'OFFLINE, cached results shown.' }}</div>
       </q-toolbar>
     </q-header>
 

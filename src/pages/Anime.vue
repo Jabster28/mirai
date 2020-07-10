@@ -77,7 +77,38 @@ export default Vue.extend({
       this.$q.loading.show({
         delay: 400 // ms
       });
+      const currentAnime = this.$route.params.id;
+      if (!navigator.onLine) {
+        console.log('checking for cached anime');
+        let cache = this.$q.localStorage.getItem('cache');
+        if (!cache) {
+          this.$q.localStorage.set('cache', {});
+          cache = this.$q.localStorage.getItem('cache');
+        }
+        /* @ts-ignore */
+        if (!cache.anime) cache.anime = {};
+        /* @ts-ignore */
+        if (cache.anime[this.$route.params.id]) {
+          if (currentAnime != this.$route.params.id) return;
 
+          /* @ts-ignore */
+          console.log('found some');
+          /* @ts-ignore */
+
+          this.anime = cache.anime[this.$route.params.id];
+          this.$q.loading.hide();
+          return;
+        } else {
+          console.log('none found');
+          if (currentAnime != this.$route.params.id) return;
+
+          this.$q.notify(
+            "This anime hasn't been cached, so we can't show you anything. Connect to the internet and try again."
+          );
+          this.$q.loading.hide();
+          return;
+        }
+      }
       // replace `getPost` with your data fetching util / API wrapper
       axios
         .get(`https://api.jikan.moe/v3/anime/${this.$route.params.id}`)
@@ -85,6 +116,22 @@ export default Vue.extend({
           this.$q.loading.hide();
           this.anime = data.data;
           document.title = `${this.anime.title} | Mirai`;
+          /* @ts-ignore */
+          let cache = this.$q.localStorage.getItem('cache');
+          /* @ts-ignore */
+          if (!cache) {
+            this.$q.localStorage.set('cache', {});
+            cache = this.$q.localStorage.getItem('cache');
+          }
+          /* @ts-ignore */
+          if (!cache.anime) cache.anime = {};
+          /* @ts-ignore */
+          cache.anime[this.$route.params.id] = this.anime;
+          /* @ts-ignore */
+          cache.anime[this.$route.params.id].date = new Date();
+          if (currentAnime != this.$route.params.id) return;
+
+          this.$q.localStorage.set('cache', cache);
         })
         .catch((e: string) => {
           console.log(e);
