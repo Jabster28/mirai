@@ -27,6 +27,9 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'PageIndex',
+  mounted() {
+    document.title = 'Mirai'
+  },
   data() {
     return {};
   }
