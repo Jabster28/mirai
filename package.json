@@ -18,7 +18,7 @@
     "vue-i18n": "8.18.2"
   },
   "devDependencies": {
-    "@quasar/app": "2.0.2",
+    "@quasar/app": "2.0.4",
     "@quasar/icongenie": "2.3.0",
     "@types/node": "10.17.26",
     "@typescript-eslint/eslint-plugin": "3.6.0",
