@@ -43,13 +43,14 @@ export default Vue.extend({
   name: 'PageSearch',
   components: { AnimeCard },
   mounted() {
+    document.title = this.search ? `${this.search} | Mirai` : 'Search Mirai';
     if (this.$route.params.query && this.$route.params.query != this.search) {
       this.search = this.$route.params.query;
     }
   },
   watch: {
     search() {
-      document.title = `${this.search} | Mirai`;
+      document.title = this.search ? `${this.search} | Mirai` : 'Search Mirai';
       if (
         !this.$route.params.query ||
         this.$route.params.query != this.search
