@@ -2,7 +2,7 @@
   <q-page class="row items-center justify-evenly">
     <div class="row col-12 items-center justify-evenly">
       <q-input
-        class="q-my-xl col-8"
+        :class="['q-my-xl', $q.screen.width > 400 ? 'col-8' : 'col-10']"
         v-model="search"
         debounce="300"
         filled

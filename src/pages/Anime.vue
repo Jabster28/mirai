@@ -6,7 +6,7 @@
       </div>
 
       <div v-if="anime.mal_id" class="content">
-        <div class="col q-mx-lg">
+        <div class="col-8 q-mx-lg items-center justify-evenly">
           <q-img :src="anime.image_url" />
           <q-btn
             class="q-ma-lg"
@@ -18,8 +18,15 @@
           >
             Open in MAL</q-btn
           >
-        </div>
-        <div class="col q-mx-lg items-center justify-evenly">
+          <q-btn
+            v-if="anime.trailer_url"
+            target="_blank"
+            flat
+            clickable
+            type="a"
+            :href="anime.trailer_url"
+            >Trailer</q-btn
+          >
           <h2>{{ anime.title }}</h2>
           <h6 class="disabled">{{ anime.title_english }}</h6>
           <h5><q-icon name="stars" /> {{ anime.score * 10 }}%</h5>
