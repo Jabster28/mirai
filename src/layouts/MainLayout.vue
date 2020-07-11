@@ -94,6 +94,7 @@ export default {
     return {
       online: navigator.onLine,
       leftDrawerOpen: false,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       dark: this.$q.dark.isActive,
       essentialLinks: [
         {

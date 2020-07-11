@@ -11,11 +11,13 @@
 export default {
   created() {
     /* @ts-ignore */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     let theme = this.$q.localStorage.getItem('theme');
     if (!theme) {
       /* @ts-ignore */
       this.$q.localStorage.set('theme', true);
       /* @ts-ignore */
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       theme = this.$q.localStorage.getItem('theme');
     }
     /* @ts-ignore */
