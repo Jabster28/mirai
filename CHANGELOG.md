@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://www.github.com/Jabster28/mirai/compare/v1.2.0...v1.3.0) (2020-07-11)
+
+
+### Features
+
+* add anime lists ([29f4b56](https://www.github.com/Jabster28/mirai/commit/29f4b56f34128359d6c261b55e773b5a018e6eab))
+
+
+### Bug Fixes
+
+* **/user:** check for cache before waiting on data ([f140547](https://www.github.com/Jabster28/mirai/commit/f140547775d11653ea2161585d247783142934f0))
+* **/user:** use cached results when offline ([e63b023](https://www.github.com/Jabster28/mirai/commit/e63b023efc2470524443c4cb684afbe695ceabd2))
+
 ## [1.2.0](https://www.github.com/Jabster28/mirai/compare/v1.1.0...v1.2.0) (2020-07-11)
 
 
