@@ -42,8 +42,8 @@
             <h6 class="disabled">{{ anime.title_english }}</h6>
             <p class="text-justify">{{ anime.synopsis }}</p>
             <h5>
-              <q-icon name="stars" /> {{ anime.score.toPrecision(3) || '-' }} /
-              10
+              <q-icon name="stars" />
+              {{ anime.score ? anime.score.toPrecision(3) : '-' }} / 10
             </h5>
             <h5>
               <q-icon name="visibility" /> {{ norm(anime.members) || '0' }}
