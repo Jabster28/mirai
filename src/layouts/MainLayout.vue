@@ -22,12 +22,37 @@
     <q-drawer v-model="leftDrawerOpen" behavior="mobile" show-if-above bordered>
       <q-list>
         <q-item-label header class="text-grey-8">
-          Navigation
+          Main
         </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
+        />
+        <q-item-label header class="text-grey-8">
+          Anime
+        </q-item-label>
+        <EssentialLink
+          v-for="link in animeLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+        <q-item-label header class="text-grey-8">
+          Users
+        </q-item-label>
+        <EssentialLink
+          v-for="link in userLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+        <q-item-label header class="text-grey-8">
+          Links
+        </q-item-label>
+        <EssentialLink
+          v-for="link in links"
+          :key="link.title"
+          v-bind="link"
+          external
         />
       </q-list>
     </q-drawer>
@@ -66,12 +91,36 @@ export default {
           caption: 'Home',
           icon: 'home',
           link: '/'
-        },
+        }
+      ],
+      animeLinks: [
         {
           title: 'Search',
           caption: 'Search for an anime',
           icon: 'search',
           link: '/search'
+        }
+      ],
+      userLinks: [
+        {
+          title: 'Me',
+          caption: 'Open your MAL page',
+          icon: 'person',
+          link: '/me'
+        },
+        {
+          title: 'Set Username',
+          caption: 'Allows you to see favourited anime etc.',
+          icon: 'settings',
+          link: '/setusr'
+        }
+      ],
+      links: [
+        {
+          title: 'GitHub repo',
+          caption: 'Source code for this application',
+          icon: 'code',
+          link: 'https://github.com/Jabster28/mirai'
         }
       ]
     };

@@ -21,6 +21,26 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/Anime.vue') }]
   },
+  {
+    path: '/user/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/User.vue') }]
+  },
+  {
+    path: '/me',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Me.vue') }]
+  },
+  {
+    path: '/setusr',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/SetUsername.vue') }]
+  },
+  {
+    path: '/setusr/:redirect',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/SetUsername.vue') }]
+  },
 
   // Always leave this as last one,
   // but you can also remove it
