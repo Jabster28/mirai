@@ -16,6 +16,14 @@
         </q-toolbar-title>
 
         <div>{{ online ? 'ONLINE' : 'OFFLINE, cached results shown.' }}</div>
+        <q-btn
+          flat
+          dense
+          round
+          :icon="dark ? 'brightness_4' : 'brightness_2'"
+          aria-label="Menu"
+          @click="toggle"
+        />
       </q-toolbar>
     </q-header>
 
@@ -81,16 +89,24 @@ export default {
   components: {
     EssentialLink
   },
+
   data() {
     return {
       online: navigator.onLine,
       leftDrawerOpen: false,
+      dark: this.$q.dark.isActive,
       essentialLinks: [
         {
           title: 'Home',
           caption: 'Home',
           icon: 'home',
           link: '/'
+        },
+        {
+          title: 'FAQ',
+          caption: 'Frequently asked questions',
+          icon: 'help',
+          link: '/faq'
         }
       ],
       animeLinks: [
@@ -148,6 +164,11 @@ export default {
     }
   },
   methods: {
+    toggle() {
+      this.$q.dark.toggle();
+      this.dark = !this.dark;
+      this.$q.localStorage.set('theme', this.dark);
+    },
     checkConn() {
       if (navigator.onLine) {
         this.online = true;

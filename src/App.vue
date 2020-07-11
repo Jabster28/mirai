@@ -9,6 +9,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
 export default {
+  created() {
+    /* @ts-ignore */
+    let theme = this.$q.localStorage.getItem('theme');
+    if (!theme) {
+      /* @ts-ignore */
+      this.$q.localStorage.set('theme', true);
+      /* @ts-ignore */
+      theme = this.$q.localStorage.getItem('theme');
+    }
+    /* @ts-ignore */
+    this.$q.dark.set(theme);
+  },
   name: 'App'
 };
 </script>
