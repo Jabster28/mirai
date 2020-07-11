@@ -49,7 +49,7 @@
               <q-icon name="visibility" /> {{ norm(anime.members) || '0' }}
             </h5>
             <h5><q-icon name="star" /> {{ norm(anime.favorites) || '0' }}</h5>
-            <h5 v-if="anime.rank"># {{ norm(anime.rank) || '-' }}</h5>
+            <h5># {{ norm(anime.rank) || '-' }}</h5>
           </div>
         </div>
       </div>
