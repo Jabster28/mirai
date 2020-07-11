@@ -18,7 +18,7 @@
             <q-img :src="anime.image_url" />
             <q-btn
               class="q-ma-lg"
-              color="secondary"
+              color="primary"
               clickable
               type="a"
               target="_blank"
@@ -28,8 +28,9 @@
             >
             <q-btn
               v-if="anime.trailer_url"
+              class="q-ma-lg"
+              color="accent"
               target="_blank"
-              flat
               clickable
               type="a"
               :href="anime.trailer_url"
