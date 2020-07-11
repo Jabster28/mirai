@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://www.github.com/Jabster28/mirai/compare/v1.1.0...v1.2.0) (2020-07-11)
+
+
+### Features
+
+* **/user:** add basic user lookup ([70ec916](https://www.github.com/Jabster28/mirai/commit/70ec9168ad33407fa01ea298d7babc5381252784))
+
+
+### Bug Fixes
+
+* **/anime:** empty stats are now blank ([ae2b697](https://www.github.com/Jabster28/mirai/commit/ae2b697c901b53b475905b45949d1fbe9522840e))
+* **/anime:** fix issue with ranks not showing ([d5871fc](https://www.github.com/Jabster28/mirai/commit/d5871fc4c9316ad3e74332fcf81c2601a3900db2))
+* **/search:** trim whitespace before caching ([b708a7b](https://www.github.com/Jabster28/mirai/commit/b708a7b9c1e42025d81371e5340ea03fbfc494d1))
+
 ## [1.1.0](https://www.github.com/Jabster28/mirai/compare/v1.0.0...v1.1.0) (2020-07-10)
 
 
