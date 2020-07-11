@@ -117,13 +117,14 @@ export default Vue.extend({
           name: 'score',
           label: 'Score (out of 10)',
           field: 'score',
-          format: val => (val ? val : '-'),
+          format: (val: number   | null) => (val ? val : '-'),
           sortable: true
         },
         {
           name: 'watching_status',
           label: 'Status',
           field: 'watching_status',
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
           format: val => this.watchMap[val],
           sortable: true
         }
@@ -175,6 +176,7 @@ export default Vue.extend({
             } else {
               this.animelist.push(...data.data.anime);
             }
+            // eslint-disable-next-line @typescript-eslint/unbound-method
             const x = this.again;
             setTimeout(x, 2000);
           } else {
