@@ -244,6 +244,7 @@ export default Vue.extend({
 
           this.user = cache.user[this.$route.params.id];
           this.$q.loading.hide();
+          this.again();
           return;
         } else {
           console.log('none found');
