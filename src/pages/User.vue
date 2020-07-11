@@ -1,8 +1,11 @@
 <template>
   <q-page class="items-center justify-evenly">
     <div class="post">
-      <div v-if="error" class="error">
-        {{ error }}
+      <div v-if="error" class="row error justify-evenly">
+        <div class="col-8">
+          <h1>?</h1>
+          <h5>Something went wrong, try again later.</h5>
+        </div>
       </div>
 
       <div v-if="user.username" class="content">
@@ -11,6 +14,7 @@
             'q-mx-lg',
             'items-center',
             'justify-evenly',
+            'q-my-md',
             $q.screen.width > 800 ? 'row' : 'col'
           ]"
         >
@@ -49,6 +53,18 @@
             <h5><q-icon name="star" /> {{ norm(anime.favorites) }}</h5>
             <h5 v-if="anime.rank"># {{ norm(anime.rank) }}</h5> -->
           </div>
+          <div class="col-10">
+            <q-table
+              title="Anime List"
+              :pagination="initialPagination"
+              :dense="$q.screen.lt.md"
+              :data="animelist"
+              :loading="tableLoading"
+              :columns="columns"
+              row-key="title"
+              color="amber"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -66,10 +82,60 @@ export default Vue.extend({
   name: 'PageUser',
   data() {
     return {
+      initialPagination: {
+        sortBy: 'watching_status',
+        descending: false,
+        rowsPerPage: 20
+      },
+      animelist: [],
+      watchMap: [
+        '-',
+        'Watching',
+        'Completed',
+        '3',
+        '4',
+        '3',
+        'Plan to watch',
+        'Dropped'
+      ],
+      columns: [
+        {
+          name: 'title',
+          label: 'Title',
+          field: 'title',
+          align: 'left',
+          sortable: true
+        },
+        {
+          name: 'type',
+          label: 'Type',
+          field: 'type',
+          align: 'center',
+          sortable: true
+        },
+        {
+          name: 'score',
+          label: 'Score (out of 10)',
+          field: 'score',
+          format: val => (val ? val : '-'),
+          sortable: true
+        },
+        {
+          name: 'watching_status',
+          label: 'Status',
+          field: 'watching_status',
+          format: val => this.watchMap[val],
+          sortable: true
+        }
+      ],
       user: {
         username: ''
       },
-      error: ''
+      tableLoading: false,
+      error: '',
+      pageNum: 1,
+      cachedAnimeList: [],
+      cached: false
     };
   },
   created() {
@@ -82,6 +148,58 @@ export default Vue.extend({
     $route: 'fetchData'
   },
   methods: {
+    again() {
+      /* @ts-ignore */
+      let cache = this.$q.localStorage.getItem('cache');
+      /* @ts-ignore */
+      if (!cache) {
+        this.$q.localStorage.set('cache', {});
+        cache = this.$q.localStorage.getItem('cache');
+      }
+      /* @ts-ignore */
+      if (cache.animelist) {
+        /* @ts-ignore */
+        this.cached = true;
+        /* @ts-ignore */
+        this.animelist = cache.animelist[this.user.username.toLowerCase()];
+      }
+      axios
+        .get(
+          `https://api.jikan.moe/v3/user/${this.$route.params.id}/animelist?page=${this.pageNum}`
+        )
+        .then(data => {
+          if (data.data.anime && data.data.anime.length != 0) {
+            this.pageNum++;
+            if (this.cached) {
+              this.cachedAnimeList.push(...data.data.anime);
+            } else {
+              this.animelist.push(...data.data.anime);
+            }
+            const x = this.again;
+            setTimeout(x, 2000);
+          } else {
+            this.tableLoading = false;
+            if (this.cached) {
+              this.animelist = this.cachedAnimeList;
+            }
+            /* @ts-ignore */
+            let cache = this.$q.localStorage.getItem('cache');
+            /* @ts-ignore */
+            if (!cache) {
+              this.$q.localStorage.set('cache', {});
+              cache = this.$q.localStorage.getItem('cache');
+            }
+            /* @ts-ignore */
+            if (!cache.animelist) cache.animelist = {};
+            /* @ts-ignore */
+            cache.animelist[this.user.username.toLowerCase()] = this.animelist;
+            /* @ts-ignore */
+            cache.animelist[this.user.username.toLowerCase()].date = new Date();
+            this.$q.localStorage.set('cache', cache);
+          }
+        })
+        .catch(e => console.log(e));
+    },
     norm(x: number) {
       if (!x) return;
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -149,6 +267,8 @@ export default Vue.extend({
           if (currentUser != this.$route.params.id) return;
 
           this.$q.localStorage.set('cache', cache);
+          this.tableLoading = true;
+          this.again();
         })
         .catch((e: string) => {
           console.log(e);
