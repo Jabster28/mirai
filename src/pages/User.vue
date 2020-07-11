@@ -164,9 +164,10 @@ export default Vue.extend({
         this.$q.localStorage.set('cache', {});
         cache = this.$q.localStorage.getItem('cache');
       }
-      /* @ts-ignore */
       if (
+      /* @ts-ignore */
         cache.animelist &&
+      /* @ts-ignore */
         cache.animelist[this.user.username.toLowerCase()]
       ) {
         /* @ts-ignore */
