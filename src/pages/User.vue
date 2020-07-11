@@ -93,8 +93,8 @@ export default Vue.extend({
         '-',
         'Watching',
         'Completed',
-        '3',
-        '4',
+        'On Hold',
+        'Dropped',
         '3',
         'Plan to watch',
         'Dropped'
