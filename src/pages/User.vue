@@ -118,7 +118,7 @@ export default Vue.extend({
           name: 'score',
           label: 'Score (out of 10)',
           field: 'score',
-          format: (val: number   | null) => (val ? val : '-'),
+          format: (val: number | null) => (val ? val : '-'),
           sortable: true
         },
         {
@@ -165,7 +165,10 @@ export default Vue.extend({
         cache = this.$q.localStorage.getItem('cache');
       }
       /* @ts-ignore */
-      if (cache.animelist[this.user.username.toLowerCase()]) {
+      if (
+        cache.animelist &&
+        cache.animelist[this.user.username.toLowerCase()]
+      ) {
         /* @ts-ignore */
         this.cached = true;
         /* @ts-ignore */
