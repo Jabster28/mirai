@@ -27,7 +27,6 @@ export default Vue.extend({
     };
   },
   mounted() {
-    this.username = this.$q.localStorage.getItem('username') || '';
     document.title = 'Search for users | Mirai';
   },
   methods: {
