@@ -126,6 +126,12 @@ export default {
           link: '/me'
         },
         {
+          title: 'Search Users',
+          caption: 'Look at other profiles on MAL',
+          icon: 'person_search',
+          link: '/searchusr'
+        },
+        {
           title: 'Set Username',
           caption: 'Allows you to see favourited anime etc.',
           icon: 'settings',

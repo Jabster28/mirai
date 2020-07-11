@@ -46,6 +46,13 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/FAQ.vue') }]
   },
+  {
+    path: '/searchusr',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/SearchUsername.vue') }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it
