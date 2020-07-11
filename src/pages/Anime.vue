@@ -42,11 +42,14 @@
             <h6 class="disabled">{{ anime.title_english }}</h6>
             <p class="text-justify">{{ anime.synopsis }}</p>
             <h5>
-              <q-icon name="stars" /> {{ anime.score.toPrecision(3) }} / 10
+              <q-icon name="stars" /> {{ anime.score.toPrecision(3) || '-' }} /
+              10
             </h5>
-            <h5><q-icon name="visibility" /> {{ norm(anime.members) }}</h5>
-            <h5><q-icon name="star" /> {{ norm(anime.favorites) }}</h5>
-            <h5 v-if="anime.rank"># {{ norm(anime.rank) }}</h5>
+            <h5>
+              <q-icon name="visibility" /> {{ norm(anime.members) || '0' }}
+            </h5>
+            <h5><q-icon name="star" /> {{ norm(anime.favorites) || '0' }}</h5>
+            <h5 v-if="anime.rank"># {{ norm(anime.rank) || '-' }}</h5>
           </div>
         </div>
       </div>
