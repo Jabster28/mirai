@@ -43,14 +43,16 @@ export default Vue.extend({
   name: 'PageSearch',
   components: { AnimeCard },
   mounted() {
-    document.title = this.search ? `${this.search} | Mirai` : 'Search Mirai';
     if (this.$route.params.query && this.$route.params.query != this.search) {
       this.search = this.$route.params.query;
     }
   },
   watch: {
     search() {
-      document.title = this.search ? `${this.search} | Mirai` : 'Search Mirai';
+      document.title =
+        this.search && this.search.trim()
+          ? `"${this.search}" | Search Mirai`
+          : 'Search Mirai';
       if (
         !this.$route.params.query ||
         this.$route.params.query != this.search
@@ -59,11 +61,12 @@ export default Vue.extend({
           .replace('/search/' + encodeURIComponent(this.search || ''))
           .catch(e => console.log(e));
       }
-      const currentSearch = this.search;
+      const currentSearch = this.search.trim();
       this.loading = true;
       if (!this.search || this.search.trim() == '') {
         this.loading = false;
         this.results = [];
+        return;
       }
       console.log('checking for cached searches');
       let cache = this.$q.localStorage.getItem('cache');
@@ -74,20 +77,19 @@ export default Vue.extend({
       /* @ts-ignore */
       if (!cache.search) cache.search = {};
       /* @ts-ignore */
-      if (cache.search[this.search]) {
-        if (currentSearch != this.search) return;
-
+      if (cache.search[this.search.trim()]) {
+        if (currentSearch != this.search.trim()) return;
         /* @ts-ignore */
         console.log('found some');
         /* @ts-ignore */
 
-        this.results = cache.search[this.search];
+        this.results = cache.search[this.search.trim()];
         this.loading = false;
-        return;
+        if (!navigator.onLine) return;
       } else {
         console.log('none found');
         if (!navigator.onLine) {
-          if (currentSearch != this.search) return;
+          if (currentSearch != this.search.trim()) return;
 
           this.$q.notify(
             "This search hasn't been cached, so we can't show you anything. Connect to the internet and try again."
@@ -114,10 +116,10 @@ export default Vue.extend({
           /* @ts-ignore */
           if (!cache.search) cache.search = {};
           /* @ts-ignore */
-          cache.search[this.search] = e.data.results;
+          cache.search[this.search.trim()] = e.data.results;
           /* @ts-ignore */
-          cache.search[this.search].date = new Date();
-          if (currentSearch != this.search) return;
+          cache.search[this.search.trim()].date = new Date();
+          if (currentSearch.trim() != this.search.trim()) return;
 
           this.$q.localStorage.set('cache', cache);
 
