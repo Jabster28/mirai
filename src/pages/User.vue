@@ -124,6 +124,7 @@ export default Vue.extend({
           name: 'watching_status',
           label: 'Status',
           field: 'watching_status',
+          // @ts-ignore
           // eslint-disable-next-line @typescript-eslint/no-unsafe-return
           format: val => this.watchMap[val],
           sortable: true
@@ -171,9 +172,12 @@ export default Vue.extend({
         .then(data => {
           if (data.data.anime && data.data.anime.length != 0) {
             this.pageNum++;
+            // @ts-ignore
             if (this.cached) {
+              // @ts-ignore
               this.cachedAnimeList.push(...data.data.anime);
             } else {
+              // @ts-ignore
               this.animelist.push(...data.data.anime);
             }
             // eslint-disable-next-line @typescript-eslint/unbound-method
