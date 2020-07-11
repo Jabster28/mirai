@@ -12,9 +12,11 @@ export default Vue.extend({
     let username = this.$q.localStorage.getItem('username');
     /* @ts-ignore */
     if (!username) {
-      this.$router.replace('/setusr/me');
+      this.$router.replace('/setusr/me').catch(e => console.log(e));
     } else {
-      this.$router.replace('/user/' + encodeURIComponent(username.toString()));
+      this.$router
+        .replace('/user/' + encodeURIComponent(username.toString()))
+        .catch(e => console.log(e));
     }
   }
 });
