@@ -59,6 +59,7 @@
               :pagination="initialPagination"
               :dense="$q.screen.lt.md"
               :data="animelist"
+              @row-click="go"
               :loading="tableLoading"
               :columns="columns"
               row-key="title"
@@ -150,6 +151,11 @@ export default Vue.extend({
     $route: 'fetchData'
   },
   methods: {
+    // @ts-ignore
+    go(a, b) {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      this.$router.push(`/anime/${b.mal_id}`).catch(e => console.log(e));
+    },
     again() {
       /* @ts-ignore */
       let cache = this.$q.localStorage.getItem('cache');
