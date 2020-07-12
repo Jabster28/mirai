@@ -57,7 +57,7 @@ export default Vue.extend({
       this.loading = true;
       axios
         .get(`https://api.jikan.moe/v3/user/${this.username}`)
-        .then(data => {
+        .then(() => {
           /* @ts-ignore */
           let savedname = this.$q.localStorage.getItem('username');
           /* @ts-ignore */
