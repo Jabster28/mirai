@@ -87,6 +87,7 @@ export default Vue.extend({
   },
   mounted() {
     setTimeout(() => {
+      // @ts-ignore
       this.player = new Plyr('#player');
     }, 1000);
   },
