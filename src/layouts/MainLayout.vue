@@ -153,7 +153,7 @@ export default {
       ],
       mangaLinks: [
         {
-          title: 'Search',
+          title: 'Search Manga',
           caption: 'Search for a manga',
           icon: 'search',
           link: '/searchmanga'
