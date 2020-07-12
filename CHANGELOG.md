@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.4.0](https://www.github.com/Jabster28/mirai/compare/v1.3.0...v1.4.0) (2020-07-12)
+
+
+### Features
+
+* **/anime:** add embedded trailers ([3fd78fa](https://www.github.com/Jabster28/mirai/commit/3fd78fa5d3ed12f9211e67aa9b47ed6efd438caa))
+* add FAQ page ([cf1ff70](https://www.github.com/Jabster28/mirai/commit/cf1ff70186d12a4ba952392e70a63af6e2f0702c))
+* add light mode ([315a315](https://www.github.com/Jabster28/mirai/commit/315a3153e5147b44bdf5703d0926adca1a3ad005))
+* add user searching ([979955c](https://www.github.com/Jabster28/mirai/commit/979955cffe0f45bf86b3297291567ca2e4eec4dc))
+
+
+### Bug Fixes
+
+* **/user:** add last watch statuses ([800bea5](https://www.github.com/Jabster28/mirai/commit/800bea541ce70ddfbd5bceba42713ef58add8e97))
+* **deps:** pin dependency plyr to 3.6.2 ([fa99cb9](https://www.github.com/Jabster28/mirai/commit/fa99cb9768c256f7a1dcf6a596de129e821204c8))
+* added color tags to trailer button ([aab2572](https://www.github.com/Jabster28/mirai/commit/aab25723a2b0f0fda74afe3070fd0ba548f7efdc))
+
 ## [1.3.0](https://www.github.com/Jabster28/mirai/compare/v1.2.0...v1.3.0) (2020-07-11)
 
 
