@@ -16,6 +16,13 @@
         >
           <div class="col-5">
             <q-img :src="anime.image_url" />
+            <div
+              v-if="anime.trailer_url"
+              id="player"
+              data-plyr-provider="youtube"
+              class="q-ma-lg"
+              :data-plyr-embed-id="anime.trailer_url"
+            ></div>
             <q-btn
               class="q-ma-lg"
               color="primary"
@@ -64,17 +71,24 @@
 
 import axios from 'axios';
 import Vue from 'vue';
+import * as Plyr from 'plyr';
 
 export default Vue.extend({
   name: 'PageAnime',
   data() {
     return {
+      player: null,
       anime: {
         title: '',
         mal_id: ''
       },
       error: ''
     };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.player = new Plyr('#player');
+    }, 1000);
   },
   created() {
     // fetch the data when the view is created and the data is
