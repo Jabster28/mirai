@@ -45,13 +45,12 @@
             <h2>{{ user.username }}</h2>
 
             <h6 class="disabled">{{ user.user_id }}</h6>
-            <!-- <p class="text-justify">{{ anime.synopsis }}</p>
-            <h5>
-              <q-icon name="stars" /> {{ anime.score.toPrecision(3) }} / 10
-            </h5>
-            <h5><q-icon name="visibility" /> {{ norm(anime.members) }}</h5>
-            <h5><q-icon name="star" /> {{ norm(anime.favorites) }}</h5>
-            <h5 v-if="anime.rank"># {{ norm(anime.rank) }}</h5> -->
+            <q-select
+              v-model="filter"
+              :options="options"
+              label="Show"
+              class="q-my-md"
+            />
           </div>
           <div class="col-10">
             <q-table
@@ -83,6 +82,8 @@ export default Vue.extend({
   name: 'PageUser',
   data() {
     return {
+      options: 'All Completed OnHold Watching Dropped PlanToWatch'.split(' '),
+      filter: 'All',
       initialPagination: {
         sortBy: 'watching_status',
         descending: false,
@@ -156,7 +157,11 @@ export default Vue.extend({
   },
   watch: {
     // call again the method if the route changes
-    $route: 'fetchData'
+    $route: 'fetchData',
+    filter() {
+      this.tableLoading = true;
+      this.again();
+    }
   },
   methods: {
     // @ts-ignore
@@ -176,18 +181,21 @@ export default Vue.extend({
         /* @ts-ignore */
         cache.animelist &&
         /* @ts-ignore */
-        cache.animelist[this.user.username.toLowerCase()]
+        cache.animelist[this.user.username.toLowerCase() + '/' + this.filter]
       ) {
         /* @ts-ignore */
         this.cached = true;
         /* @ts-ignore */
-        this.animelist = cache.animelist[this.user.username.toLowerCase()];
+        this.animelist =
+          /* @ts-ignore */
+          cache.animelist[this.user.username.toLowerCase() + '/' + this.filter];
       }
       axios
         .get(
-          `https://api.jikan.moe/v3/user/${this.$route.params.id}/animelist?page=${this.pageNum}`
+          `https://api.jikan.moe/v3/user/${this.$route.params.id}/animelist/${this.filter}?page=${this.pageNum}`
         )
         .then(data => {
+          if (this.pageNum == 1 && !this.cached) this.animelist = [];
           if (data.data.anime && data.data.anime.length != 0) {
             this.pageNum++;
             // @ts-ignore
@@ -202,10 +210,12 @@ export default Vue.extend({
             const x = this.again;
             setTimeout(x, 2000);
           } else {
+            this.pageNum = 1;
             this.tableLoading = false;
             if (this.cached) {
               this.animelist = this.cachedAnimeList;
             }
+            this.cached = false;
             /* @ts-ignore */
             let cache = this.$q.localStorage.getItem('cache');
             /* @ts-ignore */
@@ -216,10 +226,15 @@ export default Vue.extend({
             /* @ts-ignore */
             if (!cache.animelist) cache.animelist = {};
             /* @ts-ignore */
-            cache.animelist[this.user.username.toLowerCase()] = this.animelist;
+            cache.animelist[
+              this.user.username.toLowerCase() + '/' + this.filter
+            ] = this.animelist;
             /* @ts-ignore */
-            cache.animelist[this.user.username.toLowerCase()].date = new Date();
+            cache.animelist[
+              this.user.username.toLowerCase() + '/' + this.filter
+            ].date = new Date();
             this.$q.localStorage.set('cache', cache);
+            this.cachedAnimeList = [];
           }
         })
         .catch(e => console.log(e));
