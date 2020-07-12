@@ -85,12 +85,6 @@ export default Vue.extend({
       error: ''
     };
   },
-  mounted() {
-    setTimeout(() => {
-      // @ts-ignore
-      this.player = new Plyr('#player');
-    }, 1000);
-  },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
@@ -149,6 +143,10 @@ export default Vue.extend({
         .then(data => {
           this.$q.loading.hide();
           this.anime = data.data;
+          setTimeout(() => {
+            // @ts-ignore
+            this.player = new Plyr('#player');
+          }, 1000);
           document.title = `${this.anime.title} | Mirai`;
           /* @ts-ignore */
           let cache = this.$q.localStorage.getItem('cache');
