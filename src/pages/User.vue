@@ -145,6 +145,14 @@ export default Vue.extend({
     // fetch the data when the view is created and the data is
     // already being observed
     this.fetchData();
+    this.$q.loading.setDefaults({
+      message: [
+        'Loading...',
+        'Spinning up the hamster...',
+        'Engaging the flux capacitor...',
+        'The other load screen is quicker. Try that one next time.'
+      ].find((_, i, ar) => Math.random() < 1 / (ar.length - i))
+    });
   },
   watch: {
     // call again the method if the route changes
@@ -165,9 +173,9 @@ export default Vue.extend({
         cache = this.$q.localStorage.getItem('cache');
       }
       if (
-      /* @ts-ignore */
+        /* @ts-ignore */
         cache.animelist &&
-      /* @ts-ignore */
+        /* @ts-ignore */
         cache.animelist[this.user.username.toLowerCase()]
       ) {
         /* @ts-ignore */
@@ -192,7 +200,7 @@ export default Vue.extend({
             }
             // eslint-disable-next-line @typescript-eslint/unbound-method
             const x = this.again;
-            setTimeout(x, 2000);
+            setTimeout(x, 500);
           } else {
             this.tableLoading = false;
             if (this.cached) {

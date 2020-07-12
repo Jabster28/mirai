@@ -53,6 +53,21 @@ const routes: RouteConfig[] = [
       { path: '', component: () => import('pages/SearchUsername.vue') }
     ]
   },
+  {
+    path: '/manga/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Manga.vue') }]
+  },
+  {
+    path: '/searchmanga',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/SearchManga.vue') }]
+  },
+  {
+    path: '/searchmanga/:query',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/SearchManga.vue') }]
+  },
 
   // Always leave this as last one,
   // but you can also remove it

@@ -71,6 +71,14 @@
           v-bind="link"
         />
         <q-item-label header class="text-grey-8">
+          Manga
+        </q-item-label>
+        <EssentialLink
+          v-for="link in mangaLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+        <q-item-label header class="text-grey-8">
           Users
         </q-item-label>
         <EssentialLink
@@ -141,6 +149,14 @@ export default {
           caption: 'Search for an anime',
           icon: 'search',
           link: '/search'
+        }
+      ],
+      mangaLinks: [
+        {
+          title: 'Search',
+          caption: 'Search for a manga',
+          icon: 'search',
+          link: '/searchmanga'
         }
       ],
       userLinks: [
