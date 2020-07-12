@@ -15,11 +15,12 @@ export default {
     let theme = this.$q.localStorage.getItem('theme');
     if (!theme) {
       /* @ts-ignore */
-      this.$q.localStorage.set('theme', true);
+      this.$q.localStorage.set('theme', 'auto');
       /* @ts-ignore */
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       theme = this.$q.localStorage.getItem('theme');
     }
+
     /* @ts-ignore */
     this.$q.dark.set(theme);
   },

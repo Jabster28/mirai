@@ -1,7 +1,22 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar>
+      <q-toolbar
+        :class="
+          $q.platform.is.electron && $q.platform.is.mac
+            ? ['q-pt-xl', 'q-pb-sm']
+            : ''
+        "
+      >
+        <q-btn
+          v-if="$q.platform.is.electron"
+          flat
+          dense
+          round
+          icon="arrow_back"
+          aria-label="Back"
+          @click="$router.go(-1)"
+        />
         <q-btn
           flat
           dense
@@ -10,7 +25,15 @@
           aria-label="Menu"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
-
+        <q-btn
+          v-if="$q.platform.is.electron"
+          flat
+          dense
+          round
+          icon="arrow_forward"
+          aria-label="Forward"
+          @click="$router.go(1)"
+        />
         <q-toolbar-title>
           Mirai
         </q-toolbar-title>
@@ -28,7 +51,9 @@
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" behavior="mobile" show-if-above bordered>
-      <q-list>
+      <q-list
+        :class="$q.platform.is.electron && $q.platform.is.mac ? 'q-pt-md' : ''"
+      >
         <q-item-label header class="text-grey-8">
           Main
         </q-item-label>

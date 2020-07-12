@@ -1,4 +1,4 @@
-# Mirai MAL (mirai)
+# Mirai (mirai)
 
 A modern client for MyAnimeList
 

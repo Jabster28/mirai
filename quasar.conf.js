@@ -89,7 +89,15 @@ module.exports = configure(function(ctx) {
       iconSet: 'material-icons', // Quasar icon set
       lang: 'en-us', // Quasar language pack
       config: {
-        dark: true
+        dark: true,
+        loading: {
+          message: [
+            'Loading...',
+            'Spinning up the hamster...',
+            'Engaging the flux capacitor...',
+            'The other load screen is quicker. Try that one next time.'
+          ].find((_, i, ar) => Math.random() < 1 / (ar.length - i))
+        }
       },
 
       // Possible values for "importStrategy":
