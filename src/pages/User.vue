@@ -200,7 +200,7 @@ export default Vue.extend({
             }
             // eslint-disable-next-line @typescript-eslint/unbound-method
             const x = this.again;
-            setTimeout(x, 500);
+            setTimeout(x, 2000);
           } else {
             this.tableLoading = false;
             if (this.cached) {
