@@ -15,7 +15,8 @@
         <h6>
           But let's be honest here - the user interface is pretty old. Sure, it
           works, and it's fairly quick, but "quick" isn't enough for me, and it
-          shouldn't be for you, either.
+          shouldn't be for you, either. Head to
+          <router-link to="/faq">the FAQ</router-link> for more info.
         </h6>
       </div>
     </div>
