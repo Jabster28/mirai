@@ -120,7 +120,7 @@ export default Vue.extend({
           .dialog({
             title: 'Hold up!',
             message:
-              'This streaming service has a lot of potentially mature ads and pop-ups, so I\'d suggest you get <a target="_blank" href="https://github.com/gorhill/uBlock/tree/README.md">a good adblocker</a> before proceeding.',
+              'This streaming service has a lot of potentially mature ads and pop-ups, so I\'d suggest you get <a target="_blank" href="https://github.com/gorhill/uBlock/blob/master/README.md">a good adblocker</a> before proceeding.',
             cancel: true,
             html: true,
             persistent: true
