@@ -27,8 +27,9 @@ register(process.env.SERVICE_WORKER_FILE, {
     console.log('New content is downloading.');
   },
 
-  updated(/* registration */) {
-    console.log('New content is available; please refresh.');
+  updated(self) {
+    console.log('New content is available; refreshing.');
+    self.skipWaiting();
   },
 
   offline() {
