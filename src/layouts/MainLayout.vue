@@ -3,7 +3,7 @@
     <q-header elevated>
       <q-toolbar
         :class="
-          $q.platform.is.electron && $q.platform.is.mac
+          $q.platform.is.electron && $q.platform.is.mac && !fs
             ? ['q-pt-xl', 'q-pb-sm']
             : ''
         "
@@ -52,7 +52,9 @@
 
     <q-drawer v-model="leftDrawerOpen" behavior="mobile" show-if-above bordered>
       <q-list
-        :class="$q.platform.is.electron && $q.platform.is.mac ? 'q-pt-md' : ''"
+        :class="
+          $q.platform.is.electron && $q.platform.is.mac && !fs ? 'q-pt-md' : ''
+        "
       >
         <q-item-label header class="text-grey-8">
           Main
@@ -125,6 +127,7 @@ export default {
 
   data() {
     return {
+      fs: false,
       online: navigator.onLine,
       leftDrawerOpen: false,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -192,6 +195,8 @@ export default {
   mounted() {
     window.addEventListener('online', this.checkConn);
     window.addEventListener('offline', this.checkConn);
+    window.addEventListener('resize', this.checkFs);
+    this.checkFs();
   },
   watch: {
     $route() {
@@ -258,6 +263,9 @@ export default {
     }
   },
   methods: {
+    checkFs() {
+      this.fs = window.innerHeight == screen.height;
+    },
     toggle() {
       this.$q.dark.toggle();
       this.dark = !this.dark;
