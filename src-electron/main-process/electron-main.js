@@ -1,4 +1,4 @@
-import { app, BrowserWindow, nativeTheme } from 'electron';
+import { app, BrowserWindow, nativeTheme, shell } from 'electron';
 import * as fs from 'fs';
 import * as path from 'path';
 try {
@@ -30,6 +30,7 @@ function createWindow() {
     titleBarStyle: 'hiddenInset',
     useContentSize: true,
     webPreferences: {
+      devTools: !process.env.PROD,
       // Change from /quasar.conf.js > electron > nodeIntegration;
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
       nodeIntegration: process.env.QUASAR_NODE_INTEGRATION,
@@ -41,6 +42,16 @@ function createWindow() {
   });
 
   mainWindow.loadURL(process.env.APP_URL).catch(e => console.log(e));
+
+  const handleRedirect = (e, url) => {
+    if (url != mainWindow.webContents.getURL()) {
+      e.preventDefault();
+      shell.openExternal(url);
+    }
+  };
+
+  mainWindow.webContents.on('will-navigate', handleRedirect);
+  mainWindow.webContents.on('new-window', handleRedirect);
 
   mainWindow.on('closed', () => {
     mainWindow = null;

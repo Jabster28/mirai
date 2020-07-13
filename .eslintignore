@@ -2,5 +2,6 @@
 /src-bex/www
 /src-capacitor
 /src-cordova
+/src-electron
 /.quasar
 /node_modules

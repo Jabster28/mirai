@@ -17,7 +17,7 @@ app
   .whenReady()
   .then(() => {
     installExtension(VUEJS_DEVTOOLS)
-      .then((ext: string) => {
+      .then(ext => {
         console.log(`Added Extension: ${ext}`);
       })
       .catch(err => {
