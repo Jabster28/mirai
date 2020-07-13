@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.5.0](https://www.github.com/Jabster28/mirai/compare/v1.4.0...v1.5.0) (2020-07-13)
+
+
+### Features
+
+* added "open in gogo" button ([8d53534](https://www.github.com/Jabster28/mirai/commit/8d5353423017cb3d4118e00725295304bb753fe7))
+* **/user:** add dropdown for narrowing results ([a821d03](https://www.github.com/Jabster28/mirai/commit/a821d0388377a0f3ef3358c564e0edf44d49cdab))
+* added support for manga w/ searches, caching etc. ([a02ee1c](https://www.github.com/Jabster28/mirai/commit/a02ee1cf24c027c0f0f24972a2cb63ddbfb891f9))
+* desktop apps with electron! ([b781bb3](https://www.github.com/Jabster28/mirai/commit/b781bb393f11dbf3373705d03432350ee5f0c8de))
+
+
+### Bug Fixes
+
+* **deps:** update dependency quasar to v1.12.11 ([54471f2](https://www.github.com/Jabster28/mirai/commit/54471f2fe102b64a4a2f90840da59c83e35adcfc))
+* change conflicting menu keys ([e1c3f33](https://www.github.com/Jabster28/mirai/commit/e1c3f334f9382e4f5843e00215ecfc6f5d6be12b))
+
 ## [1.4.0](https://www.github.com/Jabster28/mirai/compare/v1.3.0...v1.4.0) (2020-07-12)
 
 
