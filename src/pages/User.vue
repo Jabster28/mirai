@@ -45,8 +45,8 @@
             <h2>{{ user.username }}</h2>
 
             <h6 class="disabled">
-              {{ user.anime_stats.episodes_watched }} episodes watched,
-              {{ user.anime_stats.days_watched }}
+              {{ norm(user.anime_stats.episodes_watched) }} episodes watched,
+              {{ norm(user.anime_stats.days_watched) }}
               days wasted.
             </h6>
             <q-select
