@@ -27,8 +27,9 @@ register(process.env.SERVICE_WORKER_FILE, {
     console.log('New content is downloading.');
   },
 
-  updated(/* registration */) {
+  updated() {
     console.log('New content is available; please refresh.');
+    window.swupdate = true;
   },
 
   offline() {
@@ -37,7 +38,7 @@ register(process.env.SERVICE_WORKER_FILE, {
     );
   },
 
-  error(/* err */) {
+  error(err) {
     console.error('Error during service worker registration:', err);
   }
 });
