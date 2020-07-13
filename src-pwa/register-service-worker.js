@@ -27,9 +27,17 @@ register(process.env.SERVICE_WORKER_FILE, {
     console.log('New content is downloading.');
   },
 
-  updated(self) {
-    console.log('New content is available; refreshing.');
-    self.skipWaiting();
+  updated() {
+    console.log('New content is available; please refresh.');
+    Notify.create({
+      message: "There's an update availabe! Refreshing soon...",
+      icon: 'cloud_download',
+      closeBtn: 'Update',
+      timeout: 10000,
+      onDismiss() {
+        location.reload(true);
+      }
+    });
   },
 
   offline() {
@@ -38,7 +46,7 @@ register(process.env.SERVICE_WORKER_FILE, {
     );
   },
 
-  error(err ) {
+  error(err) {
     console.error('Error during service worker registration:', err);
   }
 });
