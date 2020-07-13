@@ -29,7 +29,7 @@ register(process.env.SERVICE_WORKER_FILE, {
 
   updated() {
     console.log('New content is available; please refresh.');
-    window.swupdate = true;
+    window.swupdate();
   },
 
   offline() {

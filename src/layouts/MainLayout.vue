@@ -196,7 +196,7 @@ export default {
     window.addEventListener('online', this.checkConn);
     window.addEventListener('offline', this.checkConn);
     window.addEventListener('resize', this.checkFs);
-    if (window.swupdate) {
+    window.swupdate = () => {
       $q.Notify.create({
         message: "There's an update availabe! Please refresh",
         icon: 'cloud_download',
