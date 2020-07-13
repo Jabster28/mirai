@@ -25,6 +25,21 @@
             ></div>
             <q-btn
               class="q-ma-lg"
+              color="deep-orange"
+              clickable
+              @click="checkNotif"
+              type="a"
+              target="_blank"
+              :href="
+                `https://www25.gogoanimes.tv//search.html?keyword=${encodeURIComponent(
+                  anime.title
+                )}`
+              "
+            >
+              Watch on gogo</q-btn
+            >
+            <q-btn
+              class="q-ma-lg"
               color="primary"
               clickable
               type="a"
@@ -95,6 +110,31 @@ export default Vue.extend({
     $route: 'fetchData'
   },
   methods: {
+    checkNotif(e: Event) {
+      let cache = this.$q.localStorage.getItem('cache');
+      // @ts-ignore
+      if (e.ctrlKey || cache.gogo) {
+      } else {
+        e.preventDefault();
+        this.$q
+          .dialog({
+            title: 'Hold up!',
+            message:
+              'This streaming service has a lot of potentially mature ads and pop-ups, so I\'d suggest you get <a target="_blank" href="https://github.com/gorhill/uBlock/tree/README.md">a good adblocker</a> before proceeding.',
+            cancel: true,
+            html: true,
+            persistent: true
+          })
+          .onOk(() => {
+            // @ts-ignore
+            cache.gogo = true;
+            this.$q.localStorage.set('cache', cache);
+            window.location.href = `https://www25.gogoanimes.tv//search.html?keyword=${encodeURIComponent(
+              this.anime.title
+            )}`;
+          });
+      }
+    },
     norm(x: number) {
       if (!x) return;
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
