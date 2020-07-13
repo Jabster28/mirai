@@ -194,6 +194,52 @@ export default {
     window.addEventListener('offline', this.checkConn);
   },
   watch: {
+    $route() {
+      this.$q.loading.setDefaults({
+        message: [
+          // some normal ones i thought of
+          'Loading...',
+          'Spinning up the hamster...',
+          'Engaging the flux capacitor...',
+          'The other load screen is quicker. Try that one next time.',
+          'The elves are running slowly today...',
+          'Wow, your internet is slow. I feel sorry for you.',
+          'Overclocking the particle accelerator...',
+          'You know, you could be doing something more productive right now.',
+          'Loading, Press Alt+F4 for a quick IQ test while you wait.',
+          // website tips
+          "TIP: If you're on a modern browser, you can access this website offline!",
+          "TIP: You can see your friends' most favourited anime by typing their name into the user box and sorting by ratings.",
+          // more dumb ones
+          '"Are we there yet?"',
+          'INSERT COIN',
+          "I know the data's around here somewhere...",
+          'Searching for brain cells...',
+          'Waiting for your friend to press start...',
+          // stupid facts i stole off the internet, might be fake idk and idrc
+          'The official pronunciation for a PNG file is "ping"',
+          'The average American spends about 2.5 days a year looking for lost items.',
+          'No number from 1 to 999 includes the letter "a" in its word form.',
+          'Golf balls tend to have 336 "dimples."',
+          "If you plug your nose, you can't tell the difference between an apple, a potato, and an onion.",
+          'The opposite sides of a 6-sided dice will always add to seven.',
+          'EDM and dubstep can scare off mosquitos.',
+          'A cubic inch of human bone can bear the weight of five standard pickup trucks.',
+          'The little dot above a lowercase "i" and "j" is called a tittle.',
+          'Pogonophobia is the fear of beards.',
+          'The average adult spends more time on the toilet than they do exercising.',
+          'Your fingernails grow faster on your dominant hand.',
+          'Apple seeds contain cyanide.',
+          // more dumb ones
+          'TypeError: UserPatience is not defined.',
+          'UncaughtPromiseRejection: Loading is taking too long.',
+          'Wow, you look great today!',
+          "I have three tests today, and instead of praciticing for them, I'm here writing loading screens.",
+          "Writing these messages isn't easy, you know",
+          'Come on, at least one of these are funny!'
+        ].find((_, i, ar) => Math.random() < 1 / (ar.length - i))
+      });
+    },
     online() {
       if (this.online) {
         // @ts-ignore
