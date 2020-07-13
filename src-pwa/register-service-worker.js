@@ -29,15 +29,7 @@ register(process.env.SERVICE_WORKER_FILE, {
 
   updated() {
     console.log('New content is available; please refresh.');
-    Notify.create({
-      message: "There's an update availabe! Refreshing soon...",
-      icon: 'cloud_download',
-      closeBtn: 'Update',
-      timeout: 10000,
-      onDismiss() {
-        location.reload(true);
-      }
-    });
+    window.swupdate = true;
   },
 
   offline() {
