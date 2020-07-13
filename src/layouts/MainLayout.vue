@@ -122,7 +122,7 @@ import EssentialLink from 'components/EssentialLink.vue';
 export default {
   name: 'MainLayout',
   components: {
-    EssentialLink,
+    EssentialLink
   },
 
   data() {
@@ -137,59 +137,59 @@ export default {
           title: 'Home',
           caption: 'Home',
           icon: 'home',
-          link: '/',
+          link: '/'
         },
         {
           title: 'FAQ',
           caption: 'Frequently asked questions',
           icon: 'help',
-          link: '/faq',
-        },
+          link: '/faq'
+        }
       ],
       animeLinks: [
         {
           title: 'Search',
           caption: 'Search for an anime',
           icon: 'search',
-          link: '/search',
-        },
+          link: '/search'
+        }
       ],
       mangaLinks: [
         {
           title: 'Search Manga',
           caption: 'Search for a manga',
           icon: 'search',
-          link: '/searchmanga',
-        },
+          link: '/searchmanga'
+        }
       ],
       userLinks: [
         {
           title: 'Me',
           caption: 'Open your MAL page',
           icon: 'person',
-          link: '/me',
+          link: '/me'
         },
         {
           title: 'Search Users',
           caption: 'Look at other profiles on MAL',
           icon: 'person_search',
-          link: '/searchusr',
+          link: '/searchusr'
         },
         {
           title: 'Set Username',
           caption: 'Allows you to see favourited anime etc.',
           icon: 'settings',
-          link: '/setusr',
-        },
+          link: '/setusr'
+        }
       ],
       links: [
         {
           title: 'GitHub repo',
           caption: 'Source code for this application',
           icon: 'code',
-          link: 'https://github.com/Jabster28/mirai',
-        },
-      ],
+          link: 'https://github.com/Jabster28/mirai'
+        }
+      ]
     };
   },
   mounted() {
@@ -197,16 +197,20 @@ export default {
     window.addEventListener('offline', this.checkConn);
     window.addEventListener('resize', this.checkFs);
     window.swupdate = () => {
-      $q.Notify.create({
-        message: "There's an update availabe! Please refresh",
+      this.$q.notify({
+        message: 'Update installed! Please refresh.',
         icon: 'cloud_download',
-        closeBtn: 'Update',
+        color: 'accent',
         timeout: 10000,
-        onDismiss() {
-          location.reload(true);
-        },
+        actions: [
+          {
+            label: 'Refresh Now',
+            color: 'white',
+            handler: () => location.reload(true)
+          }
+        ]
       });
-    }
+    };
     this.checkFs();
   },
   watch: {
@@ -252,8 +256,8 @@ export default {
           'Wow, you look great today!',
           "I have three tests today, and instead of praciticing for them, I'm here writing loading screens.",
           "Writing these messages isn't easy, you know",
-          'Come on, at least one of these are funny!',
-        ].find((_, i, ar) => Math.random() < 1 / (ar.length - i)),
+          'Come on, at least one of these are funny!'
+        ].find((_, i, ar) => Math.random() < 1 / (ar.length - i))
       });
     },
     online() {
@@ -262,16 +266,16 @@ export default {
         this.$q.notify({
           message: 'Back online',
           icon: 'signal_wifi_4_bar',
-          color: 'green',
+          color: 'green'
         });
       } else {
         // @ts-ignore
         this.$q.notify({
           message: 'Offline, only cached results shown',
-          icon: 'signal_wifi_off',
+          icon: 'signal_wifi_off'
         });
       }
-    },
+    }
   },
   methods: {
     checkFs() {
@@ -288,7 +292,7 @@ export default {
       } else {
         this.online = false;
       }
-    },
-  },
+    }
+  }
 };
 </script>
