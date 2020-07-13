@@ -1,5 +1,13 @@
 # Changelog
 
+### [1.5.1](https://www.github.com/Jabster28/mirai/compare/v1.5.0...v1.5.1) (2020-07-13)
+
+
+### Bug Fixes
+
+* service worker updates itself now ([#24](https://www.github.com/Jabster28/mirai/issues/24)) ([66d93fd](https://www.github.com/Jabster28/mirai/commit/66d93fd89a4d1f7a674a709a6df3b30bba2b9947))
+* **electron:** padding disappears when window height is max ([216edc4](https://www.github.com/Jabster28/mirai/commit/216edc417a301fb638d8c523ec29f85cb810e3bc))
+
 ## [1.5.0](https://www.github.com/Jabster28/mirai/compare/v1.4.0...v1.5.0) (2020-07-13)
 
 
