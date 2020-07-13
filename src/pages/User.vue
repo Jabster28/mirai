@@ -44,7 +44,11 @@
           <div class="col-4">
             <h2>{{ user.username }}</h2>
 
-            <h6 class="disabled">{{ user.user_id }}</h6>
+            <h6 class="disabled">
+              {{ user.anime_stats.episodes_watched }} episodes watched,
+              {{ user.anime_stats.days_watched }}
+              days wasted.
+            </h6>
             <q-select
               v-model="filter"
               :options="options"
