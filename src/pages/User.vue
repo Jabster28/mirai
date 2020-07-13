@@ -18,10 +18,10 @@
             $q.screen.width > 800 ? 'row' : 'col'
           ]"
         >
-          <div class="col-5">
+          <div class="col-4">
             <q-img v-if="user.image_url" :src="user.image_url" />
             <q-btn
-              class="q-ma-lg"
+              class="q-ma-sm"
               color="primary"
               clickable
               type="a"
@@ -32,7 +32,7 @@
             >
             <q-btn
               v-if="isUser()"
-              class="q-ma-lg"
+              class="q-ma-sm"
               color="secondary"
               clickable
               tag="a"
@@ -41,7 +41,7 @@
               Not you?</q-btn
             >
           </div>
-          <div class="col-5">
+          <div class="col-4">
             <h2>{{ user.username }}</h2>
 
             <h6 class="disabled">{{ user.user_id }}</h6>

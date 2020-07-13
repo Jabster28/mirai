@@ -24,7 +24,7 @@
               :data-plyr-embed-id="anime.trailer_url"
             ></div>
             <q-btn
-              class="q-ma-lg"
+              class="q-ma-sm"
               color="deep-orange"
               clickable
               @click="checkNotif"
@@ -39,7 +39,7 @@
               Watch on gogo</q-btn
             >
             <q-btn
-              class="q-ma-lg"
+              class="q-ma-sm"
               color="primary"
               clickable
               type="a"
@@ -50,7 +50,7 @@
             >
             <q-btn
               v-if="anime.trailer_url"
-              class="q-ma-lg"
+              class="q-ma-sm"
               color="accent"
               target="_blank"
               clickable
