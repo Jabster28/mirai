@@ -1,5 +1,17 @@
 # Changelog
 
+### [1.5.2](https://www.github.com/Jabster28/mirai/compare/v1.5.1...v1.5.2) (2020-07-14)
+
+
+### Bug Fixes
+
+* add link to changelog ([9114ea9](https://www.github.com/Jabster28/mirai/commit/9114ea9fc566aa9869bd83ae4472e3083cd64c1f))
+* most search boxes autofocus on render now ([d46c85d](https://www.github.com/Jabster28/mirai/commit/d46c85dbe18e2435277b759a7eec65ce33fc1626))
+* **/user:** normalise the episodes and days watched ([be9270d](https://www.github.com/Jabster28/mirai/commit/be9270d2aa652d5eebf955c8af2a441ec84097eb))
+* **/user:** replace ID with some metrics ([2ea4de5](https://www.github.com/Jabster28/mirai/commit/2ea4de562a31b6ff02d4f8a35373b624b4007601))
+* fix some weird margins ([966b79e](https://www.github.com/Jabster28/mirai/commit/966b79ec2dbf568adf481b8c7ab0efd8fbc43f41))
+* service worker notif once installed ([6283f4e](https://www.github.com/Jabster28/mirai/commit/6283f4e325445ead558a241fb6350a3193920ca7))
+
 ### [1.5.1](https://www.github.com/Jabster28/mirai/compare/v1.5.0...v1.5.1) (2020-07-13)
 
 
