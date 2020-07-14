@@ -2,7 +2,7 @@
   <q-page class="row items-center justify-evenly">
     <div class="col-5 q-my-lg">
       <h1>mirai</h1>
-      <h5 disabled>the best MAL client out there.</h5>
+      <p disabled>the best MAL client out there.</p>
     </div>
     <div class="row items-center justify-evenly">
       <div class="col-6">
