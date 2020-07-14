@@ -9,7 +9,7 @@
         "
       >
         <q-btn
-          v-if="$q.platform.is.electron"
+          v-if="$q.platform.is.electron || fs"
           flat
           dense
           round
@@ -26,7 +26,7 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
         <q-btn
-          v-if="$q.platform.is.electron"
+          v-if="$q.platform.is.electron || fs"
           flat
           dense
           round
@@ -287,6 +287,13 @@ export default {
   methods: {
     checkFs() {
       this.fs = window.innerHeight == screen.height;
+      if (
+        window.matchMedia('(display-mode: standalone)').matches ||
+        window.navigator.standalone ||
+        document.referrer.includes('android-app://')
+      ) {
+        this.fs = true;
+      }
     },
     toggle() {
       this.$q.dark.toggle();
