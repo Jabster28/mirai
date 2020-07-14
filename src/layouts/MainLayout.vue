@@ -89,7 +89,7 @@
           v-bind="link"
         />
         <q-item-label header class="text-grey-8">
-          Links
+          External Links
         </q-item-label>
         <EssentialLink
           v-for="link in links"
@@ -188,6 +188,13 @@ export default {
           caption: 'Source code for this application',
           icon: 'code',
           link: 'https://github.com/Jabster28/mirai'
+        },
+        {
+          title: 'Changelog',
+          caption: 'Look at new features and bugfixes',
+          icon: 'assignment',
+          link:
+            'https://github.com/Jabster28/mirai/blob/master/CHANGELOG.md#changelog'
         }
       ]
     };
