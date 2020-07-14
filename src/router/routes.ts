@@ -68,6 +68,11 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/SearchManga.vue') }]
   },
+    {
+    path: '/changelog',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Changelog.vue') }]
+  },
 
   // Always leave this as last one,
   // but you can also remove it
