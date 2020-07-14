@@ -7,6 +7,7 @@
         label="Your username"
         lazy-rules
         :loading="loading"
+        autofocus
         :rules="[val => (val && val.length > 0) || 'Please type something']"
       />
 
