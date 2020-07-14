@@ -1,5 +1,14 @@
 # Changelog
 
+### [1.5.3](https://www.github.com/Jabster28/mirai/compare/v1.5.2...v1.5.3) (2020-07-14)
+
+
+### Bug Fixes
+
+* **/faq:** cite some projects that allowed me to make this :D ([dbca428](https://www.github.com/Jabster28/mirai/commit/dbca4287fdb90d151506bf3722637a4093e8e780))
+* nav buttons show when fullscreen or on standalone pwa ([b3dd17c](https://www.github.com/Jabster28/mirai/commit/b3dd17caf6baf67f9f2002c52c1507d9fc318fa6))
+* render changelog on website ([2a02307](https://www.github.com/Jabster28/mirai/commit/2a0230777776d61e56524647b249f376db9a7ff4))
+
 ### [1.5.2](https://www.github.com/Jabster28/mirai/compare/v1.5.1...v1.5.2) (2020-07-14)
 
 
