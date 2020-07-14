@@ -26,7 +26,16 @@
       <h5>
         Not exactly - a replacement for you, maybe; but not a replacement for
         the whole website. All of the data shown on this website is taken using
-        Jikan, which takes the data directly from MAL.
+        <q-btn
+          rel="noopener"
+          color="blue-10"
+          clickable
+          type="a"
+          target="_blank"
+          href="https://jikan.moe/"
+        >
+          Jikan</q-btn
+        >, which takes the data directly from MAL.
       </h5>
     </div>
 
@@ -198,6 +207,60 @@
       <h5>
         Do you honestly think I'm going to promote a paid UI to a free service?
         I'm not Microsoft Office, am I?
+      </h5>
+    </div>
+    <div class="col-10">
+      <h4 class="text-italic">Did you make this by yourself?</h4>
+      <h5>
+        While I am the sole developer of this, lots of NPM modules gave me the
+        powers to even think of making this. For example, I wouldn't be able to
+        build a PWA with electron, SPA and mobile support without the help from
+        the lovely people at
+        <q-btn
+          rel="noopener"
+          color="primary"
+          clickable
+          type="a"
+          target="_blank"
+          href="https://quasar.dev"
+        >
+          Quasar</q-btn
+        >. With support for almost every platform, and using
+        <q-btn
+          rel="noopener"
+          color="amber"
+          clickable
+          type="a"
+          target="_blank"
+          href="https://babeljs.io/"
+        >
+          Babel</q-btn
+        >
+        for transpiling next-gen JS and IE11 support,
+        <q-btn
+          rel="noopener"
+          color="teal"
+          clickable
+          type="a"
+          target="_blank"
+          href="https://www.electronjs.org/"
+        >
+          Electron</q-btn
+        >
+        for desktop apps and distribution, and
+        <q-btn
+          rel="noopener"
+          color="green"
+          clickable
+          type="a"
+          target="_blank"
+          href="https://vuejs.org"
+        >
+          Vue</q-btn
+        >
+        for their intuitive yet deep web framework and array of extensions, it
+        was hard not to use it! Many thanks to everyone who contributed to those
+        projects for allowing me to make this :D
       </h5>
     </div>
   </q-page>
