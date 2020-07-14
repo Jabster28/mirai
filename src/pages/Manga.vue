@@ -17,6 +17,7 @@
           <div class="col-5">
             <q-img :src="manga.image_url" />
             <q-btn
+              rel="noopener"
               class="q-ma-sm"
               color="primary"
               clickable

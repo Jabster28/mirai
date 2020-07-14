@@ -1,6 +1,13 @@
 <template>
   <div>
-    <q-item v-if="external" clickable tag="a" target="_blank" :href="link">
+    <q-item
+      v-if="external"
+      clickable
+      tag="a"
+      target="_blank"
+      rel="noopener"
+      :href="link"
+    >
       <q-item-section v-if="icon" avatar>
         <q-icon :name="icon" />
       </q-item-section>
