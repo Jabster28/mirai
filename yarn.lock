@@ -1465,7 +1465,7 @@
     untildify "^4.0.0"
     update-notifier "^4.1.0"
 
-"@quasar/quasar-app-extension-qmarkdown@^1.0.29":
+"@quasar/quasar-app-extension-qmarkdown@1.0.29":
   version "1.0.29"
   resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qmarkdown/-/quasar-app-extension-qmarkdown-1.0.29.tgz#9b36b8e229a0cc947ae5786ae0bb7ad54cefdcc5"
   integrity sha512-TsVRGCmMfypnymH+kn64hp0lxnOx/4v01Xvhy80cueNcODPu87lL1XWuGP4pDcYb42ocHpk2CtJ4Y2vdZpZrYQ==
