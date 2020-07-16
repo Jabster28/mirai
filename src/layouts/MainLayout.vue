@@ -4,7 +4,7 @@
       <q-toolbar
         :class="
           $q.platform.is.electron && $q.platform.is.mac && !fs
-            ? ['q-pt-xl', 'q-pb-sm']
+            ? ['q-pt-lg', 'q-pb-sm']
             : ''
         "
       >
