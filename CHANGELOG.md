@@ -1,5 +1,25 @@
 # Changelog
 
+## [2.0.0](https://www.github.com/Jabster28/mirai/compare/v1.5.2...v2.0.0) (2020-07-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* new web URL for latest release
+
+### Features
+
+* new web URL for latest release ([64a0f4c](https://www.github.com/Jabster28/mirai/commit/64a0f4cdace8b066ae6be64507376fb1c0d52d54))
+
+
+### Bug Fixes
+
+* **/faq:** cite some projects that allowed me to make this :D ([dbca428](https://www.github.com/Jabster28/mirai/commit/dbca4287fdb90d151506bf3722637a4093e8e780))
+* **deps:** update dependency quasar to v1.12.12 ([f0ec5fd](https://www.github.com/Jabster28/mirai/commit/f0ec5fd74761b6b5137515f6011d7d7207c9e7d0))
+* **electron/macos:** made top padding a lil smaller ([108dce6](https://www.github.com/Jabster28/mirai/commit/108dce6c1cf2d90e7c482d7d777466d044292ebc))
+* nav buttons show when fullscreen or on standalone pwa ([b3dd17c](https://www.github.com/Jabster28/mirai/commit/b3dd17caf6baf67f9f2002c52c1507d9fc318fa6))
+* render changelog on website ([2a02307](https://www.github.com/Jabster28/mirai/commit/2a0230777776d61e56524647b249f376db9a7ff4))
+
 ### [1.5.2](https://www.github.com/Jabster28/mirai/compare/v1.5.1...v1.5.2) (2020-07-14)
 
 
