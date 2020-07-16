@@ -6005,7 +6005,7 @@ findup@^0.1.5:
     colors "~0.6.0-1"
     commander "~2.1.0"
 
-firebase-tools@^8.5.0:
+firebase-tools@8.5.0:
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/firebase-tools/-/firebase-tools-8.5.0.tgz#d97c042fd41055b1f1374d0c9007912dc6916ca5"
   integrity sha512-y2iwrrSvf0DESwt2XEwpX4Uoo0meWREWPGfIlFHJu5vc47NQPRmyenlNZQ9skDpHXGHnNaNZqyr4R34ODIQ5Ew==
