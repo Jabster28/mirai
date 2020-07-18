@@ -6,6 +6,11 @@
   "author": "Jabster28 <justynboyer@gmail.com>",
   "private": true,
   "scripts": {
+    "build": "quasar build -m pwa",
+    "build-elec": "quasar build -m electron",
+    "build-andr": "quasar build -m capacitor -T android",
+    "dev": "quasar dev",
+    "dev-elec": "quasar dev -m electron",
     "lint": "eslint --ext .js,.ts,.vue ./",
     "test": "echo \"No test specified\" && exit 0"
   },
