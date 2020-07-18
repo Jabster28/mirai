@@ -1,0 +1,7 @@
+{
+  "appId": "app.vercel.jabster28.mirai",
+  "appName": "Mirai",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "www"
+}

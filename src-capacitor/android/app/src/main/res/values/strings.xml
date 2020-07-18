@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Mirai</string>
+    <string name="title_activity_main">Mirai</string>
+    <string name="package_name">app.vercel.jabster28.mirai</string>
+    <string name="custom_url_scheme">app.vercel.jabster28.mirai</string>
+</resources>
