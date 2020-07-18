@@ -155,7 +155,7 @@
         Really?
       </h4>
       <h5>
-        Yes, the only data-collecting tool the website uses is Firebase :P
+        Yes, we don't use any data collention tools or analytics.
       </h5>
     </div>
 
