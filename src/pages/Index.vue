@@ -4,35 +4,43 @@
       <h1>mirai</h1>
       <p disabled>the best MAL client out there.</p>
     </div>
-    <div class="row items-center justify-evenly">
-      <div class="col-6">
-        <h6>
-          MyAnimeList is a great website - it has virtually every anime known to
-          man, you can use it to remember which animes you've watched and when,
-          it even shows you some recommendations. It's all that a weeb could ask
-          for!
-        </h6>
-        <h6>
-          But let's be honest here - the user interface is pretty old. Sure, it
-          works, and it's fairly quick, but "quick" isn't enough for me, and it
-          shouldn't be for you, either. Head to
-          <router-link to="/faq">the FAQ</router-link> for more info.
-        </h6>
-      </div>
+    <div v-if="top" class="col-10">
+      <h2>Top anime for {{ top.season_name }}, {{ top.season_year }}</h2>
+      <q-scroll-area horizontal class="q-ma-md" style="height: 400px;">
+        <div class="row no-wrap">
+          <AnimeCard
+            trunc="30"
+            v-for="anime in top.anime.slice(0, 40)"
+            :key="anime.mal_id"
+            :anime="anime"
+          />
+        </div>
+      </q-scroll-area>
     </div>
   </q-page>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import AnimeCard from 'components/AnimeCard.vue';
+import axios from 'axios';
 
 export default Vue.extend({
+  components: { AnimeCard },
   name: 'PageIndex',
   mounted() {
     document.title = 'Mirai';
+    axios
+      .get('https://api.jikan.moe/v3/season')
+      .then(data => {
+        this.top = data.data;
+      })
+      .catch(e => console.log(e));
   },
   data() {
-    return {};
+    return {
+      top: null
+    };
   }
 });
 </script>

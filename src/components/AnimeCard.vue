@@ -11,11 +11,10 @@
     >
       <q-img :src="anime.image_url">
         <div class="absolute-bottom">
-          <div class="text-h6">{{ anime.title }}</div>
+          <div class="text-h6">{{ truncateString(anime.title, trunc) }}</div>
           <div class="text-subtitle2">
-            {{ anime.type }}, {{ Math.round(anime.score) }} stars ({{
-              anime.rated
-            }})
+            {{ anime.type }}, {{ Math.round(anime.score) }} stars
+            {{ anime.rated ? `(${anime.rated})` : '' }}
           </div>
         </div>
       </q-img>
@@ -23,7 +22,7 @@
   </transition>
 </template>
 
-<script>
+<script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 export default {
@@ -32,11 +31,23 @@ export default {
     anime: {
       type: Object,
       required: true
+    },
+    trunc: {
+      type: Number,
+      default: 45
     }
   },
   methods: {
-    goto(e) {
+    goto(e: string) {
+      // @ts-ignore
       this.$router.push(e);
+    },
+    truncateString(str: string, num: number) {
+      if (str.length > num) {
+        return str.slice(0, num) + '...';
+      } else {
+        return str;
+      }
     }
   }
 };
