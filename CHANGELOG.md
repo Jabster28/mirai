@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.1.0](https://www.github.com/Jabster28/mirai/compare/v2.0.0...v2.1.0) (2020-07-18)
+
+
+### Features
+
+* add android support w/ capacitor ([9c09f85](https://www.github.com/Jabster28/mirai/commit/9c09f856ff8a182af918ab83535b2f52a6ef1bf6))
+* **/:** add 'top anime' section ([cf652f4](https://www.github.com/Jabster28/mirai/commit/cf652f49f530ece2a3b5663a4819e115c28ae410))
+
+
+### Bug Fixes
+
+* decided to remove firebase ([48702e5](https://www.github.com/Jabster28/mirai/commit/48702e528c02b620d32f39f5ded09e5cccfd161c))
+
 ## [2.0.0](https://www.github.com/Jabster28/mirai/compare/v1.5.2...v2.0.0) (2020-07-16)
 
 
