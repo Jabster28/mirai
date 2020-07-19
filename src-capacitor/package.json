@@ -1,6 +1,6 @@
 {
   "name": "mirai",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A modern client for MyAnimeList",
   "author": "Jabster28 <justynboyer@gmail.com>",
   "private": true,

@@ -1,0 +1,1 @@
+Mirai is a new, modern, sleek, and quicker web UI (user interface) for MyAnimeList.net, made to improve the user's experience by leveraging SPAs for quick navigation, PWA for good performance and offline capability and Material Design for an easy-to-understand styling system.

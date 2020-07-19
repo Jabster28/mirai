@@ -1,0 +1,1 @@
+A FOSS client for MyAnimeList, made for performance and modern usability.
