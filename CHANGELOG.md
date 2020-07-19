@@ -1,5 +1,13 @@
 # Changelog
 
+### [2.1.1](https://www.github.com/Jabster28/mirai/compare/v2.1.0...v2.1.1) (2020-07-19)
+
+
+### Bug Fixes
+
+* **deps:** pin dependencies ([8d50214](https://www.github.com/Jabster28/mirai/commit/8d50214202741bd79579ff2d69acd1dec37d3d3c))
+* update gradle & prepare for f-droid ([a19ed12](https://www.github.com/Jabster28/mirai/commit/a19ed1281e71a28ded9612289f6ab06d853e8682))
+
 ## [2.1.0](https://www.github.com/Jabster28/mirai/compare/v2.0.0...v2.1.0) (2020-07-18)
 
 
