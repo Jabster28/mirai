@@ -19,7 +19,7 @@
     "axios": "0.19.2",
     "core-js": "3.6.5",
     "plyr": "3.6.2",
-    "quasar": "1.12.12",
+    "quasar": "1.12.13",
     "vue-i18n": "8.18.2"
   },
   "devDependencies": {
