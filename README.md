@@ -1,6 +1,6 @@
 # Mirai (mirai)
 
-A modern client for MyAnimeList
+A modern client for MyAnimeList, focused on performance and modern usability.
 
 ## Install the dependencies
 ```bash
