@@ -150,6 +150,12 @@ export default {
           caption: 'Look at new features and bugfixes',
           icon: 'assignment',
           link: '/changelog'
+        },
+        {
+          title: 'Incidents',
+          caption: 'List of problems/downtimes Mirai has had.',
+          icon: 'warning',
+          link: '/incidents'
         }
       ],
       animeLinks: [
@@ -193,12 +199,31 @@ export default {
           title: 'GitHub repo',
           caption: 'Source code for this application',
           icon: 'code',
-          link: 'https://github.com/Jabster28/mirai'
+          link: 'https://github.com/Jabster28/mirai#incident-log'
         }
       ]
     };
   },
   mounted() {
+    const incident = () => {
+      this.$q.notify({
+        message: 'You might experience some issues with Mirai for now.',
+        icon: 'warning',
+        color: 'primary',
+        timeout: 30000,
+        actions: [
+          {
+            label: 'Learn More',
+            color: 'white',
+            handler: () => {
+              this.$router.push('/incidents');
+            }
+          }
+        ]
+      });
+    };
+    // i'll comment this line when things are working as intended
+    incident();
     window.addEventListener('online', this.checkConn);
     window.addEventListener('offline', this.checkConn);
     window.addEventListener('resize', this.checkFs);
