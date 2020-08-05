@@ -42,7 +42,7 @@
     "eslint-config-prettier": "6.11.0",
     "eslint-loader": "4.0.2",
     "eslint-plugin-vue": "6.2.2",
-    "firebase-tools": "8.6.0",
+    "firebase-tools": "8.7.0",
     "typescript": "3.9.7",
     "workbox-webpack-plugin": "5.1.3"
   },
