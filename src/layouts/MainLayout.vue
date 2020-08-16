@@ -187,12 +187,19 @@ export default {
           icon: 'person_search',
           link: '/searchusr'
         },
-        {
-          title: 'Set Username',
-          caption: 'Allows you to see favourited anime etc.',
-          icon: 'settings',
-          link: '/setusr'
-        }
+        this.$q.cookies.get('mal_auth')
+          ? {
+              title: 'Log out',
+              caption: 'Sign out of your MAL account.',
+              icon: 'power_settings_new', // material doesn't have a proper logout icon for some reason
+              link: '/logout'
+            }
+          : {
+              title: 'Login',
+              caption: 'Sign in with your MAL account',
+              icon: 'login',
+              link: '/login'
+            }
       ],
       links: [
         {

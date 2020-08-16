@@ -9,10 +9,24 @@
       <q-scroll-area horizontal class="q-ma-md" style="height: 400px;">
         <div class="row no-wrap">
           <AnimeCard
-            trunc="30"
+            :trunc="30"
             v-for="anime in top.anime.slice(0, 40)"
             :key="anime.mal_id"
             :anime="anime"
+          />
+        </div>
+      </q-scroll-area>
+    </div>
+    <div v-if="suggestions.length" class="col-10">
+      <h2>Recommeneded anime:</h2>
+      <q-scroll-area horizontal class="q-ma-md" style="height: 400px;">
+        <div class="row no-wrap">
+          <AnimeCard
+            :trunc="30"
+            v-for="anime in suggestions"
+            :key="anime.node.id"
+            :anime="anime.node"
+            suggestions
           />
         </div>
       </q-scroll-area>
@@ -24,6 +38,7 @@
 import Vue from 'vue';
 import AnimeCard from 'components/AnimeCard.vue';
 import axios from 'axios';
+import qs from 'qs';
 
 export default Vue.extend({
   components: { AnimeCard },
@@ -36,10 +51,23 @@ export default Vue.extend({
         this.top = data.data;
       })
       .catch(e => console.log(e));
+    if (this.$q.cookies.get('mal_auth')) {
+      axios
+        .get(
+          'https://mirai-api.glitch.me/suggestions?' +
+            // @ts-ignore
+            qs.stringify({ code: this.$q.cookies.get('mal_auth').code })
+        )
+        .then(data => {
+          if (Array.isArray(data.data.data)) this.suggestions = data.data.data;
+        })
+        .catch(e => console.log(e));
+    }
   },
   data() {
     return {
-      top: null
+      top: null,
+      suggestions: []
     };
   }
 });

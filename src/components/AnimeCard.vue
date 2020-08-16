@@ -5,14 +5,17 @@
     leave-active-class="animated fadeOut"
   >
     <q-card
-      :class="['q-ma-md', $q.screen.width > 400 ? 'col-2' : 'col-10']"
+      :class="[
+        'q-ma-md',
+        $q.screen.width > 400 && !suggestions ? 'col-2' : 'col-10'
+      ]"
       v-ripple
-      @click="goto('/anime/' + anime.mal_id)"
+      @click="goto"
     >
-      <q-img :src="anime.image_url">
+      <q-img :src="suggestions ? anime.main_picture.large : anime.image_url">
         <div class="absolute-bottom">
           <div class="text-h6">{{ truncateString(anime.title, trunc) }}</div>
-          <div class="text-subtitle2">
+          <div class="text-subtitle2" v-if="!suggestions">
             {{ anime.type }}, {{ Math.round(anime.score) }} stars
             {{ anime.rated ? `(${anime.rated})` : '' }}
           </div>
@@ -24,10 +27,15 @@
 
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 export default {
   name: 'AnimeCard',
   props: {
+    suggestions: {
+      type: Boolean,
+      default: false
+    },
     anime: {
       type: Object,
       required: true
@@ -38,9 +46,12 @@ export default {
     }
   },
   methods: {
-    goto(e: string) {
+    goto() {
       // @ts-ignore
-      this.$router.push(e);
+      this.$router.push(
+        // @ts-ignore
+        `/anime/${this.suggestions ? this.anime.id : this.anime.mal_id}`
+      );
     },
     truncateString(str: string, num: number) {
       if (str.length > num) {

@@ -9,13 +9,14 @@ export default Vue.extend({
   name: 'PageMe',
   mounted() {
     /* @ts-ignore */
-    let username = this.$q.localStorage.getItem('username');
+    let username = this.$q.cookies.get('mal_auth');
     /* @ts-ignore */
     if (!username) {
-      this.$router.replace('/setusr/me').catch(e => console.log(e));
+      this.$router.replace('/login').catch(e => console.log(e));
     } else {
       this.$router
-        .replace('/user/' + encodeURIComponent(username.toString()))
+        // @ts-ignore
+        .replace('/user/' + encodeURIComponent(username.name))
         .catch(e => console.log(e));
     }
   }

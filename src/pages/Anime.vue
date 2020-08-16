@@ -1,5 +1,5 @@
 <template>
-  <q-page class="items-center justify-evenly">
+  <q-page class="items-center justify-evenly" :key="this.$route.params.id">
     <div class="post">
       <div v-if="error" class="error">
         {{ error }}
@@ -67,15 +67,60 @@
 
             <h6 class="disabled">{{ anime.title_english }}</h6>
             <p class="text-justify">{{ anime.synopsis }}</p>
-            <h5>
-              <q-icon name="stars" />
-              {{ anime.score ? anime.score.toPrecision(3) : '-' }} / 10
-            </h5>
-            <h5>
-              <q-icon name="visibility" /> {{ norm(anime.members) || '0' }}
-            </h5>
-            <h5><q-icon name="star" /> {{ norm(anime.favorites) || '0' }}</h5>
-            <h5># {{ norm(anime.rank) || '-' }}</h5>
+            <q-card class="q-pa-md q-my-lg">
+              <h5>
+                <q-icon name="stars" />
+                {{ anime.score ? anime.score.toPrecision(3) : '-' }} / 10 |
+                <q-icon name="visibility" /> {{ norm(anime.members) || '0' }}
+
+                |
+                <q-icon name="star" /> {{ norm(anime.favorites) || '0' }}
+
+                | # {{ norm(anime.rank) || '-' }}
+              </h5>
+              <div v-if="$q.cookies.get('mal_auth')">
+                <q-select
+                  v-model="status"
+                  :options="options"
+                  label="Status"
+                  class="q-my-md"
+                />
+                <q-badge color="secondary">
+                  Score: {{ score == 0 ? '-' : score }}
+                </q-badge>
+                <q-slider v-model="score" label :min="0" :max="10" />
+                <q-btn
+                  label="Update"
+                  :loading="loading"
+                  @click="submit"
+                  class="q-ma-sm"
+                  :disabled="loading || disabled"
+                  color="primary"
+                />
+                <q-btn
+                  label="Remove"
+                  :loading="loading"
+                  @click="remove"
+                  class="q-ma-sm"
+                  :disabled="loading || removed"
+                  color="secondary"
+                />
+              </div>
+            </q-card>
+          </div>
+          <div v-if="suggestions.length" class="col-10">
+            <h2>Recommeneded anime:</h2>
+            <q-scroll-area horizontal class="q-ma-md" style="height: 400px;">
+              <div class="row no-wrap">
+                <AnimeCard
+                  :trunc="30"
+                  v-for="anime in suggestions"
+                  :key="anime.node.id"
+                  :anime="anime.node"
+                  suggestions
+                />
+              </div>
+            </q-scroll-area>
           </div>
         </div>
       </div>
@@ -85,34 +130,148 @@
 
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import axios from 'axios';
+import AnimeCard from 'components/AnimeCard.vue';
+import qs from 'qs';
 import Vue from 'vue';
 import * as Plyr from 'plyr';
 
 export default Vue.extend({
+  components: { AnimeCard },
   name: 'PageAnime',
   data() {
     return {
+      suggestions: [],
+      removed: false,
+      map: {
+        'On Hold': 'on_hold',
+        Completed: 'completed',
+        'Currently Watching': 'watching',
+        Dropped: 'dropped',
+        'Plan to Watch': 'plan_to_watch'
+      },
+      disabled: true,
+      loading: false,
+      revmap: {},
+      options: [
+        'On Hold',
+        'Completed',
+        'Currently Watching',
+        'Dropped',
+        'Plan to Watch'
+      ],
+      status: null,
+      oldstatus: null,
       player: null,
+      score: null,
+      oldscore: null,
       anime: {
         title: '',
-        mal_id: ''
+        mal_id: '',
+        image_url: '',
+        url: '',
+        trailer_url: '',
+        title_english: '',
+        synopsis: '',
+        score: 0,
+        members: 0,
+        favorites: 0,
+        rank: 0
       },
       error: ''
     };
   },
   created() {
+    ['on_hold', 'completed', 'watching', 'dropped', 'plan_to_watch'].forEach(
+      (key, i) =>
+        // @ts-ignore
+        (this.revmap[key] = [
+          'On Hold',
+          'Completed',
+          'Currently Watching',
+          'Dropped',
+          'Plan to Watch'
+        ][i])
+    );
     // fetch the data when the view is created and the data is
     // already being observed
     this.fetchData();
   },
   watch: {
     // call again the method if the route changes
-    $route: 'fetchData'
+    $route: 'fetchData',
+    score() {
+      if (this.oldstatus == this.status && this.oldscore == this.score) {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    },
+    status() {
+      if (this.oldstatus == this.status && this.oldscore == this.score) {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    }
   },
   methods: {
+    remove() {
+      this.loading = true;
+
+      axios
+        .delete(
+          `https://mirai-api.glitch.me/anime?id=${this.$route.params.id}&code=${
+            // @ts-ignore
+            this.$q.cookies.get('mal_auth').code
+          }`
+        )
+        .then(() => {
+          this.loading = false;
+          this.removed = true;
+          this.oldstatus = null;
+          this.oldscore = null;
+          this.status = null;
+          this.score = null;
+          //
+        })
+        .catch(e => console.log(e));
+    },
+    submit() {
+      this.loading = true;
+      this.removed = false;
+
+      axios
+        .post(
+          `https://mirai-api.glitch.me/anime?id=${this.$route.params.id}&code=${
+            // @ts-ignore
+            this.$q.cookies.get('mal_auth').code
+          }`,
+          {
+            // @ts-ignore
+            status: this.map[this.status],
+            score: this.score
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        .then(e => {
+          this.loading = false;
+
+          console.log(e);
+          this.loading = false;
+        })
+        .catch(e => {
+          console.log(e);
+          this.loading = false;
+        });
+    },
     checkNotif(e: Event) {
       let cache = this.$q.localStorage.getItem('cache');
       // @ts-ignore
@@ -207,6 +366,53 @@ export default Vue.extend({
           if (currentAnime != this.$route.params.id) return;
 
           this.$q.localStorage.set('cache', cache);
+          this.loading = true;
+          if (this.$q.cookies.get('mal_auth')) {
+            axios
+              .get(
+                'https://mirai-api.glitch.me/suggestions?' +
+                  // @ts-ignore
+
+                  qs.stringify({ code: this.$q.cookies.get('mal_auth').code })
+              )
+              .then(data => {
+                if (Array.isArray(data.data.data))
+                  this.suggestions = data.data.data;
+              })
+              .catch(e => console.log(e));
+            axios
+              .get(
+                'https://mirai-api.glitch.me/anime?' +
+                  qs.stringify({
+                    // @ts-ignore
+
+                    code: this.$q.cookies.get('mal_auth').code,
+                    id: this.$route.params.id
+                  })
+              )
+              .then(e => {
+                this.loading = false;
+
+                if (!e.data.my_list_status) {
+                  this.removed = true;
+                  this.loading = false;
+                  this.oldstatus = null;
+                  this.oldscore = null;
+                  this.status = null;
+                  this.score = null;
+                  return;
+                }
+                // @ts-ignore
+                this.oldstatus = this.revmap[e.data.my_list_status.status];
+                this.oldscore = e.data.my_list_status.score;
+                // @ts-ignore
+                this.status = this.revmap[e.data.my_list_status.status];
+                this.score = e.data.my_list_status.score;
+              })
+              .catch((e: string) => {
+                this.error = e;
+              });
+          }
         })
         .catch((e: string) => {
           console.log(e);

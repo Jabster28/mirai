@@ -32,16 +32,6 @@ const routes: RouteConfig[] = [
     children: [{ path: '', component: () => import('pages/Me.vue') }]
   },
   {
-    path: '/setusr',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/SetUsername.vue') }]
-  },
-  {
-    path: '/setusr/:redirect',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/SetUsername.vue') }]
-  },
-  {
     path: '/faq',
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/FAQ.vue') }]
@@ -77,6 +67,26 @@ const routes: RouteConfig[] = [
     path: '/incidents',
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/Incidents.vue') }]
+  },
+  {
+    path: '/oauth',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Oauth.vue') }]
+  },
+  {
+    path: '/oauth/:redirect',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Oauth.vue') }]
+  },
+  {
+    path: '/login',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Login.vue') }]
+  },
+  {
+    path: '/logout',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/Logout.vue') }]
   },
 
   // Always leave this as last one,
