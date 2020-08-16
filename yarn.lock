@@ -1593,20 +1593,20 @@
     untildify "^4.0.0"
     update-notifier "^4.1.0"
 
-"@quasar/quasar-app-extension-qmarkdown@1.0.29":
-  version "1.0.29"
-  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qmarkdown/-/quasar-app-extension-qmarkdown-1.0.29.tgz#9b36b8e229a0cc947ae5786ae0bb7ad54cefdcc5"
-  integrity sha512-TsVRGCmMfypnymH+kn64hp0lxnOx/4v01Xvhy80cueNcODPu87lL1XWuGP4pDcYb42ocHpk2CtJ4Y2vdZpZrYQ==
+"@quasar/quasar-app-extension-qmarkdown@1.0.31":
+  version "1.0.31"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qmarkdown/-/quasar-app-extension-qmarkdown-1.0.31.tgz#bcec7ed19564d39d8c1311fa4b86680486836ec1"
+  integrity sha512-zYGCrrj1uLoAhUn5l4SpfmQK5zLNYQLgmrkzL2adBsfZuFmxS5Z0pcly+y4L52bjlL4QVsAbQBEcDxs0euPQxg==
   dependencies:
-    "@quasar/quasar-ui-qmarkdown" "^1.0.29"
+    "@quasar/quasar-ui-qmarkdown" "^1.0.31"
     front-matter "^4.0.2"
     raw-loader "^4.0.1"
     ware-loader "^0.2.4"
 
-"@quasar/quasar-ui-qmarkdown@^1.0.29":
-  version "1.0.29"
-  resolved "https://registry.yarnpkg.com/@quasar/quasar-ui-qmarkdown/-/quasar-ui-qmarkdown-1.0.29.tgz#f19d2e57110bd90ca66c46df6eb2de8594c6013d"
-  integrity sha512-yHOkemzNwcrsdPJKItVRUhFFhu7/g/RSQCy4Cq+JARopfJTNc3lQM421z1ljggnJri2TEcImgekij61FKXKuFw==
+"@quasar/quasar-ui-qmarkdown@^1.0.31":
+  version "1.0.31"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-ui-qmarkdown/-/quasar-ui-qmarkdown-1.0.31.tgz#bc542e2c5ade39633547678862b6589901e87a65"
+  integrity sha512-T7cFYimHBuR3Ha0Kblh/TQrO28dZXrzWrIsGoDb4VWNCs4gJlSShbRJcXl6+HxPfSS5h9OdeHQHgdGq1VwE80g==
   dependencies:
     markdown-it "^11.0.0"
     markdown-it-abbr "^1.0.4"
@@ -1622,7 +1622,7 @@
     markdown-it-sup "^1.0.0"
     markdown-it-task-lists "^2.1.1"
     markdown-it-toc-and-anchor "^4.2.0"
-    prismjs "^1.20.0"
+    prismjs "^1.21.0"
 
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
@@ -10608,10 +10608,10 @@ pretty-error@^2.1.1:
     renderkid "^2.0.1"
     utila "~0.4"
 
-prismjs@^1.20.0:
-  version "1.20.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.20.0.tgz#9b685fc480a3514ee7198eac6a3bf5024319ff03"
-  integrity sha512-AEDjSrVNkynnw6A+B1DsFkd6AVdTnp+/WoUixFRULlCLZVRZlVQMVWio/16jv7G1FscUxQxOQhWwApgbnxr6kQ==
+prismjs@^1.21.0:
+  version "1.21.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.21.0.tgz#36c086ec36b45319ec4218ee164c110f9fc015a3"
+  integrity sha512-uGdSIu1nk3kej2iZsLyDoJ7e9bnPzIgY0naW/HdknGj61zScaprVEVGHrPoXqI+M9sP0NDnTK2jpkvmldpuqDw==
   optionalDependencies:
     clipboard "^2.0.0"
 
