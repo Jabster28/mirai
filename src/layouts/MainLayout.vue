@@ -223,7 +223,7 @@ export default {
       });
     };
     // i'll comment this line when things are working as intended
-    incident();
+    // incident();
     window.addEventListener('online', this.checkConn);
     window.addEventListener('offline', this.checkConn);
     window.addEventListener('resize', this.checkFs);
