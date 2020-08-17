@@ -5,13 +5,14 @@
       <p disabled>the best MAL client out there.</p>
     </div>
     <div v-if="top" class="col-10">
-      <h2>Top anime for {{ top.season_name }}, {{ top.season_year }}</h2>
+      <h2>Top 10 anime for {{ top.season_name }}, {{ top.season_year }}</h2>
       <q-scroll-area horizontal class="q-ma-md" style="height: 400px;">
         <div class="row no-wrap">
           <AnimeCard
             :trunc="30"
-            v-for="anime in top.anime.slice(0, 40)"
+            v-for="anime in top.anime.slice(0, 10)"
             :key="anime.mal_id"
+            home
             :anime="anime"
           />
         </div>
@@ -26,6 +27,7 @@
             v-for="anime in suggestions"
             :key="anime.node.id"
             :anime="anime.node"
+            home
             suggestions
           />
         </div>

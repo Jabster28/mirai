@@ -7,7 +7,7 @@
     <q-card
       :class="[
         'q-ma-md',
-        $q.screen.width > 400 && !suggestions ? 'col-2' : 'col-10'
+        $q.screen.width > 400 && !(home || suggestions) ? 'col-2' : 'col-10'
       ]"
       v-ripple
       @click="goto"
@@ -15,7 +15,7 @@
       <q-img :src="suggestions ? anime.main_picture.large : anime.image_url">
         <div class="absolute-bottom">
           <div class="text-h6">{{ truncateString(anime.title, trunc) }}</div>
-          <div class="text-subtitle2" v-if="!suggestions">
+          <div class="text-subtitle2" v-if="!(home || suggestions)">
             {{ anime.type }}, {{ Math.round(anime.score) }} stars
             {{ anime.rated ? `(${anime.rated})` : '' }}
           </div>
@@ -33,6 +33,10 @@ export default {
   name: 'AnimeCard',
   props: {
     suggestions: {
+      type: Boolean,
+      default: false
+    },
+    home: {
       type: Boolean,
       default: false
     },
