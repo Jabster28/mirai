@@ -251,6 +251,11 @@ export default {
     };
     this.checkFs();
   },
+  beforeDestroy() {
+    window.removeEventListener('online', this.checkConn);
+    window.removeEventListener('offline', this.checkConn);
+    window.removeEventListener('resize', this.checkFs);
+  },
   watch: {
     $route() {
       this.$q.loading.setDefaults({
