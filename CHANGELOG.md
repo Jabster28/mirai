@@ -1,5 +1,14 @@
 # Changelog
 
+### [2.2.1](https://www.github.com/Jabster28/mirai/compare/v2.2.0...v2.2.1) (2020-08-21)
+
+
+### Bug Fixes
+
+* add expiry date to cookie ([b672d45](https://www.github.com/Jabster28/mirai/commit/b672d45b1c8ed7d249d0407befdefadba353f002))
+* **MainLayout:** remove event listeners on navigate ([b1bb61e](https://www.github.com/Jabster28/mirai/commit/b1bb61ebfbe687aaea10308111251eb2e0f6eb56))
+* **mobile:** make anime suggestions look normal ([e7ca803](https://www.github.com/Jabster28/mirai/commit/e7ca803bf09a9508aeddc41baaf4e32ddf470bc4))
+
 ## [2.2.0](https://www.github.com/Jabster28/mirai/compare/v2.1.1...v2.2.0) (2020-08-16)
 
 
