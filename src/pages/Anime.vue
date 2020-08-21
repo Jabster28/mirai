@@ -108,16 +108,16 @@
               </div>
             </q-card>
           </div>
-          <div v-if="suggestions.length" class="col-10">
-            <h2>Recommeneded anime:</h2>
+          <div v-if="sugg.length > 0" class="col-10">
+            <h3 disabled>More like this</h3>
             <q-scroll-area horizontal class="q-ma-md" style="height: 400px;">
               <div class="row no-wrap">
                 <AnimeCard
                   :trunc="30"
-                  v-for="anime in suggestions"
-                  :key="anime.node.id"
-                  :anime="anime.node"
-                  suggestions
+                  v-for="anime in sugg.slice(0, 10)"
+                  :key="anime.mal_id"
+                  :anime="anime"
+                  home
                 />
               </div>
             </q-scroll-area>
@@ -144,7 +144,7 @@ export default Vue.extend({
   name: 'PageAnime',
   data() {
     return {
-      suggestions: [],
+      sugg: [],
       removed: false,
       map: {
         'On Hold': 'on_hold',
@@ -366,20 +366,17 @@ export default Vue.extend({
           if (currentAnime != this.$route.params.id) return;
 
           this.$q.localStorage.set('cache', cache);
+
+          axios
+            .get(
+              `https://api.jikan.moe/v3/anime/${this.$route.params.id}/recommendations`
+            )
+            .then(data => {
+              this.sugg = data.data.recommendations;
+            })
+            .catch(e => console.log(e));
           this.loading = true;
           if (this.$q.cookies.get('mal_auth')) {
-            axios
-              .get(
-                'https://mirai-api.glitch.me/suggestions?' +
-                  // @ts-ignore
-
-                  qs.stringify({ code: this.$q.cookies.get('mal_auth').code })
-              )
-              .then(data => {
-                if (Array.isArray(data.data.data))
-                  this.suggestions = data.data.data;
-              })
-              .catch(e => console.log(e));
             axios
               .get(
                 'https://mirai-api.glitch.me/anime?' +
