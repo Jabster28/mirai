@@ -17,7 +17,10 @@ export default Vue.extend({
     });
     this.$q.cookies.set(
       'mal_auth',
-      JSON.stringify(this.$router.currentRoute.query)
+      JSON.stringify(this.$router.currentRoute.query),
+      {
+        expires: 14600
+      }
     );
     this.$q.loading.hide();
     if (this.$route.params.redirect)
