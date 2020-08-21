@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@quasar/extras": "1.9.4",
-    "axios": "0.19.2",
+    "axios": "0.20.0",
     "core-js": "3.6.5",
     "plyr": "3.6.2",
     "qs": "6.9.4",
