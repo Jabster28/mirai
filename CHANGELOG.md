@@ -1,5 +1,14 @@
 # Changelog
 
+### [2.2.2](https://www.github.com/Jabster28/mirai/compare/v2.2.1...v2.2.2) (2020-08-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency axios to v0.20.0 ([d492108](https://www.github.com/Jabster28/mirai/commit/d4921081b6ce3430e0d2f2b1d773df816864b47a))
+* **deps:** update dependency quasar to v1.13.1 ([6883e51](https://www.github.com/Jabster28/mirai/commit/6883e51d86499975058f8a63a7c179a086ebe23e))
+* show similar anime instead of ([f3b8717](https://www.github.com/Jabster28/mirai/commit/f3b8717aa37a58272c5b6cedfc2a69c806e64e15))
+
 ### [2.2.1](https://www.github.com/Jabster28/mirai/compare/v2.2.0...v2.2.1) (2020-08-21)
 
 
