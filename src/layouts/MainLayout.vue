@@ -212,6 +212,8 @@ export default {
     };
   },
   mounted() {
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const incident = () => {
       this.$q.notify({
         message: 'You might experience some issues with Mirai for now.',
