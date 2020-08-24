@@ -14,7 +14,7 @@
             $q.screen.width > 800 ? 'row' : 'col'
           ]"
         >
-          <div class="col-5">
+          <div class="col-3">
             <q-img :src="anime.image_url" />
             <div
               v-if="anime.trailer_url"
@@ -63,13 +63,13 @@
             >
           </div>
           <div class="col-5">
-            <div v-if="anime.title_english && anime.title_english != anime.title">
-            <h2>{{ anime.title_english }}</h2>
+            <div
+              v-if="anime.title_english && anime.title_english != anime.title"
+            >
+              <h2>{{ anime.title_english }}</h2>
 
-            <h6 class="disabled">{{ anime.title }}</h6>
+              <h6 class="disabled">{{ anime.title }}</h6>
             </div>
-
-
 
             <h2 v-else>{{ anime.title }}</h2>
             <p class="text-justify">{{ anime.synopsis }}</p>
@@ -355,7 +355,8 @@ export default Vue.extend({
             // @ts-ignore
             this.player = new Plyr('#player');
           }, 1000);
-          document.title = `${this.anime.title_english || this.anime.title} | Mirai`;
+          document.title = `${this.anime.title_english ||
+            this.anime.title} | Mirai`;
           /* @ts-ignore */
           let cache = this.$q.localStorage.getItem('cache');
           /* @ts-ignore */
