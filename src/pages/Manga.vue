@@ -1,5 +1,5 @@
 <template>
-  <q-page class="items-center justify-evenly">
+  <q-page class="items-center justify-evenly" :key="this.$route.params.id">
     <div class="post">
       <div v-if="error" class="error">
         {{ error }}
@@ -33,15 +33,46 @@
 
             <h6 class="disabled">{{ manga.title_english }}</h6>
             <p class="text-justify">{{ manga.synopsis }}</p>
-            <h5>
-              <q-icon name="stars" />
-              {{ manga.score ? manga.score.toPrecision(3) : '-' }} / 10
-            </h5>
-            <h5>
-              <q-icon name="visibility" /> {{ norm(manga.members) || '0' }}
-            </h5>
-            <h5><q-icon name="star" /> {{ norm(manga.favorites) || '0' }}</h5>
-            <h5># {{ norm(manga.rank) || '-' }}</h5>
+            <q-card class="q-pa-md q-my-lg">
+              <h5>
+                <q-icon name="stars" />
+                {{ manga.score ? manga.score.toPrecision(3) : '-' }} / 10 |
+                <q-icon name="visibility" /> {{ norm(manga.members) || '0' }}
+
+                |
+                <q-icon name="star" /> {{ norm(manga.favorites) || '0' }}
+
+                | # {{ norm(manga.rank) || '-' }}
+              </h5>
+              <div v-if="$q.cookies.get('mal_auth')">
+                <q-select
+                  v-model="status"
+                  :options="options"
+                  label="Status"
+                  class="q-my-md"
+                />
+                <q-badge color="secondary">
+                  Score: {{ score == 0 ? '-' : score }}
+                </q-badge>
+                <q-slider v-model="score" label :min="0" :max="10" />
+                <q-btn
+                  label="Update"
+                  :loading="loading"
+                  @click="submit"
+                  class="q-ma-sm"
+                  :disabled="loading || disabled"
+                  color="primary"
+                />
+                <q-btn
+                  label="Remove"
+                  :loading="loading"
+                  @click="remove"
+                  class="q-ma-sm"
+                  :disabled="loading || removed"
+                  color="secondary"
+                />
+              </div>
+            </q-card>
           </div>
         </div>
       </div>
@@ -51,33 +82,135 @@
 
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import axios from 'axios';
+import qs from 'qs';
 import Vue from 'vue';
 
 export default Vue.extend({
   name: 'PageManga',
   data() {
     return {
+      removed: false,
+      map: {
+        'On Hold': 'on_hold',
+        Completed: 'completed',
+        Reading: 'reading',
+        Dropped: 'dropped',
+        'Plan to Read': 'plan_to_read'
+      },
+      disabled: true,
+      loading: false,
+      revmap: {},
+      options: ['On Hold', 'Completed', 'Reading', 'Dropped', 'Plan to Read'],
+      status: null,
+      oldstatus: null,
       player: null,
+      score: null,
+      oldscore: null,
       manga: {
         title: '',
-        mal_id: ''
+        mal_id: '',
+        image_url: '',
+        url: '',
+        trailer_url: '',
+        title_english: '',
+        synopsis: '',
+        score: 0,
+        members: 0,
+        favorites: 0,
+        rank: 0
       },
       error: ''
     };
   },
   created() {
+    ['on_hold', 'completed', 'reading', 'dropped', 'plan_to_read'].forEach(
+      (key, i) =>
+        // @ts-ignore
+        (this.revmap[key] = [
+          'On Hold',
+          'Completed',
+          'Reading',
+          'Dropped',
+          'Plan to Read'
+        ][i])
+    );
     // fetch the data when the view is created and the data is
     // already being observed
     this.fetchData();
   },
   watch: {
     // call again the method if the route changes
-    $route: 'fetchData'
+    $route: 'fetchData',
+    score() {
+      if (this.oldstatus == this.status && this.oldscore == this.score) {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    },
+    status() {
+      if (this.oldstatus == this.status && this.oldscore == this.score) {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    }
   },
   methods: {
+    remove() {
+      this.loading = true;
+      axios
+        .delete(
+          `https://mirai-api.glitch.me/manga?id=${this.$route.params.id}&code=${
+            // @ts-ignore
+            this.$q.cookies.get('mal_auth').code
+          }`
+        )
+        .then(() => {
+          this.loading = false;
+          this.removed = true;
+          this.oldstatus = null;
+          this.oldscore = null;
+          this.status = null;
+          this.score = null;
+          //
+        })
+        .catch(e => console.log(e));
+    },
+    submit() {
+      this.loading = true;
+      this.removed = false;
+      axios
+        .post(
+          `https://mirai-api.glitch.me/manga?id=${this.$route.params.id}&code=${
+            // @ts-ignore
+            this.$q.cookies.get('mal_auth').code
+          }`,
+          {
+            // @ts-ignore
+            status: this.map[this.status],
+            score: this.score
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        .then(e => {
+          this.loading = false;
+          console.log(e);
+          this.loading = false;
+        })
+        .catch(e => {
+          console.log(e);
+          this.loading = false;
+        });
+    },
     norm(x: number) {
       if (!x) return;
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -143,6 +276,36 @@ export default Vue.extend({
           if (currentManga != this.$route.params.id) return;
 
           this.$q.localStorage.set('cache', cache);
+          axios
+            .get(
+              'https://mirai-api.glitch.me/manga?' +
+                qs.stringify({
+                  // @ts-ignore
+                  code: this.$q.cookies.get('mal_auth').code,
+                  id: this.$route.params.id
+                })
+            )
+            .then(e => {
+              this.loading = false;
+              if (!e.data.my_list_status) {
+                this.removed = true;
+                this.loading = false;
+                this.oldstatus = null;
+                this.oldscore = null;
+                this.status = null;
+                this.score = null;
+                return;
+              }
+              // @ts-ignore
+              this.oldstatus = this.revmap[e.data.my_list_status.status];
+              this.oldscore = e.data.my_list_status.score;
+              // @ts-ignore
+              this.status = this.revmap[e.data.my_list_status.status];
+              this.score = e.data.my_list_status.score;
+            })
+            .catch((e: string) => {
+              this.error = e;
+            });
         })
         .catch((e: string) => {
           console.log(e);
