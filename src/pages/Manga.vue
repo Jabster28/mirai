@@ -299,7 +299,6 @@ export default Vue.extend({
         .catch((e: string) => {
           console.log(e);
           this.$q.loading.hide();
-          this.error = e;
         });
     }
   }
