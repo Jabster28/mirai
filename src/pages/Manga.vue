@@ -14,8 +14,9 @@
             $q.screen.width > 800 ? 'row' : 'col'
           ]"
         >
-          <div class="col-3">
-            <q-img :src="manga.image_url" />
+          <div class="col-2">
+            <img :src="manga.image_url" />
+            <br />
             <q-btn
               rel="noopener"
               class="q-ma-sm"
@@ -28,7 +29,7 @@
               Open in MAL</q-btn
             >
           </div>
-          <div class="col-5">
+          <div class="col-7">
             <h2>{{ manga.title }}</h2>
 
             <h6 class="disabled">{{ manga.title_english }}</h6>

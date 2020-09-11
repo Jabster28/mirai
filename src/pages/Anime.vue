@@ -14,15 +14,9 @@
             $q.screen.width > 800 ? 'row' : 'col'
           ]"
         >
-          <div class="col-3">
-            <q-img :src="anime.image_url" />
-            <div
-              v-if="anime.trailer_url"
-              id="player"
-              data-plyr-provider="youtube"
-              class="q-ma-lg"
-              :data-plyr-embed-id="anime.trailer_url"
-            ></div>
+          <div class="q-ma-xl col-2">
+            <img :src="anime.image_url" />
+            <br />
             <q-btn
               rel="noopener"
               class="q-ma-sm"
@@ -113,6 +107,14 @@
                 />
               </div>
             </q-card>
+          </div>
+          <div v-if="anime.trailer_url" class="col-3">
+            <div
+              id="player"
+              data-plyr-provider="youtube"
+              class="q-ma-lg"
+              :data-plyr-embed-id="anime.trailer_url"
+            ></div>
           </div>
           <div v-if="sugg.length > 0" class="col-10">
             <h3 disabled>More like this</h3>
