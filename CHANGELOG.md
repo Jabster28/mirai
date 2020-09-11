@@ -1,5 +1,16 @@
 # Changelog
 
+### [2.2.3](https://www.github.com/Jabster28/mirai/compare/v2.2.2...v2.2.3) (2020-09-11)
+
+
+### Bug Fixes
+
+* **/anime:** title will default to english ([3616020](https://www.github.com/Jabster28/mirai/commit/36160209d63f156d73f2cb82430fc7c5e15cefcc))
+* **/anime, /manga:** make image columns smaller ([11d3537](https://www.github.com/Jabster28/mirai/commit/11d353705fe92fc2f223df6627494862aa56af3a))
+* **deps:** update dependency @quasar/extras to v1.9.5 ([4cd8404](https://www.github.com/Jabster28/mirai/commit/4cd8404ba90e68f9a702d4e42ed515af62c91506))
+* **deps:** update dependency quasar to v1.13.2 ([ed1157d](https://www.github.com/Jabster28/mirai/commit/ed1157dc028881689429672c9134c7dbeb56d880))
+* added MAL stuff to /manga ([59c4ea4](https://www.github.com/Jabster28/mirai/commit/59c4ea4e6292a5098e6c3ba85b130fe58b67cfe2))
+
 ### [2.2.2](https://www.github.com/Jabster28/mirai/compare/v2.2.1...v2.2.2) (2020-08-23)
 
 
