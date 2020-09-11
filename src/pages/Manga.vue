@@ -88,6 +88,7 @@
 
 import axios from 'axios';
 import qs from 'qs';
+import { getCache } from '../helpers';
 import Vue from 'vue';
 
 export default Vue.extend({
@@ -224,35 +225,22 @@ export default Vue.extend({
       });
       const currentManga = this.$route.params.id;
       if (!navigator.onLine) {
-        console.log('checking for cached manga');
-        let cache = this.$q.localStorage.getItem('cache');
-        if (!cache) {
-          this.$q.localStorage.set('cache', {});
-          cache = this.$q.localStorage.getItem('cache');
-        }
-        /* @ts-ignore */
-        if (!cache.manga) cache.manga = {};
-        /* @ts-ignore */
-        if (cache.manga[this.$route.params.id]) {
-          if (currentManga != this.$route.params.id) return;
-
-          /* @ts-ignore */
-          console.log('found some');
-          /* @ts-ignore */
-
-          this.manga = cache.manga[this.$route.params.id];
-          this.$q.loading.hide();
-          return;
-        } else {
-          console.log('none found');
-          if (currentManga != this.$route.params.id) return;
-
-          this.$q.notify(
-            "This manga hasn't been cached, so we can't show you anything. Connect to the internet and try again."
-          );
-          this.$q.loading.hide();
-          return;
-        }
+        getCache(
+          'manga',
+          this.$q.localStorage,
+          currentManga,
+          () => this.$route.params.id,
+          (x: string) => {
+            this.$q.notify(x);
+          },
+          () => {
+            this.$q.loading.hide();
+          }
+        );
+        // @ts-ignore
+        this.manga = this.$q.localStorage.getItem('cache').manga[
+          this.$route.params.id
+        ];
       }
       // replace `getPost` with your data fetching util / API wrapper
       axios

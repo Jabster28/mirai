@@ -78,7 +78,12 @@
 
                 | # {{ norm(anime.rank) || '-' }}
               </h5>
-              <div v-if="$q.cookies.get('mal_auth')">
+              <div
+                v-if="
+                  $q.cookies.get('mal_auth') &&
+                    this.$parent.$parent.$parent.online
+                "
+              >
                 <q-select
                   v-model="status"
                   :options="options"
@@ -144,6 +149,7 @@
 import axios from 'axios';
 import AnimeCard from 'components/AnimeCard.vue';
 import qs from 'qs';
+import { getCache } from '../helpers';
 import Vue from 'vue';
 import * as Plyr from 'plyr';
 
@@ -317,35 +323,22 @@ export default Vue.extend({
       });
       const currentAnime = this.$route.params.id;
       if (!navigator.onLine) {
-        console.log('checking for cached anime');
-        let cache = this.$q.localStorage.getItem('cache');
-        if (!cache) {
-          this.$q.localStorage.set('cache', {});
-          cache = this.$q.localStorage.getItem('cache');
-        }
-        /* @ts-ignore */
-        if (!cache.anime) cache.anime = {};
-        /* @ts-ignore */
-        if (cache.anime[this.$route.params.id]) {
-          if (currentAnime != this.$route.params.id) return;
-
-          /* @ts-ignore */
-          console.log('found some');
-          /* @ts-ignore */
-
-          this.anime = cache.anime[this.$route.params.id];
-          this.$q.loading.hide();
-          return;
-        } else {
-          console.log('none found');
-          if (currentAnime != this.$route.params.id) return;
-
-          this.$q.notify(
-            "This anime hasn't been cached, so we can't show you anything. Connect to the internet and try again."
-          );
-          this.$q.loading.hide();
-          return;
-        }
+        getCache(
+          'anime',
+          this.$q.localStorage,
+          currentAnime,
+          () => this.$route.params.id,
+          (x: string) => {
+            this.$q.notify(x);
+          },
+          () => {
+            this.$q.loading.hide();
+          }
+        );
+        // @ts-ignore
+        this.anime = this.$q.localStorage.getItem('cache').anime[
+          this.$route.params.id
+        ];
       }
       // replace `getPost` with your data fetching util / API wrapper
       axios
