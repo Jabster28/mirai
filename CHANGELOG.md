@@ -1,5 +1,13 @@
 # Changelog
 
+### [2.2.4](https://www.github.com/Jabster28/mirai/compare/v2.2.3...v2.2.4) (2020-09-11)
+
+
+### Bug Fixes
+
+* **/anime and /manga:** rearrange images ([333a5bf](https://www.github.com/Jabster28/mirai/commit/333a5bf9e50c0ec98707b5d3234300fd4a70f0ac))
+* **/manga:** stop showing net errors ([fb51413](https://www.github.com/Jabster28/mirai/commit/fb514137cb125b2670382757463bc711b7b02a8f))
+
 ### [2.2.3](https://www.github.com/Jabster28/mirai/compare/v2.2.2...v2.2.3) (2020-09-11)
 
 
