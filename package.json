@@ -28,7 +28,7 @@
     "@quasar/icongenie": "2.3.1",
     "@quasar/quasar-app-extension-qmarkdown": "1.0.31",
     "@types/fs-extra": "9.0.1",
-    "@types/node": "12.12.54",
+    "@types/node": "12.12.62",
     "@types/yargs": "15.0.5",
     "@typescript-eslint/eslint-plugin": "3.9.0",
     "@typescript-eslint/parser": "3.9.0",
