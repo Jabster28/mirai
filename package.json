@@ -29,7 +29,7 @@
     "@quasar/quasar-app-extension-qmarkdown": "1.0.31",
     "@types/fs-extra": "9.0.4",
     "@types/node": "12.12.62",
-    "@types/yargs": "15.0.5",
+    "@types/yargs": "15.0.10",
     "@typescript-eslint/eslint-plugin": "4.2.0",
     "@typescript-eslint/parser": "4.2.0",
     "@vue/composition-api": "0.6.7",
