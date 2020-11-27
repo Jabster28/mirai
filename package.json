@@ -26,7 +26,7 @@
   "devDependencies": {
     "@quasar/app": "2.1.8",
     "@quasar/icongenie": "2.3.3",
-    "@quasar/quasar-app-extension-qmarkdown": "1.0.31",
+    "@quasar/quasar-app-extension-qmarkdown": "1.2.1",
     "@types/fs-extra": "9.0.4",
     "@types/node": "12.12.62",
     "@types/yargs": "15.0.5",
