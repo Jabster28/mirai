@@ -1,5 +1,17 @@
 # Changelog
 
+### [2.2.5](https://www.github.com/Jabster28/mirai/compare/v2.2.4...v2.2.5) (2020-11-28)
+
+
+### Bug Fixes
+
+* **deps:** update capacitor monorepo to v2.4.1 ([#91](https://www.github.com/Jabster28/mirai/issues/91)) ([e45e7f1](https://www.github.com/Jabster28/mirai/commit/e45e7f150f77266d6073dcdb73dfd25f564d9d4b))
+* **deps:** update capacitor monorepo to v2.4.2 ([#101](https://www.github.com/Jabster28/mirai/issues/101)) ([2f207d7](https://www.github.com/Jabster28/mirai/commit/2f207d73269ee17eedca08bcc6f5b3ca0f9f7b18))
+* **deps:** update dependency @quasar/extras to v1.9.6 ([#103](https://www.github.com/Jabster28/mirai/issues/103)) ([f984e76](https://www.github.com/Jabster28/mirai/commit/f984e76441627e5440b037d5b9d70db57be44a42))
+* **deps:** update dependency quasar to v1.14.0 ([#96](https://www.github.com/Jabster28/mirai/issues/96)) ([05fe7a0](https://www.github.com/Jabster28/mirai/commit/05fe7a0cbabfbece80ebf6e65da2baee8e7710fc))
+* **deps:** update dependency vue-i18n to v8.21.1 ([#93](https://www.github.com/Jabster28/mirai/issues/93)) ([31f3439](https://www.github.com/Jabster28/mirai/commit/31f3439ddeb8c49ee652db80eaba551d7869ab7d))
+* **deps:** update dependency vue-i18n to v8.22.1 ([#114](https://www.github.com/Jabster28/mirai/issues/114)) ([1f737de](https://www.github.com/Jabster28/mirai/commit/1f737dec15148830a38d6927cabe8a9aca1f783e))
+
 ### [2.2.4](https://www.github.com/Jabster28/mirai/compare/v2.2.3...v2.2.4) (2020-09-11)
 
 
