@@ -1480,10 +1480,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@quasar/app@2.1.9":
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-2.1.9.tgz#b93f70b559f95608c9bff5e1ca6f787edaf7a1bd"
-  integrity sha512-KhO78w0BBRVGkH5OQhr6IuP9pg26c8DeI/E26TMekjD9DVHgWV8jtxIC6kBseo0NiC6noYHf632aNjXklruwnQ==
+"@quasar/app@2.1.10":
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-2.1.10.tgz#cce375eae4bf9c73da9216dad5d4fe956fc7ebf7"
+  integrity sha512-GfHR05/BGhfarG+Q4qgZp7c1eaGLU9FiuZ2F/rw7Je6Fo+edI/dPd+bvknW9jokQ2Pk3NLBnA9foPPLPRh7wxg==
   dependencies:
     "@quasar/babel-preset-app" "2.0.1"
     "@quasar/fastclick" "1.1.4"
@@ -1511,7 +1511,6 @@
     express "4.17.1"
     fast-glob "3.2.4"
     file-loader "6.2.0"
-    flat "^5.0.2"
     fork-ts-checker-webpack-plugin "4.1.6"
     friendly-errors-webpack-plugin "1.7.0"
     fs-extra "9.0.1"
@@ -6278,11 +6277,6 @@ flat-cache@^3.0.4:
   dependencies:
     flatted "^3.1.0"
     rimraf "^3.0.2"
-
-flat@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/flat/-/flat-5.0.2.tgz#8ca6fe332069ffa9d324c327198c598259ceb241"
-  integrity sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==
 
 flatted@^3.1.0:
   version "3.1.0"
