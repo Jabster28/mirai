@@ -1623,22 +1623,22 @@
     untildify "^4.0.0"
     update-notifier "^4.1.0"
 
-"@quasar/quasar-app-extension-qmarkdown@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qmarkdown/-/quasar-app-extension-qmarkdown-1.2.1.tgz#44c5fa0c46c0ffc41561ccbb11a63f150976a0c9"
-  integrity sha512-7L5zkU4ku0hjhWeGB2JjJNZ6zgqWWWU/0/WeB+WQBZEHmajeGESKbOX7zNMlLdS01dHEEp7hGVvVrGjjfGqJZg==
+"@quasar/quasar-app-extension-qmarkdown@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qmarkdown/-/quasar-app-extension-qmarkdown-1.3.0.tgz#cc736f34d4548544e712ff7aabea8c6fc2a80c56"
+  integrity sha512-oj2GTpX1ugngfjtHTCVkUp9idmCMuXoHpdLx8gbzXQFgU74jc/yInc9WKAhS5/STLylwtv23VvSYSt+eZCpAzQ==
   dependencies:
-    "@quasar/quasar-ui-qmarkdown" "^1.2.1"
+    "@quasar/quasar-ui-qmarkdown" "^1.3.0"
     front-matter "^4.0.2"
     raw-loader "^4.0.2"
     ware-loader "^0.2.4"
 
-"@quasar/quasar-ui-qmarkdown@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@quasar/quasar-ui-qmarkdown/-/quasar-ui-qmarkdown-1.2.1.tgz#8d178cdc1db3db42e429209eda0bf3d80b1dcb97"
-  integrity sha512-kf8EXy7oKEKM+rCnbvwuawHspHSF+wLtENuq98qZpJyXxdfgPIQcnDSeKDGvNF6cCi3eaEwyZ5dq+AXfT1nFZQ==
+"@quasar/quasar-ui-qmarkdown@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-ui-qmarkdown/-/quasar-ui-qmarkdown-1.3.0.tgz#94e3f464ea82b0239e44e65a5e71ad334ef8e64d"
+  integrity sha512-/kdHlZQYmo+bHsybtBogiAqIke9JCpoekv8AlmliKxME1kX92PuPcBX8jZv1rIMGJa8DyVly2f2YYSVx9sB0ag==
   dependencies:
-    markdown-it "^12.0.2"
+    markdown-it "^12.0.3"
     markdown-it-abbr "^1.0.4"
     markdown-it-container "^3.0.0"
     markdown-it-deflist "^2.1.0"
@@ -5310,10 +5310,15 @@ entities@^1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
 
-entities@^2.0.0, entities@~2.0.0:
+entities@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.3.tgz#5c487e5742ab93c15abb5da22759b8590ec03b7f"
   integrity sha512-MyoZ0jgnLvB2X3Lg5HqpFmn1kybDiIfEQmKzTb5apr51Rb+T3KdmMiqa70T+bhGnyv7bQ6WMj2QMHpGMmlrUYQ==
+
+entities@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/entities/-/entities-2.1.0.tgz#992d3129cf7df6870b96c57858c249a120f8b8b5"
+  integrity sha512-hCx1oky9PFrJ611mf0ifBLBRW8lUUVRlFolb5gWRfIELabBlbp9xZvrqZLZAs+NxFnbfQoeGd8wDkygjg7U85w==
 
 env-paths@^2.2.0:
   version "2.2.0"
@@ -8824,13 +8829,13 @@ markdown-it-toc-and-anchor@^4.2.0:
     clone "^2.1.0"
     uslug "^1.0.4"
 
-markdown-it@^12.0.2:
-  version "12.0.2"
-  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-12.0.2.tgz#4401beae8df8aa2221fc6565a7188e60a06ef0ed"
-  integrity sha512-4Lkvjbv2kK+moL9TbeV+6/NHx+1Q+R/NIdUlFlkqkkzUcTod4uiyTJRiBidKR9qXSdkNFkgv+AELY8KN9vSgVA==
+markdown-it@^12.0.3:
+  version "12.0.3"
+  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-12.0.3.tgz#8d1e47daf1d716d63610495eb93f6665573e4abe"
+  integrity sha512-M57RsMv+QQmJHz1yCu0gTJRMx/LlxRPtrrw+2kb/CpDVK/graCmWO0qfNnz/SE1FCNdyq3pkMMZ+itTnyT/YGA==
   dependencies:
     argparse "^2.0.1"
-    entities "~2.0.0"
+    entities "~2.1.0"
     linkify-it "^3.0.1"
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
