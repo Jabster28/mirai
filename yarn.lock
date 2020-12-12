@@ -1623,20 +1623,20 @@
     untildify "^4.0.0"
     update-notifier "^4.1.0"
 
-"@quasar/quasar-app-extension-qmarkdown@1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qmarkdown/-/quasar-app-extension-qmarkdown-1.3.1.tgz#dbf58f48805220db0af20ff416ee1a2d62d57e95"
-  integrity sha512-sLjHcUjm+mZsvSMEwncmH/QY9cNr4vj68ts4eyPkFngv+w5uO1+Q50IC1Xg91aoBxE78zXolww3Rp6dd3RX4vw==
+"@quasar/quasar-app-extension-qmarkdown@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-app-extension-qmarkdown/-/quasar-app-extension-qmarkdown-1.4.0.tgz#8328bafdf9751d1abe19c993430d95feac8097d3"
+  integrity sha512-lLEy3vQkbpuhqoxhcfnuPST7loXYA+prelTyOFWAwrCreJmGvUc3Yo+MJWLWMvJvw5tjRrYRZuuDmGqSbsUQ5g==
   dependencies:
-    "@quasar/quasar-ui-qmarkdown" "^1.3.1"
+    "@quasar/quasar-ui-qmarkdown" "^1.4.0"
     front-matter "^4.0.2"
     raw-loader "^4.0.2"
     ware-loader "^0.2.4"
 
-"@quasar/quasar-ui-qmarkdown@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@quasar/quasar-ui-qmarkdown/-/quasar-ui-qmarkdown-1.3.1.tgz#fa6d83acb41e162d4d1899a1b68c6e7333b4536e"
-  integrity sha512-OZiBYN4df300sBvaiJkyH0mJXZW2EKvF7LXaKxnpunHv4Bz7aKc4CCnKeXljj5V4xiSNkwp7IXHgpARXTyXBOQ==
+"@quasar/quasar-ui-qmarkdown@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@quasar/quasar-ui-qmarkdown/-/quasar-ui-qmarkdown-1.4.0.tgz#a446f78400089489abf0738325a380ce02b40c59"
+  integrity sha512-RAC0fEKuyLJowN5HFcJCnw+WGwJMP51hO65NRhcmcNmairrjPLrE5m28jC8bsKPaC/x8Osp0B2an88x69IjAmw==
   dependencies:
     markdown-it "^12.0.3"
     markdown-it-abbr "^1.0.4"
