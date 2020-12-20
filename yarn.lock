@@ -1480,10 +1480,10 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@quasar/app@2.1.12":
-  version "2.1.12"
-  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-2.1.12.tgz#28bc315379c060e9ce30f59cdbd5b272013717ae"
-  integrity sha512-4Sn9EqW3iaDnamZf+g7F+kuVAaAt2Qw550zBvR/o31cdtU1gssj/b8ulZvo/ukIrLs1lloJhjJs0lN6lwXZhRA==
+"@quasar/app@2.1.13":
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-2.1.13.tgz#63ac26685725472e5619d4a2b340acee61d87d2e"
+  integrity sha512-L+j0ePAIhxWxRnUN48W/pQVRUzq0cPX8DbXpeIUh+F29oCAnq4Zk+bwefiT1HFQ253kpjW26x7fwLeuL8YqvdA==
   dependencies:
     "@quasar/babel-preset-app" "2.0.1"
     "@quasar/fastclick" "1.1.4"
