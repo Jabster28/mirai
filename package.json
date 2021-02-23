@@ -44,7 +44,7 @@
     "eslint-loader": "4.0.2",
     "eslint-plugin-vue": "6.2.2",
     "firebase-tools": "8.20.0",
-    "typescript": "4.1.5",
+    "typescript": "4.2.2",
     "workbox-webpack-plugin": "5.1.4"
   },
   "browserslist": [
