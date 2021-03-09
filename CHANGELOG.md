@@ -1,5 +1,21 @@
 # Changelog
 
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [2.2.6](https://github.com/Jabster28/mirai/compare/v2.2.5...v2.2.6) (2021-03-09)
+
+
+### Bug Fixes
+
+* **deps:** update capacitor monorepo to v2.4.7 ([#182](https://github.com/Jabster28/mirai/issues/182)) ([96a5838](https://github.com/Jabster28/mirai/commit/96a5838144519eafcff92fd3fb6b596b8b78f312))
+* **deps:** update dependency @quasar/extras to v1.9.19 ([#109](https://github.com/Jabster28/mirai/issues/109)) ([787a037](https://github.com/Jabster28/mirai/commit/787a037d880a0803e135d170e4f5639ad391136d))
+* **deps:** update dependency axios to v0.21.1 [security] ([#157](https://github.com/Jabster28/mirai/issues/157)) ([abdd907](https://github.com/Jabster28/mirai/commit/abdd9074932ef2a8128790bbd30e208e4b05ac99))
+* **deps:** update dependency core-js to v3.9.1 ([#183](https://github.com/Jabster28/mirai/issues/183)) ([bdcdbc0](https://github.com/Jabster28/mirai/commit/bdcdbc04b0735ff735e2a4742090c610adc09a9c))
+* **deps:** update dependency plyr to v3.6.4 ([#184](https://github.com/Jabster28/mirai/issues/184)) ([1cdae29](https://github.com/Jabster28/mirai/commit/1cdae29a4d496cf1a7f7564a83f5175dfb584861))
+* **deps:** update dependency qs to v6.9.6 ([#185](https://github.com/Jabster28/mirai/issues/185)) ([8a7c905](https://github.com/Jabster28/mirai/commit/8a7c90583ae7c04af5689a6065bb0d1f7ef3c279))
+* **deps:** update dependency quasar to v1.15.5 ([#112](https://github.com/Jabster28/mirai/issues/112)) ([4a71c4b](https://github.com/Jabster28/mirai/commit/4a71c4bebd9140c9aa2b8b211689b7f4bac16a8a))
+* **deps:** update dependency vue-i18n to v8.24.0 ([#186](https://github.com/Jabster28/mirai/issues/186)) ([58174bc](https://github.com/Jabster28/mirai/commit/58174bca75ce5b1e67409c8a0ff9dcdb296bce07))
+
 ### [2.2.5](https://www.github.com/Jabster28/mirai/compare/v2.2.4...v2.2.5) (2020-11-28)
 
 
