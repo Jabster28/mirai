@@ -20,7 +20,7 @@
     "core-js": "3.10.0",
     "plyr": "3.6.4",
     "qs": "6.10.1",
-    "quasar": "1.15.9",
+    "quasar": "1.15.10",
     "vue-i18n": "8.24.2"
   },
   "devDependencies": {
