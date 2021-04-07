@@ -18,29 +18,34 @@
             $q.screen.width > 800 ? 'row' : 'col'
           ]"
         >
-          <div class="col-4">
-            <q-img v-if="user.image_url" :src="user.image_url" />
-            <q-btn
-              class="q-ma-sm"
-              color="primary"
-              clickable
-              type="a"
-              target="_blank"
-              :href="user.url"
-            >
-              Open in MAL</q-btn
-            >
-            <q-btn
-              v-if="isUser()"
-              class="q-ma-sm"
-              color="secondary"
-              clickable
-              tag="a"
+          <q-card flat class="col-3 q-ma-md">
+            <q-card-section>
+              <q-img v-if="user.image_url" :src="user.image_url" />
+              <q-card-actions class="justify-around">
+                <q-btn
+                  class="q-ma-sm"
+                  color="primary"
+                  clickable
+                  round
+                  style="background: #2e51a2"
+                  icon="img:mal.png"
+                  type="a"
+                  target="_blank"
+                  :href="user.url"
+                />
+                <q-btn
+                  v-if="isUser()"
+                  class="q-ma-sm"
+                  color="secondary"
+                  clickable
+                  tag="a"
               to="/setusr/me"
             >
               Not you?</q-btn
             >
-          </div>
+              </q-card-actions>
+            </q-card-section>
+          </q-card>
           <div class="col-4">
             <h2>{{ user.username }}</h2>
 
