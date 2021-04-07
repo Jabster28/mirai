@@ -62,6 +62,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import Vue from 'vue';
 import AnimeCard from 'components/AnimeCard.vue';
 import axios from 'axios';
