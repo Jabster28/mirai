@@ -27,7 +27,7 @@
     </div>
 
     <q-space />
-    <div class="row items-center justify-evenly">
+    <div class="row items-center">
       <AnimeCard v-for="anime in results" :key="anime.mal_id" :anime="anime" />
     </div>
   </q-page>
