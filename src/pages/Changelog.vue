@@ -1,6 +1,6 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <q-markdown :src="md" class="col-10"></q-markdown>
+    <q-markdown :src="md" class="col-7"></q-markdown>
   </q-page>
 </template>
 
