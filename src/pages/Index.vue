@@ -1,11 +1,7 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <div class="col-5 q-my-lg">
-      <h1>mirai</h1>
-      <p disabled>the best MAL client out there.</p>
-    </div>
     <div v-if="top" class="col-10">
-      <h2>Top 10 anime for {{ top.season_name }}, {{ top.season_year }}</h2>
+      <h4>Top 10 anime for {{ top.season_name }}, {{ top.season_year }}</h4>
       <q-scroll-area
         :visible="false"
         horizontal
@@ -24,7 +20,7 @@
       </q-scroll-area>
     </div>
     <div v-if="suggestions.length" class="col-10">
-      <h2>Recommeneded anime:</h2>
+      <h4>Recommeneded anime:</h4>
       <q-scroll-area
         horizontal
         :visible="false"
