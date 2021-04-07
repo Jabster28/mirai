@@ -6,7 +6,7 @@
   >
     <q-card
       :class="[
-        'q-ma-md',
+        'q-mx-md',
         $q.screen.width > 400 && !(home || suggestions) ? 'col-2' : 'col-10'
       ]"
       v-ripple
