@@ -15,7 +15,7 @@ export default Vue.extend({
     this.$q.loading.show({
       delay: 400
     });
-    if (this.$q.cookies.get('mal_auth')) {
+    if (this.$q.cookies.get('mal_auth') && !this.$route.query.f) {
       this.$router.replace('/me').catch(e => console.log(e));
     } else {
       window.location.replace(

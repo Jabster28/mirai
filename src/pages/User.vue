@@ -39,10 +39,10 @@
                   color="secondary"
                   clickable
                   tag="a"
-              to="/setusr/me"
-            >
-              Not you?</q-btn
-            >
+                  to="/login?f=y"
+                >
+                  Not you?</q-btn
+                >
               </q-card-actions>
             </q-card-section>
           </q-card>
