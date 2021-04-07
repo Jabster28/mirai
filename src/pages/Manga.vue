@@ -14,20 +14,25 @@
             $q.screen.width > 800 ? 'row' : 'col'
           ]"
         >
-          <div class="col-2">
-            <img :src="manga.image_url" />
-            <br />
-            <q-btn
-              rel="noopener"
-              class="q-ma-sm"
-              color="primary"
-              clickable
-              type="a"
-              target="_blank"
-              :href="manga.url"
-            >
-              Open in MAL</q-btn
-            >
+          <div class="col q-ma-xl">
+            <q-card>
+              <q-card-section horizontal>
+                <q-img :src="manga.image_url" />
+                <q-card-actions>
+                  <q-btn
+                    rel="noopener"
+                    class="q-ma-sm"
+                    style="background: #2e51a2"
+                    clickable
+                    round
+                    type="a"
+                    icon="img:mal.png"
+                    target="_blank"
+                    :href="manga.url"
+                  />
+                </q-card-actions>
+              </q-card-section>
+            </q-card>
           </div>
           <div class="col-7">
             <h2>{{ manga.title }}</h2>

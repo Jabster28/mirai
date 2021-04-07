@@ -14,49 +14,64 @@
             $q.screen.width > 800 ? 'row' : 'col'
           ]"
         >
-          <div class="q-ma-xl col-2">
-            <img :src="anime.image_url" />
-            <br />
-            <q-btn
-              rel="noopener"
-              class="q-ma-sm"
-              color="deep-orange"
-              clickable
-              @click="checkNotif"
-              type="a"
-              target="_blank"
-              :href="
-                `https://www25.gogoanimes.tv//search.html?keyword=${encodeURIComponent(
-                  anime.title
-                )}`
-              "
-            >
-              Watch on gogo</q-btn
-            >
-            <q-btn
-              rel="noopener"
-              class="q-ma-sm"
-              color="primary"
-              clickable
-              type="a"
-              target="_blank"
-              :href="anime.url"
-            >
-              Open in MAL</q-btn
-            >
-            <q-btn
-              v-if="anime.trailer_url"
-              rel="noopener"
-              class="q-ma-sm"
-              color="accent"
-              target="_blank"
-              clickable
-              type="a"
-              :href="anime.trailer_url"
-              >Trailer</q-btn
-            >
+          <div class="q-ma-xl col">
+            <div class="q-ma-xl">
+              <div
+                id="player"
+                data-plyr-provider="youtube"
+                class="q-ma-lg"
+                :data-plyr-embed-id="anime.trailer_url"
+              ></div>
+            </div>
+            <q-card>
+              <q-card-section horizontal>
+                <q-img :src="anime.image_url" />
+                <q-card-actions vertical class="justify-around">
+                  <q-btn
+                    rel="noopener"
+                    class="q-ma-sm"
+                    color="deep-orange"
+                    clickable
+                    @click="checkNotif"
+                    type="a"
+                    round
+                    target="_blank"
+                    icon="play_arrow"
+                    :href="
+                      `https://www25.gogoanimes.tv/search.html?keyword=${encodeURIComponent(
+                        anime.title
+                      )}`
+                    "
+                  />
+                  <q-btn
+                    rel="noopener"
+                    class="q-ma-sm"
+                    style="background: #2e51a2"
+                    clickable
+                    round
+                    icon="img:mal.png"
+                    type="a"
+                    target="_blank"
+                    :href="anime.url"
+                  />
+                  <q-btn
+                    v-if="anime.trailer_url"
+                    rel="noopener"
+                    class="q-ma-sm"
+                    round
+                    color="red"
+                    target="_blank"
+                    clickable
+                    type="a"
+                    icon="theaters"
+                    :href="anime.trailer_url"
+                  />
+                </q-card-actions>
+              </q-card-section>
+            </q-card>
+            <div class="col-1 justify-around items-center"></div>
           </div>
-          <div class="col-5">
+          <div class="col-7 q-mx-lg">
             <div
               v-if="anime.title_english && anime.title_english != anime.title"
             >
