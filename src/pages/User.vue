@@ -248,6 +248,7 @@ export default Vue.extend({
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
     isUser() {
+      // @ts-ignore
       return this.$q.cookies.get('mal_auth').name == this.$route.params.id;
     },
     fetchData() {

@@ -93,6 +93,7 @@ export default Vue.extend({
       axios
         .get(
           `https://api.jikan.moe/v3/user/${
+            // @ts-ignore
             this.$q.cookies.get('mal_auth').name
           }/animelist/OnHold`
         )
