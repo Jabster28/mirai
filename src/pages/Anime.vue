@@ -15,11 +15,10 @@
           ]"
         >
           <div class="q-ma-xl col">
-            <div class="q-ma-xl">
+            <div v-if="anime.trailer_url" class="q-my-xl">
               <div
                 id="player"
                 data-plyr-provider="youtube"
-                class="q-ma-lg"
                 :data-plyr-embed-id="anime.trailer_url"
               ></div>
             </div>
@@ -84,14 +83,24 @@
             <p class="text-justify">{{ anime.synopsis }}</p>
             <q-card class="q-pa-md q-my-lg">
               <h5>
-                <q-icon name="stars" />
-                {{ anime.score ? anime.score.toPrecision(3) : '-' }} / 10 |
-                <q-icon name="visibility" /> {{ norm(anime.members) || '0' }}
+                <div class="float-left q-mx-sm">
+                  <q-icon name="stars" />&nbsp;{{
+                    anime.score ? anime.score.toPrecision(3) : '-'
+                  }}
+                  / 10
+                </div>
 
-                |
-                <q-icon name="star" /> {{ norm(anime.favorites) || '0' }}
-
-                | # {{ anime.rank ? ordinal_suffix_of(anime.rank) : '-' }}
+                <div class="float-left q-mx-sm">
+                  <q-icon name="visibility" />&nbsp;{{
+                    norm(anime.members) || '0'
+                  }}
+                </div>
+                <div class="float-left q-mx-sm">
+                  <q-icon name="star" />&nbsp;{{ norm(anime.favorites) || '0' }}
+                </div>
+                <div class="q-mx-sm">
+                  #&nbsp;{{ anime.rank ? ordinal_suffix_of(anime.rank) : '-' }}
+                </div>
               </h5>
               <div
                 v-if="
@@ -136,12 +145,13 @@
               :data-plyr-embed-id="anime.trailer_url"
             ></div>
           </div> -->
-          <div v-if="sugg.length > 0" class="col-10 q-my-md">
-            <h3 disabled>More like this</h3>
+          <br />
+          <div v-if="sugg.length > 0" class="row col-12 q-my-md">
+            <h3 disabled class="col-10 q-mx-xl">More like this</h3>
             <q-scroll-area
               horizontal
               :visible="false"
-              class="q-px-md"
+              class="q-px-md col-12"
               style="height: 400px;"
             >
               <div class="row no-wrap">
