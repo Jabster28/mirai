@@ -66,7 +66,18 @@
               title="Anime List"
               :pagination="initialPagination"
               :dense="$q.screen.lt.md"
-              :data="animelist"
+              :data="
+                animelist.filter(e =>
+                  filter == 'All'
+                    ? e
+                    : watchMap[e.watching_status]
+                        .split(' ')
+                        .join('')
+                        .toLowerCase() == filter.toLowerCase()
+                    ? e
+                    : undefined
+                )
+              "
               @row-click="go"
               :loading="tableLoading"
               :columns="columns"
@@ -156,14 +167,6 @@ export default Vue.extend({
     // already being observed
     this.fetchData();
   },
-  watch: {
-    // call again the method if the route changes
-    $route: 'fetchData',
-    filter() {
-      this.tableLoading = true;
-      this.again();
-    }
-  },
   methods: {
     // @ts-ignore
     go(a, b) {
@@ -245,7 +248,7 @@ export default Vue.extend({
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
     isUser() {
-      return this.$q.localStorage.getItem('username') == this.$route.params.id;
+      return this.$q.cookies.get('mal_auth').name == this.$route.params.id;
     },
     fetchData() {
       this.error = '';
