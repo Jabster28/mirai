@@ -91,7 +91,7 @@
                 |
                 <q-icon name="star" /> {{ norm(anime.favorites) || '0' }}
 
-                | # {{ norm(anime.rank) || '-' }}
+                | # {{ anime.rank ? ordinal_suffix_of(anime.rank) : '-' }}
               </h5>
               <div
                 v-if="
@@ -128,15 +128,15 @@
               </div>
             </q-card>
           </div>
-          <div v-if="anime.trailer_url" class="col-3">
+          <!-- <div v-if="anime.trailer_url" class="col q-my-xl">
             <div
               id="player"
               data-plyr-provider="youtube"
               class="q-ma-lg"
               :data-plyr-embed-id="anime.trailer_url"
             ></div>
-          </div>
-          <div v-if="sugg.length > 0" class="col-10">
+          </div> -->
+          <div v-if="sugg.length > 0" class="col-10 q-my-md">
             <h3 disabled>More like this</h3>
             <q-scroll-area
               horizontal
@@ -253,6 +253,20 @@ export default Vue.extend({
     }
   },
   methods: {
+    ordinal_suffix_of(i: number) {
+      var j = i % 10,
+        k = i % 100;
+      if (j == 1 && k != 11) {
+        return `${i}st`;
+      }
+      if (j == 2 && k != 12) {
+        return `${i}nd`;
+      }
+      if (j == 3 && k != 13) {
+        return `${i}rd`;
+      }
+      return `${i}th`;
+    },
     remove() {
       this.loading = true;
 
