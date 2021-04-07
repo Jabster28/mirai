@@ -6,7 +6,12 @@
     </div>
     <div v-if="top" class="col-10">
       <h2>Top 10 anime for {{ top.season_name }}, {{ top.season_year }}</h2>
-      <q-scroll-area horizontal class="q-ma-md" style="height: 400px;">
+      <q-scroll-area
+        :visible="false"
+        horizontal
+        class="q-ma-md"
+        style="height: 400px;"
+      >
         <div class="row no-wrap">
           <AnimeCard
             :trunc="30"
@@ -20,7 +25,12 @@
     </div>
     <div v-if="suggestions.length" class="col-10">
       <h2>Recommeneded anime:</h2>
-      <q-scroll-area horizontal class="q-ma-md" style="height: 400px;">
+      <q-scroll-area
+        horizontal
+        :visible="false"
+        class="q-ma-md"
+        style="height: 400px;"
+      >
         <div class="row no-wrap">
           <AnimeCard
             :trunc="30"

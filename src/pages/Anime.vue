@@ -138,7 +138,12 @@
           </div>
           <div v-if="sugg.length > 0" class="col-10">
             <h3 disabled>More like this</h3>
-            <q-scroll-area horizontal class="q-ma-md" style="height: 400px;">
+            <q-scroll-area
+              horizontal
+              :visible="false"
+              class="q-px-md"
+              style="height: 400px;"
+            >
               <div class="row no-wrap">
                 <AnimeCard
                   :trunc="30"
