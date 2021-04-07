@@ -206,7 +206,7 @@ export default {
           title: 'GitHub repo',
           caption: 'Source code for this application',
           icon: 'code',
-          link: 'https://github.com/Jabster28/mirai#incident-log'
+          link: 'https://github.com/Jabster28/mirai'
         }
       ]
     };
@@ -264,7 +264,7 @@ export default {
         message: [
           // some normal ones i thought of
           'Loading...',
-          'Spinning up the hamster...',
+          'Spinning up the hamster wheel...',
           'Engaging the flux capacitor...',
           'The other load screen is quicker. Try that one next time.',
           'The elves are running slowly today...',
