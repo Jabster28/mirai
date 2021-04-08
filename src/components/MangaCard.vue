@@ -5,11 +5,12 @@
     leave-active-class="animated fadeOut"
   >
     <q-card
-      :class="['q-ma-md', $q.screen.width > 400 ? 'col-2' : 'col-10']"
+      :class="[`q-m${search ? 'a' : 'x'}-md`]"
+      style="width: 280px"
       v-ripple
       @click="goto('/manga/' + manga.mal_id)"
     >
-      <q-img :src="manga.image_url">
+      <q-img :src="manga.image_url" style="height: 400px">
         <div class="absolute-bottom">
           <div class="text-h6">{{ manga.title }}</div>
           <div class="text-subtitle2">
@@ -29,13 +30,17 @@ export default {
   props: {
     manga: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
+    search: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     goto(e) {
       this.$router.push(e);
-    }
-  }
+    },
+  },
 };
 </script>

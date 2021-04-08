@@ -1,7 +1,5 @@
 <template>
-  <div id="q-app">
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
 <script lang="ts">
@@ -24,6 +22,6 @@ export default {
     /* @ts-ignore */
     this.$q.dark.set(theme);
   },
-  name: 'App'
+  name: 'App',
 };
 </script>

@@ -1,8 +1,9 @@
+import { LocalStorage } from 'quasar';
 export const getCache = (
   name: string,
-  local: any,
-  checka: any,
-  checkb: () => any,
+  local: LocalStorage,
+  checka: unknown,
+  checkb: () => unknown,
   notify: (arg0: string) => void,
   finish: () => void,
   cache = 'cache'
@@ -34,4 +35,24 @@ export const getCache = (
     finish();
     return;
   }
+};
+export type Anime = {
+  title: string;
+  mal_id: string;
+  image_url: string;
+  url: string;
+  trailer_url: string;
+  title_english: string;
+  synopsis: string;
+  score: number;
+  members: number;
+  favorites: number;
+  rank: number;
+  watching_status: number;
+};
+export type User = {
+  url: string;
+  username: string;
+  image_url?: string;
+  anime_stats: { episodes_watched: number; days_watched: number };
 };

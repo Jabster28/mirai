@@ -34,9 +34,7 @@
           aria-label="Forward"
           @click="$router.go(1)"
         />
-        <q-toolbar-title>
-          Mirai
-        </q-toolbar-title>
+        <q-toolbar-title> Mirai </q-toolbar-title>
 
         <div>{{ online ? 'ONLINE' : 'OFFLINE, cached results shown.' }}</div>
         <q-btn
@@ -56,41 +54,31 @@
           $q.platform.is.electron && $q.platform.is.mac && !fs ? 'q-pt-md' : ''
         "
       >
-        <q-item-label header class="text-grey-8">
-          Main
-        </q-item-label>
+        <q-item-label header class="text-grey-8"> Main </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8">
-          Anime
-        </q-item-label>
+        <q-item-label header class="text-grey-8"> Anime </q-item-label>
         <EssentialLink
           v-for="link in animeLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8">
-          Manga
-        </q-item-label>
+        <q-item-label header class="text-grey-8"> Manga </q-item-label>
         <EssentialLink
           v-for="link in mangaLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8">
-          Users
-        </q-item-label>
+        <q-item-label header class="text-grey-8"> Users </q-item-label>
         <EssentialLink
           v-for="link in userLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8">
-          External Links
-        </q-item-label>
+        <q-item-label header class="text-grey-8"> External Links </q-item-label>
         <EssentialLink
           v-for="link in links"
           :key="link.title"
@@ -122,7 +110,7 @@ import EssentialLink from 'components/EssentialLink.vue';
 export default {
   name: 'MainLayout',
   components: {
-    EssentialLink
+    EssentialLink,
   },
 
   data() {
@@ -137,78 +125,78 @@ export default {
           title: 'Home',
           caption: 'Home',
           icon: 'home',
-          link: '/'
+          link: '/',
         },
         {
           title: 'FAQ',
           caption: 'Frequently asked questions',
           icon: 'help',
-          link: '/faq'
+          link: '/faq',
         },
-        {
-          title: 'Changelog',
-          caption: 'Look at new features and bugfixes',
-          icon: 'assignment',
-          link: '/changelog'
-        },
-        {
-          title: 'Incidents',
-          caption: 'List of problems/downtimes Mirai has had.',
-          icon: 'warning',
-          link: '/incidents'
-        }
       ],
       animeLinks: [
         {
           title: 'Search',
           caption: 'Search for an anime',
           icon: 'search',
-          link: '/search'
-        }
+          link: '/search',
+        },
       ],
       mangaLinks: [
         {
           title: 'Search Manga',
           caption: 'Search for a manga',
           icon: 'search',
-          link: '/searchmanga'
-        }
+          link: '/searchmanga',
+        },
       ],
       userLinks: [
         {
           title: 'Me',
           caption: 'Open your MAL page',
           icon: 'person',
-          link: '/me'
+          link: '/me',
         },
         {
           title: 'Search Users',
           caption: 'Look at other profiles on MAL',
           icon: 'person_search',
-          link: '/searchusr'
+          link: '/searchusr',
         },
         this.$q.cookies.get('mal_auth')
           ? {
               title: 'Log out',
               caption: 'Sign out of your MAL account.',
               icon: 'power_settings_new', // material doesn't have a proper logout icon for some reason
-              link: '/logout'
+              link: '/logout',
             }
           : {
               title: 'Login',
               caption: 'Sign in with your MAL account',
               icon: 'login',
-              link: '/login'
-            }
+              link: '/login',
+            },
       ],
       links: [
         {
           title: 'GitHub repo',
           caption: 'Source code for this application',
           icon: 'code',
-          link: 'https://github.com/Jabster28/mirai'
-        }
-      ]
+          link: 'https://github.com/Jabster28/mirai',
+        },
+        {
+          title: 'Changelog',
+          caption: 'Look at new features and bugfixes',
+          icon: 'assignment',
+          link: 'https://github.com/Jabster28/mirai/blob/master/CHANGELOG.md',
+        },
+        {
+          title: 'Incidents',
+          caption: 'List of problems/downtimes Mirai has had.',
+          icon: 'warning',
+          link: 'https://github.com/Jabster28/mirai/blob/master/INCIDENTS.md',
+        },
+      ],
     };
   },
   mounted() {
@@ -226,9 +214,9 @@ export default {
             color: 'white',
             handler: () => {
               this.$router.push('/incidents');
-            }
-          }
-        ]
+            },
+          },
+        ],
       });
     };
     // i'll comment this line when things are working as intended
@@ -246,9 +234,9 @@ export default {
           {
             label: 'Refresh Now',
             color: 'white',
-            handler: () => location.reload(true)
-          }
-        ]
+            handler: () => location.reload(true),
+          },
+        ],
       });
     };
     this.checkFs();
@@ -301,8 +289,8 @@ export default {
           'Wow, you look great today!',
           "I have three tests today, and instead of praciticing for them, I'm here writing loading screens.",
           "Writing these messages isn't easy, you know",
-          'Come on, at least one of these are funny!'
-        ].find((_, i, ar) => Math.random() < 1 / (ar.length - i))
+          'Come on, at least one of these are funny!',
+        ].find((_, i, ar) => Math.random() < 1 / (ar.length - i)),
       });
     },
     online() {
@@ -311,16 +299,16 @@ export default {
         this.$q.notify({
           message: 'Back online',
           icon: 'signal_wifi_4_bar',
-          color: 'green'
+          color: 'green',
         });
       } else {
         // @ts-ignore
         this.$q.notify({
           message: 'Offline, only cached results shown',
-          icon: 'signal_wifi_off'
+          icon: 'signal_wifi_off',
         });
       }
-    }
+    },
   },
   methods: {
     checkFs() {
@@ -344,7 +332,7 @@ export default {
       } else {
         this.online = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>

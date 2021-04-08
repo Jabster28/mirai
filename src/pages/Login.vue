@@ -5,26 +5,31 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import Vue from 'vue';
-export default Vue.extend({
+import { defineComponent, onMounted } from 'vue';
+import { Cookies, Loading } from 'quasar';
+import { useRouter, useRoute } from 'vue-router';
+
+export default defineComponent({
   name: 'PageLogin',
-  data() {
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+    onMounted(() => {
+      Loading.show({
+        delay: 400,
+      });
+      if (Cookies.get('mal_auth') && !route.query.f) {
+        router.replace('/me').catch((e) => console.log(e));
+      } else {
+        window.location.replace(
+          'https://mirai-api.glitch.me/auth?red=' +
+            encodeURIComponent(
+              window.location.protocol + '//' + window.location.hostname
+            )
+        );
+      }
+    });
     return {};
   },
-  mounted() {
-    this.$q.loading.show({
-      delay: 400
-    });
-    if (this.$q.cookies.get('mal_auth') && !this.$route.query.f) {
-      this.$router.replace('/me').catch(e => console.log(e));
-    } else {
-      window.location.replace(
-        'https://mirai-api.glitch.me/auth?red=' +
-          encodeURIComponent(
-            window.location.protocol + '//' + window.location.hostname
-          )
-      );
-    }
-  }
 });
 </script>

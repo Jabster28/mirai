@@ -8,11 +8,11 @@
         filled
         label="Enter a manga..."
         :rules="[
-          val =>
+          (val) =>
             !val ||
             val.trim().length >= 3 ||
             val.trim() == '' ||
-            'Minimum 3 characters.'
+            'Minimum 3 characters.',
         ]"
         @keypress="load"
         :loading="loading"
@@ -27,8 +27,13 @@
     </div>
 
     <q-space />
-    <div class="row items-center justify-evenly">
-      <MangaCard v-for="manga in results" :key="manga.mal_id" :manga="manga" />
+    <div class="row items-center justify-evenly q-pa-md">
+      <MangaCard
+        v-for="manga in results"
+        :key="manga.mal_id"
+        :manga="manga"
+        search
+      />
     </div>
   </q-page>
 </template>
@@ -36,114 +41,125 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import Vue from 'vue';
+import { defineComponent, ref, watch, onMounted } from 'vue';
 import MangaCard from 'components/MangaCard.vue';
+import { useRouter, useRoute } from 'vue-router';
+import { Anime } from '../helpers';
+import { LocalStorage, Notify } from 'quasar';
 import axios from 'axios';
-export default Vue.extend({
+import Vue from 'vue';
+export default defineComponent({
   name: 'PageSearchManga',
   components: { MangaCard },
-  mounted() {
-    if (
-      this.$route.params.query &&
-      this.$route.params.query != this.searchmanga
-    ) {
-      this.searchmanga = this.$route.params.query;
-    }
-  },
-  watch: {
-    searchmanga() {
+
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+    let searchmanga = ref('');
+    let results: Vue.Ref<Anime[]> = ref([]);
+    let loading = false;
+    let online = false;
+    let load = () => {
+      loading = true;
+    };
+    watch(searchmanga, () => {
       document.title =
-        this.searchmanga && this.searchmanga.trim()
-          ? `"${this.searchmanga}" | Search Mirai`
+        searchmanga.value && searchmanga.value.trim()
+          ? `"${searchmanga.value}" | Search Mirai`
           : 'Search Mirai';
-      if (
-        !this.$route.params.query ||
-        this.$route.params.query != this.searchmanga
-      ) {
-        this.$router
-          .replace('/searchmanga/' + encodeURIComponent(this.searchmanga || ''))
-          .catch(e => console.log(e));
+      if (!route.params.query || route.params.query != searchmanga.value) {
+        router
+
+          .replace(
+            '/searchmanga/' + encodeURIComponent(searchmanga.value || '')
+          )
+          .catch((e) => console.log(e));
       }
-      const currentSearch = this.searchmanga.trim();
-      this.loading = true;
-      if (!this.searchmanga || this.searchmanga.trim() == '') {
-        this.loading = false;
-        this.results = [];
+      const currentSearch = searchmanga.value.trim();
+      loading = true;
+      if (!searchmanga || searchmanga.value.trim() == '') {
+        loading = false;
+        results.value = [];
         return;
       }
       console.log('checking for cached searches');
-      let cache = this.$q.localStorage.getItem('cache');
+      let cache = LocalStorage.getItem('cache');
       if (!cache) {
-        this.$q.localStorage.set('cache', {});
-        cache = this.$q.localStorage.getItem('cache');
+        LocalStorage.set('cache', {});
+        cache = LocalStorage.getItem('cache');
       }
       /* @ts-ignore */
       if (!cache.searchmanga) cache.searchmanga = {};
       /* @ts-ignore */
-      if (cache.searchmanga[this.searchmanga.trim()]) {
-        if (currentSearch != this.searchmanga.trim()) return;
+      if (cache.searchmanga[searchmanga.value.trim()]) {
+        if (currentSearch != searchmanga.value.trim()) return;
         /* @ts-ignore */
         console.log('found some');
         /* @ts-ignore */
 
-        this.results = cache.searchmanga[this.searchmanga.trim()];
-        this.loading = false;
+        results.value = cache.searchmanga[searchmanga.value.trim()];
+        loading = false;
         if (!navigator.onLine) return;
       } else {
         console.log('none found');
         if (!navigator.onLine) {
-          if (currentSearch != this.searchmanga.trim()) return;
+          if (currentSearch != searchmanga.value.trim()) return;
 
-          this.$q.notify(
-            "This search hasn't been cached, so we can't show you anything. Connect to the internet and try again."
-          );
-          this.loading = false;
-          this.results = [];
+          Notify.create({
+            message:
+              "This search hasn't been cached, so we can't show you anything. Connect to the internet and try again.",
+          });
+          loading = false;
+          results.value = [];
           return;
         }
+      }
+      if (searchmanga.value.trim().length < 3) {
+        loading = false;
+        return;
       }
       axios
         .get(
           `https://api.jikan.moe/v3/search/manga?q=${encodeURIComponent(
-            this.searchmanga.trim()
+            searchmanga.value.trim()
           )}&page=1`
         )
-        .then(e => {
+        .then((e) => {
           /* @ts-ignore */
-          let cache = this.$q.localStorage.getItem('cache');
+          let cache = LocalStorage.getItem('cache');
           /* @ts-ignore */
           if (!cache) {
-            this.$q.localStorage.set('cache', {});
-            cache = this.$q.localStorage.getItem('cache');
+            LocalStorage.set('cache', {});
+            cache = LocalStorage.getItem('cache');
           }
           /* @ts-ignore */
           if (!cache.searchmanga) cache.searchmanga = {};
           /* @ts-ignore */
-          cache.searchmanga[this.searchmanga.trim()] = e.data.results;
+          cache.searchmanga[searchmanga.value.trim()] = e.data.results;
           /* @ts-ignore */
-          cache.searchmanga[this.searchmanga.trim()].date = new Date();
-          if (currentSearch.trim() != this.searchmanga.trim()) return;
+          cache.searchmanga[searchmanga.value.trim()].date = new Date();
+          if (currentSearch.trim() != searchmanga.value.trim()) return;
 
-          this.$q.localStorage.set('cache', cache);
+          LocalStorage.set('cache', cache);
 
-          this.results = e.data.results;
-          this.loading = false;
+          results.value = e.data.results;
+          loading = false;
         })
-        .catch(e => console.log(e));
-    }
-  },
-  methods: {
-    load() {
-      this.loading = true;
-    }
-  },
-  data() {
+        .catch((e) => console.log(e));
+    });
+    onMounted(() => {
+      if (route.params.query && route.params.query != searchmanga.value) {
+        // @ts-ignore
+        searchmanga.value = route.params.query;
+      }
+    });
     return {
-      searchmanga: '',
-      results: [],
-      loading: false,
-      online: false
+      searchmanga,
+      results,
+      loading,
+      online,
+      load,
     };
-  }
+  },
 });
 </script>

@@ -5,14 +5,15 @@
     leave-active-class="animated fadeOut"
   >
     <q-card
-      :class="[
-        'q-mx-md',
-        $q.screen.width > 400 && !(home || suggestions) ? 'col-2' : 'col-10'
-      ]"
+      :class="[`q-m${search ? 'a' : 'x'}-md`]"
+      style="width: 280px"
       v-ripple
       @click="goto"
     >
-      <q-img :src="suggestions ? anime.main_picture.large : anime.image_url">
+      <q-img
+        style="height: 400px"
+        :src="suggestions ? anime.main_picture.large : anime.image_url"
+      >
         <div class="absolute-bottom">
           <div class="text-h6">{{ truncateString(anime.title, trunc) }}</div>
           <div class="text-subtitle2" v-if="!(home || suggestions)">
@@ -29,41 +30,53 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-export default {
+import { defineComponent } from 'vue';
+import { useRouter } from 'vue-router';
+export default defineComponent({
   name: 'AnimeCard',
   props: {
     suggestions: {
       type: Boolean,
-      default: false
+      default: false,
     },
     home: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    search: {
+      type: Boolean,
+      default: false,
     },
     anime: {
       type: Object,
-      required: true
+      required: true,
     },
     trunc: {
       type: Number,
-      default: 45
-    }
-  },
-  methods: {
-    goto() {
-      // @ts-ignore
-      this.$router.push(
-        // @ts-ignore
-        `/anime/${this.suggestions ? this.anime.id : this.anime.mal_id}`
-      );
+      default: 45,
     },
-    truncateString(str: string, num: number) {
+  },
+  setup(props) {
+    const router = useRouter();
+
+    function goto() {
+      router
+        .push(
+          `/anime/${props.suggestions ? props.anime.id : props.anime.mal_id}`
+        )
+        .catch((e) => console.log(e));
+    }
+    function truncateString(str: string, num: number) {
       if (str.length > num) {
         return str.slice(0, num) + '...';
       } else {
         return str;
       }
     }
-  }
-};
+    return {
+      goto,
+      truncateString,
+    };
+  },
+});
 </script>

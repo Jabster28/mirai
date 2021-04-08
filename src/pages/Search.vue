@@ -8,11 +8,11 @@
         filled
         label="Enter an anime..."
         :rules="[
-          val =>
+          (val) =>
             !val ||
             val.trim().length >= 3 ||
             val.trim() == '' ||
-            'Minimum 3 characters.'
+            'Minimum 3 characters.',
         ]"
         @keypress="load"
         :loading="loading"
@@ -27,8 +27,13 @@
     </div>
 
     <q-space />
-    <div class="row items-center">
-      <AnimeCard v-for="anime in results" :key="anime.mal_id" :anime="anime" />
+    <div class="row items-center justify-evenly q-pa-md">
+      <AnimeCard
+        v-for="anime in results"
+        :key="anime.mal_id"
+        :anime="anime"
+        search
+      />
     </div>
   </q-page>
 </template>
@@ -36,111 +41,117 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { defineComponent, onMounted, watch, ref } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { Anime } from '../helpers';
 import Vue from 'vue';
+import { LocalStorage, Notify } from 'quasar';
 import AnimeCard from 'components/AnimeCard.vue';
 import axios from 'axios';
-export default Vue.extend({
+export default defineComponent({
   name: 'PageSearch',
   components: { AnimeCard },
-  mounted() {
-    if (this.$route.params.query && this.$route.params.query != this.search) {
-      this.search = this.$route.params.query;
-    }
-  },
-  watch: {
-    search() {
-      document.title =
-        this.search && this.search.trim()
-          ? `"${this.search}" | Search Mirai`
-          : 'Search Mirai';
-      if (
-        !this.$route.params.query ||
-        this.$route.params.query != this.search
-      ) {
-        this.$router
-          .replace('/search/' + encodeURIComponent(this.search || ''))
-          .catch(e => console.log(e));
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+    let search = ref('');
+    let results: Vue.Ref<Anime[]> = ref([]);
+    let loading = false;
+    let online = false;
+    let load = () => {
+      loading = true;
+    };
+    onMounted(function () {
+      if (route.params.query && route.params.query != search.value) {
+        // @ts-ignore
+        search.value = route.params.query;
       }
-      const currentSearch = this.search.trim();
-      this.loading = true;
-      if (!this.search || this.search.trim() == '') {
-        this.loading = false;
-        this.results = [];
+    });
+    watch(search, () => {
+      document.title =
+        search.value && search.value.trim()
+          ? `"${search.value}" | Search Mirai`
+          : 'Search Mirai';
+      if (!route.params.query || route.params.query != search.value) {
+        router
+          .replace('/search/' + encodeURIComponent(search.value || ''))
+          .catch((e) => console.log(e));
+      }
+      const currentSearch = search.value.trim();
+      loading = true;
+      if (!search.value || search.value.trim() == '') {
+        loading = false;
+        results.value = [];
         return;
       }
       console.log('checking for cached searches');
-      let cache = this.$q.localStorage.getItem('cache');
+      let cache = LocalStorage.getItem('cache');
       if (!cache) {
-        this.$q.localStorage.set('cache', {});
-        cache = this.$q.localStorage.getItem('cache');
+        LocalStorage.set('cache', {});
+        cache = LocalStorage.getItem('cache');
       }
       /* @ts-ignore */
       if (!cache.search) cache.search = {};
       /* @ts-ignore */
-      if (cache.search[this.search.trim()]) {
-        if (currentSearch != this.search.trim()) return;
+      if (cache.search[search.value.trim()]) {
+        if (currentSearch != search.value.trim()) return;
         /* @ts-ignore */
         console.log('found some');
         /* @ts-ignore */
 
-        this.results = cache.search[this.search.trim()];
-        this.loading = false;
+        results.value = cache.search[search.value.trim()];
+        loading = false;
         if (!navigator.onLine) return;
       } else {
         console.log('none found');
         if (!navigator.onLine) {
-          if (currentSearch != this.search.trim()) return;
+          if (currentSearch != search.value.trim()) return;
 
-          this.$q.notify(
-            "This search hasn't been cached, so we can't show you anything. Connect to the internet and try again."
-          );
-          this.loading = false;
-          this.results = [];
+          Notify.create({
+            message:
+              "This search hasn't been cached, so we can't show you anything. Connect to the internet and try again.",
+          });
+          loading = false;
+          results.value = [];
           return;
         }
       }
       axios
         .get(
           `https://api.jikan.moe/v3/search/anime?q=${encodeURIComponent(
-            this.search.trim()
+            search.value.trim()
           )}&page=1`
         )
-        .then(e => {
+        .then((e) => {
           /* @ts-ignore */
-          let cache = this.$q.localStorage.getItem('cache');
+          let cache = LocalStorage.getItem('cache');
           /* @ts-ignore */
           if (!cache) {
-            this.$q.localStorage.set('cache', {});
-            cache = this.$q.localStorage.getItem('cache');
+            LocalStorage.set('cache', {});
+            cache = LocalStorage.getItem('cache');
           }
           /* @ts-ignore */
           if (!cache.search) cache.search = {};
           /* @ts-ignore */
-          cache.search[this.search.trim()] = e.data.results;
+          cache.search[search.value.trim()] = e.data.results;
           /* @ts-ignore */
-          cache.search[this.search.trim()].date = new Date();
-          if (currentSearch.trim() != this.search.trim()) return;
+          cache.search[search.value.trim()].date = new Date();
+          if (currentSearch.trim() != search.value.trim()) return;
 
-          this.$q.localStorage.set('cache', cache);
+          LocalStorage.set('cache', cache);
 
-          this.results = e.data.results;
-          this.loading = false;
+          results.value = e.data.results;
+          loading = false;
         })
-        .catch(e => console.log(e));
-    }
-  },
-  methods: {
-    load() {
-      this.loading = true;
-    }
-  },
-  data() {
+        .catch((e) => console.log(e));
+    });
     return {
-      search: '',
-      results: [],
-      loading: false,
-      online: false
+      search,
+      results,
+      loading,
+      online,
+      load,
     };
-  }
+  },
 });
 </script>

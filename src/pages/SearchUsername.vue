@@ -6,7 +6,7 @@
         v-model="username"
         label="Enter a username..."
         autofocus
-        :rules="[val => (val && val.length > 0) || 'Please type something']"
+        :rules="[(val) => (val && val.length > 0) || 'Please type something']"
       />
 
       <div>
@@ -19,12 +19,12 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import Vue from 'vue';
-export default Vue.extend({
+import { defineComponent } from 'vue';
+export default defineComponent({
   name: 'PageSearchUsername',
   data() {
     return {
-      username: ''
+      username: '',
     };
   },
   mounted() {
@@ -32,8 +32,8 @@ export default Vue.extend({
   },
   methods: {
     onSubmit() {
-      this.$router.push(`/user/${this.username}`).catch(e => console.log(e));
-    }
-  }
+      this.$router.push(`/user/${this.username}`).catch((e) => console.log(e));
+    },
+  },
 });
 </script>

@@ -11,7 +11,7 @@
             'q-mx-lg',
             'items-center',
             'justify-evenly',
-            $q.screen.width > 800 ? 'row' : 'col'
+            $q.screen.width > 800 ? 'row' : 'col',
           ]"
         >
           <div class="col q-ma-xl">
@@ -94,9 +94,9 @@
 import axios from 'axios';
 import qs from 'qs';
 import { getCache } from '../helpers';
-import Vue from 'vue';
+import { defineComponent } from 'vue';
 
-export default Vue.extend({
+export default defineComponent({
   name: 'PageManga',
   data() {
     return {
@@ -106,7 +106,7 @@ export default Vue.extend({
         Completed: 'completed',
         Reading: 'reading',
         Dropped: 'dropped',
-        'Plan to Read': 'plan_to_read'
+        'Plan to Read': 'plan_to_read',
       },
       disabled: true,
       loading: false,
@@ -128,9 +128,9 @@ export default Vue.extend({
         score: 0,
         members: 0,
         favorites: 0,
-        rank: 0
+        rank: 0,
       },
-      error: ''
+      error: '',
     };
   },
   created() {
@@ -142,7 +142,7 @@ export default Vue.extend({
           'Completed',
           'Reading',
           'Dropped',
-          'Plan to Read'
+          'Plan to Read',
         ][i])
     );
     // fetch the data when the view is created and the data is
@@ -165,7 +165,7 @@ export default Vue.extend({
       } else {
         this.disabled = false;
       }
-    }
+    },
   },
   methods: {
     remove() {
@@ -186,7 +186,7 @@ export default Vue.extend({
           this.score = null;
           //
         })
-        .catch(e => console.log(e));
+        .catch((e) => console.log(e));
     },
     submit() {
       this.loading = true;
@@ -200,20 +200,20 @@ export default Vue.extend({
           {
             // @ts-ignore
             status: this.map[this.status],
-            score: this.score
+            score: this.score,
           },
           {
             headers: {
-              'Content-Type': 'application/json'
-            }
+              'Content-Type': 'application/json',
+            },
           }
         )
-        .then(e => {
+        .then((e) => {
           this.loading = false;
           console.log(e);
           this.loading = false;
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
           this.loading = false;
         });
@@ -226,7 +226,7 @@ export default Vue.extend({
     fetchData() {
       this.error = '';
       this.$q.loading.show({
-        delay: 400 // ms
+        delay: 400, // ms
       });
       const currentManga = this.$route.params.id;
       if (!navigator.onLine) {
@@ -250,7 +250,7 @@ export default Vue.extend({
       // replace `getPost` with your data fetching util / API wrapper
       axios
         .get(`https://api.jikan.moe/v3/manga/${this.$route.params.id}`)
-        .then(data => {
+        .then((data) => {
           this.$q.loading.hide();
           this.manga = data.data;
           document.title = `${this.manga.title} | Mirai`;
@@ -276,10 +276,10 @@ export default Vue.extend({
                 qs.stringify({
                   // @ts-ignore
                   code: this.$q.cookies.get('mal_auth').code,
-                  id: this.$route.params.id
+                  id: this.$route.params.id,
                 })
             )
-            .then(e => {
+            .then((e) => {
               this.loading = false;
               if (!e.data.my_list_status) {
                 this.removed = true;
@@ -305,7 +305,7 @@ export default Vue.extend({
           console.log(e);
           this.$q.loading.hide();
         });
-    }
-  }
+    },
+  },
 });
 </script>

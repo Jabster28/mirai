@@ -15,7 +15,7 @@
             'items-center',
             'justify-evenly',
             'q-my-md',
-            $q.screen.width > 800 ? 'row' : 'col'
+            $q.screen.width > 800 ? 'row' : 'col',
           ]"
         >
           <q-card flat class="col-3 q-ma-md">
@@ -66,8 +66,8 @@
               title="Anime List"
               :pagination="initialPagination"
               :dense="$q.screen.lt.md"
-              :data="
-                animelist.filter(e =>
+              :rows="
+                animelist.filter((e) =>
                   filter == 'All'
                     ? e
                     : watchMap[e.watching_status]
@@ -92,235 +92,262 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import axios from 'axios';
+import { LocalStorage, Loading, Notify, Cookies } from 'quasar';
+import { User, Anime } from '../helpers';
+import { defineComponent, onMounted, ref } from 'vue';
 import Vue from 'vue';
-
-export default Vue.extend({
+import { useRouter, useRoute } from 'vue-router';
+export default defineComponent({
   name: 'PageUser',
-  data() {
-    return {
-      options: 'All Completed OnHold Watching Dropped PlanToWatch'.split(' '),
-      filter: 'All',
-      initialPagination: {
-        sortBy: 'watching_status',
-        descending: false,
-        rowsPerPage: 20
-      },
-      animelist: [],
-      watchMap: [
-        '-',
-        'Watching',
-        'Completed',
-        'On Hold',
-        'Dropped',
-        '3',
-        'Plan to watch',
-        'Dropped'
-      ],
-      columns: [
-        {
-          name: 'title',
-          label: 'Title',
-          field: 'title',
-          align: 'left',
-          sortable: true
-        },
-        {
-          name: 'type',
-          label: 'Type',
-          field: 'type',
-          align: 'center',
-          sortable: true
-        },
-        {
-          name: 'score',
-          label: 'Score (out of 10)',
-          field: 'score',
-          format: (val: number | null) => (val ? val : '-'),
-          sortable: true
-        },
-        {
-          name: 'watching_status',
-          label: 'Status',
-          field: 'watching_status',
-          // @ts-ignore
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-          format: val => this.watchMap[val],
-          sortable: true
-        }
-      ],
-      user: {
-        username: ''
-      },
-      tableLoading: false,
-      error: '',
-      pageNum: 1,
-      cachedAnimeList: [],
-      cached: false
+  setup() {
+    const router = useRouter();
+    const route = useRoute();
+
+    let options = 'All Completed OnHold Watching Dropped PlanToWatch'.split(
+      ' '
+    );
+    let filter = ref('All');
+    let initialPagination = {
+      sortBy: 'watching_status',
+      descending: false,
+      rowsPerPage: 20,
     };
-  },
-  created() {
-    // fetch the data when the view is created and the data is
-    // already being observed
-    this.fetchData();
-  },
-  methods: {
-    // @ts-ignore
-    go(a, b) {
+    let animelist: Vue.Ref<Anime[]> = ref([]);
+    let watchMap = [
+      '-',
+      'Watching',
+      'Completed',
+      'On Hold',
+      'Dropped',
+      '3',
+      'Plan to watch',
+      'Dropped',
+    ];
+    let columns = [
+      {
+        name: 'title',
+        label: 'Title',
+        field: 'title',
+        align: 'left',
+        sortable: true,
+      },
+      {
+        name: 'type',
+        label: 'Type',
+        field: 'type',
+        align: 'center',
+        sortable: true,
+      },
+      {
+        name: 'score',
+        label: 'Score (out of 10)',
+        field: 'score',
+        format: (val: number | null) => (val ? val : '-'),
+        sortable: true,
+      },
+      {
+        name: 'watching_status',
+        label: 'Status',
+        field: 'watching_status',
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        format: (val) => watchMap[val],
+        sortable: true,
+      },
+    ];
+    let user: Vue.Ref<User> = ref({
+      username: '',
+      url: '',
+      anime_stats: {
+        days_watched: 0,
+        episodes_watched: 0,
+      },
+    });
+    let tableLoading = false;
+    let error = '';
+    let pageNum = 1;
+    let cachedAnimeList: Anime[] = [];
+    let cached = false;
+    let go = (_: unknown, b: Anime) => {
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      this.$router.push(`/anime/${b.mal_id}`).catch(e => console.log(e));
-    },
-    again() {
+      router.push(`/anime/${b.mal_id}`).catch((e) => console.log(e));
+    };
+    let again = () => {
       /* @ts-ignore */
-      let cache = this.$q.localStorage.getItem('cache');
+      let cache = LocalStorage.getItem('cache');
       /* @ts-ignore */
       if (!cache) {
-        this.$q.localStorage.set('cache', {});
-        cache = this.$q.localStorage.getItem('cache');
+        LocalStorage.set('cache', {});
+        cache = LocalStorage.getItem('cache');
       }
       if (
         /* @ts-ignore */
         cache.animelist &&
         /* @ts-ignore */
-        cache.animelist[this.user.username.toLowerCase() + '/' + this.filter]
+        cache.animelist[user.value.username.toLowerCase() + '/' + filter.value]
       ) {
         /* @ts-ignore */
-        this.cached = true;
+        cached = true;
         /* @ts-ignore */
-        this.animelist =
+        animelist.value =
           /* @ts-ignore */
-          cache.animelist[this.user.username.toLowerCase() + '/' + this.filter];
+          cache.animelist[
+            user.value.username.toLowerCase() + '/' + filter.value
+          ];
       }
       axios
         .get(
-          `https://api.jikan.moe/v3/user/${this.$route.params.id}/animelist/${this.filter}?page=${this.pageNum}`
+          `https://api.jikan.moe/v3/user/${route.params.id}/animelist/${filter.value}?page=${pageNum}`
         )
-        .then(data => {
-          if (this.pageNum == 1 && !this.cached) this.animelist = [];
+        .then((data) => {
+          if (pageNum == 1 && !cached) animelist.value = [];
           if (data.data.anime && data.data.anime.length != 0) {
-            this.pageNum++;
+            pageNum++;
             // @ts-ignore
-            if (this.cached) {
+            if (cached) {
               // @ts-ignore
-              this.cachedAnimeList.push(...data.data.anime);
+              cachedAnimeList.push(...data.data.anime);
             } else {
               // @ts-ignore
-              this.animelist.push(...data.data.anime);
+              animelist.value.push(...data.data.anime);
             }
             // eslint-disable-next-line @typescript-eslint/unbound-method
-            const x = this.again;
+            const x = again;
             setTimeout(x, 2000);
           } else {
-            this.pageNum = 1;
-            this.tableLoading = false;
-            if (this.cached) {
-              this.animelist = this.cachedAnimeList;
+            pageNum = 1;
+            tableLoading = false;
+            if (cached) {
+              animelist.value = cachedAnimeList;
             }
-            this.cached = false;
+            cached = false;
             /* @ts-ignore */
-            let cache = this.$q.localStorage.getItem('cache');
+            let cache = LocalStorage.getItem('cache');
             /* @ts-ignore */
             if (!cache) {
-              this.$q.localStorage.set('cache', {});
-              cache = this.$q.localStorage.getItem('cache');
+              LocalStorage.set('cache', {});
+              cache = LocalStorage.getItem('cache');
             }
             /* @ts-ignore */
             if (!cache.animelist) cache.animelist = {};
             /* @ts-ignore */
             cache.animelist[
-              this.user.username.toLowerCase() + '/' + this.filter
-            ] = this.animelist;
+              user.value.username.toLowerCase() + '/' + filter.value
+            ] = animelist.value;
             /* @ts-ignore */
             cache.animelist[
-              this.user.username.toLowerCase() + '/' + this.filter
+              user.value.username.toLowerCase() + '/' + filter.value
             ].date = new Date();
-            this.$q.localStorage.set('cache', cache);
-            this.cachedAnimeList = [];
+            LocalStorage.set('cache', cache);
+            cachedAnimeList = [];
           }
         })
-        .catch(e => console.log(e));
-    },
-    norm(x: number) {
+        .catch((e) => console.log(e));
+    };
+    let norm = (x: number) => {
       if (!x) return;
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    },
-    isUser() {
+    };
+    let isUser = () => {
       // @ts-ignore
-      return this.$q.cookies.get('mal_auth').name == this.$route.params.id;
-    },
-    fetchData() {
-      this.error = '';
-      this.$q.loading.show({
-        delay: 400 // ms
+      return Cookies.get('mal_auth').name == route.params.id;
+    };
+    let fetchData = () => {
+      error = '';
+      Loading.show({
+        delay: 400, // ms
       });
-      const currentUser = this.$route.params.id;
+      const currentUser = route.params.id;
       if (!navigator.onLine) {
         console.log('checking for cached user data');
-        let cache = this.$q.localStorage.getItem('cache');
+        let cache = LocalStorage.getItem('cache');
         if (!cache) {
-          this.$q.localStorage.set('cache', {});
-          cache = this.$q.localStorage.getItem('cache');
+          LocalStorage.set('cache', {});
+          cache = LocalStorage.getItem('cache');
         }
         /* @ts-ignore */
         if (!cache.user) cache.user = {};
         /* @ts-ignore */
-        if (cache.user[this.$route.params.id]) {
-          if (currentUser != this.$route.params.id) return;
+        if (cache.user[route.params.id]) {
+          if (currentUser != route.params.id) return;
 
           /* @ts-ignore */
           console.log('found some');
           /* @ts-ignore */
 
-          this.user = cache.user[this.$route.params.id];
-          this.$q.loading.hide();
-          this.again();
+          user.value = cache.user[route.params.id];
+          Loading.hide();
+          again();
           return;
         } else {
           console.log('none found');
-          if (currentUser != this.$route.params.id) return;
+          if (currentUser != route.params.id) return;
 
-          this.$q.notify(
-            "This user's data hasn't been cached, so we can't show you anything. Connect to the internet and try again."
-          );
-          this.$q.loading.hide();
+          Notify.create({
+            message:
+              "This user's data hasn't been cached, so we can't show you anything. Connect to the internet and try again.",
+          });
+          Loading.hide();
           return;
         }
       }
       // replace `getPost` with your data fetching util / API wrapper
       axios
-        .get(`https://api.jikan.moe/v3/user/${this.$route.params.id}`)
-        .then(data => {
-          this.$q.loading.hide();
-          this.user = data.data;
-          document.title = `${this.user.username} | Mirai`;
+        .get(`https://api.jikan.moe/v3/user/${route.params.id}`)
+        .then((data) => {
+          Loading.hide();
+          user.value = data.data;
+          document.title = `${user.value.username} | Mirai`;
           /* @ts-ignore */
-          let cache = this.$q.localStorage.getItem('cache');
+          let cache = LocalStorage.getItem('cache');
           /* @ts-ignore */
           if (!cache) {
-            this.$q.localStorage.set('cache', {});
-            cache = this.$q.localStorage.getItem('cache');
+            LocalStorage.set('cache', {});
+            cache = LocalStorage.getItem('cache');
           }
           /* @ts-ignore */
           if (!cache.user) cache.user = {};
           /* @ts-ignore */
-          cache.user[this.$route.params.id] = this.user;
+          cache.user[route.params.id] = user;
           /* @ts-ignore */
-          cache.user[this.$route.params.id].date = new Date();
-          if (currentUser != this.$route.params.id) return;
+          cache.user[route.params.id].date = new Date();
+          if (currentUser != route.params.id) return;
 
-          this.$q.localStorage.set('cache', cache);
-          this.tableLoading = true;
-          this.again();
+          LocalStorage.set('cache', cache);
+          tableLoading = true;
+          again();
         })
         .catch((e: string) => {
           console.log(e);
-          this.$q.loading.hide();
-          this.error = e;
+          Loading.hide();
+          error = e;
         });
-    }
-  }
+    };
+    onMounted(fetchData);
+    return {
+      options,
+      filter,
+      initialPagination,
+      animelist,
+      watchMap,
+      columns,
+      user,
+      tableLoading,
+      error,
+      pageNum,
+      cachedAnimeList,
+      cached,
+      go,
+      again,
+      norm,
+      isUser,
+      fetchData,
+    };
+  },
 });
 </script>

@@ -5,29 +5,36 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import Vue from 'vue';
-export default Vue.extend({
+import { defineComponent, onMounted } from 'vue';
+import { Cookies, Loading } from 'quasar';
+import { useRouter, useRoute } from 'vue-router';
+export default defineComponent({
   name: 'PageOauth',
-  data() {
+  setup() {
+    const route = useRoute();
+    const router = useRouter();
+    onMounted(() => {
+      Loading.show({
+        delay: 400, // ms
+      });
+      console.log('h', router.currentRoute);
+      Cookies.set(
+        'mal_auth',
+        // @ts-ignore
+        JSON.stringify(router.currentRoute._value.query),
+        {
+          expires: 14600,
+        }
+      );
+      Loading.hide();
+      if (route.params.redirect)
+        window.location.replace(
+          // @ts-ignore
+          '/' + decodeURIComponent(route.params.redirect)
+        );
+      else window.location.replace('/');
+    });
     return {};
   },
-  mounted() {
-    this.$q.loading.show({
-      delay: 400 // ms
-    });
-    this.$q.cookies.set(
-      'mal_auth',
-      JSON.stringify(this.$router.currentRoute.query),
-      {
-        expires: 14600
-      }
-    );
-    this.$q.loading.hide();
-    if (this.$route.params.redirect)
-      window.location.replace(
-        '/' + decodeURIComponent(this.$route.params.redirect)
-      );
-    else window.location.replace('/');
-  }
 });
 </script>
