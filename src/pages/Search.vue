@@ -116,6 +116,10 @@ export default defineComponent({
           return;
         }
       }
+      if (search.value.trim().length < 3) {
+        loading = false;
+        return;
+      }
       axios
         .get(
           `https://api.jikan.moe/v3/search/anime?q=${encodeURIComponent(
