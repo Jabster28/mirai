@@ -6,7 +6,7 @@
       </div>
 
       <div v-if="anime.mal_id" class="content">
-        <div v-if="!($q.screen.width > 800)" class="col-7 q-mx-lg">
+        <div v-if="$q.screen.lt.sm" class="col-7 q-mx-lg">
           <div v-if="anime.title_english && anime.title_english != anime.title">
             <h2>{{ anime.title_english }}</h2>
 
@@ -18,7 +18,7 @@
             'q-mx-lg',
             'items-start',
             'justify-evenly',
-            $q.screen.width > 800 ? 'row' : 'col',
+            $q.screen.gt.sm ? 'row' : 'col',
           ]"
         >
           <div class="q-ma-xl col">
@@ -89,7 +89,7 @@
             </div>
           </div>
           <div class="col-8 q-mx-lg">
-            <div v-if="$q.screen.width > 800">
+            <div v-if="$q.screen.gt.sm">
               <div
                 v-if="anime.title_english && anime.title_english != anime.title"
               >

@@ -11,7 +11,7 @@
             'q-mx-lg',
             'items-center',
             'justify-evenly',
-            $q.screen.width > 800 ? 'row' : 'col',
+            $q.screen.gt.sm ? 'row' : 'col',
           ]"
         >
           <div class="col q-ma-xl">

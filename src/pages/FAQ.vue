@@ -1,6 +1,6 @@
 <template>
   <q-page class="row q-ma-lg items-center justify-evenly">
-    <div :class="[$q.screen.width > 800 ? 'col-7' : 'col-11']">
+    <div :class="[$q.screen.gt.sm ? 'col-7' : 'col-11']">
       <h1>FAQ</h1>
       <h5 disabled>
         Got a question? Look no further! You can ctrl (or cmd) + F if you want
