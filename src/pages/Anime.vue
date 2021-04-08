@@ -39,6 +39,7 @@
                     :href="`https://www25.gogoanimes.tv/search.html?keyword=${encodeURIComponent(
                       anime.title
                     )}`"
+                    aria-label="Watch on gogo anime"
                   >
                     <q-tooltip>Watch on GOGO</q-tooltip>
                   </q-btn>
@@ -65,6 +66,7 @@
                     clickable
                     type="a"
                     icon="theaters"
+                    aria-label="Watch trailer on YouTube"
                     :href="anime.trailer_url.replace('embed/', 'watch?v=')"
                   >
                     <q-tooltip> Watch trailer on YouTube </q-tooltip>
@@ -197,6 +199,7 @@
                         :icon="
                           g[n.url] ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
                         "
+                        aria-label="Expand"
                         @click="g[n.url] = !g[n.url]"
                       />
                     </q-card-actions>
@@ -474,6 +477,7 @@ export default defineComponent({
             .then((data) => {
               reviews.value = data.data.reviews.map((e: any) => {
                 e.content = e.content.replaceAll(/(\\n)|(\\r)/gm, '\n');
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                 return e;
               });
             })
