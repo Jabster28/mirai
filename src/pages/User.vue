@@ -168,8 +168,8 @@ export default defineComponent({
         episodes_watched: 0,
       },
     });
-    let tableLoading = false;
-    let error = '';
+    let tableLoading = ref(false);
+    let error = ref('');
     let pageNum = 1;
     let cachedAnimeList: Anime[] = [];
     let cached = false;
@@ -221,7 +221,7 @@ export default defineComponent({
             setTimeout(x, 2000);
           } else {
             pageNum = 1;
-            tableLoading = false;
+            tableLoading.value = false;
             if (cached) {
               animelist.value = cachedAnimeList;
             }
@@ -258,7 +258,7 @@ export default defineComponent({
       return Cookies.get('mal_auth').name == route.params.id;
     };
     let fetchData = () => {
-      error = '';
+      error.value = '';
       Loading.show({
         delay: 400, // ms
       });
@@ -319,13 +319,13 @@ export default defineComponent({
           if (currentUser != route.params.id) return;
 
           LocalStorage.set('cache', cache);
-          tableLoading = true;
+          tableLoading.value = true;
           again();
         })
         .catch((e: string) => {
           console.log(e);
           Loading.hide();
-          error = e;
+          error.value = e;
         });
     };
     onMounted(fetchData);
