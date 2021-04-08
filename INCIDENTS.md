@@ -14,13 +14,13 @@
 
 # Incident Log
 
-This is where I will try my best to log all of the incidents of Mirai, such as downtimes and maintenance. It will be accessible from the [GitHub repo](https://github.com/Jabster28/mirai/blob/master/INCIDENTS.md#incident-log) and the official [Mirai Website](https://mal-mirai.web.app/incidents). The incidents will be listed with newer ones closest to the top and later ones further down. All incidents will have a TL,DR; (a summary) if you want a simple rundown on what has happened.
+This is where I will try my best to log all of the incidents of Mirai, such as downtimes and maintenance. It will be accessible from the [GitHub repo](https://github.com/Jabster28/mirai/blob/master/INCIDENTS.md#incident-log) and the official. The incidents will be listed chronologically with newer ones closest to the top and later ones further down. All incidents will have a TL,DR; (a summary) if you want a simple rundown on what has happened.
 
 ## Fixed: (28th July 2020 - 12th August 2020) Incident 1: Searches and Users not working because of Jikan getting reCAPTCHAs
 
 ### I'm seeing some error codes on Mirai. What's that about?
 
-[Jikan](https://jikan.moe) (the API that Mirai uses for getting the data from MyAnimeList) is currently returning 403s for some endpoints, because the way it gets it's data comes from directly asking MALs servers, and MAL has started sending reCAPTCHAs to some requests. As Jikan is a public API, there's not much they can do aside from using locally cached data for now (that's why some searches work in Mirai still and animes too), and waiting for an offical response from MAL.
+[Jikan](https://jikan.moe) (the API that Mirai uses for getting the data from MyAnimeList) is currently returning 403s for some endpoints, because the way it gets it's data comes from directly asking MAL's servers, and MAL has started sending reCAPTCHAs to some requests. As Jikan is a public API, there's not much they can do aside from using locally cached data for now (that's why some searches work in Mirai still and animes too), and waiting for an official response from MAL.
 
 ### Wait, why don't you just use MAL's official API? Surely that would be better?
 
