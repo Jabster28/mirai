@@ -8,9 +8,9 @@
       <div v-if="anime.mal_id" class="content">
         <div v-if="$q.screen.lt.sm" class="col-7 q-mx-lg">
           <div v-if="anime.title_english && anime.title_english != anime.title">
-            <h2>{{ anime.title_english }}</h2>
+            <h4>{{ anime.title_english }}</h4>
 
-            <h6 class="text-subtitle text-weight-thin">{{ anime.title }}</h6>
+            <p class="text-subtitle1 text-weight-thin">{{ anime.title }}</p>
           </div>
         </div>
         <div
@@ -21,7 +21,7 @@
             $q.screen.gt.sm ? 'row' : 'col',
           ]"
         >
-          <div class="q-ma-xl col">
+          <div :class="[`q-ma-${$q.screen.gt.sm ? 'xl' : 'sm'}`, 'col']">
             <q-card>
               <q-card-section horizontal>
                 <q-img :src="anime.image_url" style="max-width: 300px" />
