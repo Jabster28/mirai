@@ -171,9 +171,16 @@
                     class="q-px-sm q-ma-md"
                   >
                     <q-card-section>
-                      <div class="text-subtitle2 q-ma-sm">
+                      <q-btn
+                        class="text-subtitle2 q-ma-sm"
+                        clickable
+                        flat
+                        dense
+                        type="a"
+                        :to="'/user/' + n.reviewer.username"
+                      >
                         {{ n.reviewer.username }}
-                      </div>
+                      </q-btn>
                       <div class="row no-wrap items-center">
                         <q-rating
                           :modelValue="n.reviewer.scores.overall / 2"
@@ -190,8 +197,9 @@
                         g[n.url] ? n.content : truncateString(n.content, 250)
                       }}
                     </q-card-section>
-                    <q-card-actions v-if="n.content.length > 250">
+                    <q-card-actions>
                       <q-btn
+                        v-if="n.content.length > 250"
                         color="grey"
                         round
                         flat
