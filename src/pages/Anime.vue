@@ -209,7 +209,22 @@
                         "
                         aria-label="Expand"
                         @click="g[n.url] = !g[n.url]"
-                      />
+                      >
+                        <q-tooltip>Expand</q-tooltip>
+                      </q-btn>
+                      <q-btn
+                        rel="noopener"
+                        clickable
+                        dense
+                        flat
+                        icon="img:mal.png"
+                        type="a"
+                        target="_blank"
+                        :href="anime.url"
+                        aria-label="Open in MyAnimeList"
+                      >
+                        <q-tooltip> Open in MyAnimeList </q-tooltip>
+                      </q-btn>
                     </q-card-actions>
                   </q-card>
                 </div>
