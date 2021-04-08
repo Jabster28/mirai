@@ -21,7 +21,7 @@
     "plyr": "3.6.4",
     "qs": "6.10.1",
     "quasar": "1.15.10",
-    "vue-i18n": "8.24.2"
+    "vue-i18n": "9.1.2"
   },
   "devDependencies": {
     "@quasar/app": "2.2.4",
