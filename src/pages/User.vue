@@ -46,7 +46,7 @@
               </q-card-actions>
             </q-card-section>
           </q-card>
-          <div class="col-4">
+          <div class="col-6">
             <h2>{{ user.username }}</h2>
 
             <h6 class="disabled">
@@ -61,11 +61,13 @@
               class="q-my-md"
             />
           </div>
-          <div class="col-10">
+          <br />
+          <div class="row">
             <q-table
               title="Anime List"
               :pagination="initialPagination"
-              :dense="$q.screen.lt.md"
+              dense
+              no-data-label="I didn't find anything for you"
               :rows="
                 animelist.filter((e) =>
                   filter == 'All'
@@ -83,7 +85,14 @@
               :columns="columns"
               row-key="title"
               color="amber"
-            />
+            >
+              <template v-slot:no-data="{ icon, message, filter }">
+                <div class="full-width row flex-center text-accent q-gutter-sm">
+                  <q-icon size="2em" name="sentiment_dissatisfied" />
+                  <span> Well this is sad... {{ message }} </span>
+                  <q-icon size="2em" :name="filter ? 'filter_b_and_w' : icon" />
+                </div> </template
+            ></q-table>
           </div>
         </div>
       </div>
@@ -115,7 +124,7 @@ export default defineComponent({
     let initialPagination = {
       sortBy: 'watching_status',
       descending: false,
-      rowsPerPage: 20,
+      rowsPerPage: 5,
     };
     let animelist: Vue.Ref<Anime[]> = ref([]);
     let watchMap = [
@@ -218,7 +227,7 @@ export default defineComponent({
             }
             // eslint-disable-next-line @typescript-eslint/unbound-method
             const x = again;
-            setTimeout(x, 2000);
+            setTimeout(x, 600);
           } else {
             pageNum = 1;
             tableLoading.value = false;
