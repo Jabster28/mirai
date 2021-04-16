@@ -4467,7 +4467,7 @@ core-js-compat@^3.6.5, core-js-compat@^3.8.1, core-js-compat@^3.9.0:
     browserslist "^4.16.3"
     semver "7.0.0"
 
-core-js@3.10.1, core-js@^3.6.5, core-js@^3.8.1:
+core-js@3.10.1, core-js@^3.10.1, core-js@^3.6.5:
   version "3.10.1"
   resolved "https://registry.npmjs.org/core-js/-/core-js-3.10.1.tgz"
   integrity sha512-pwCxEXnj27XG47mu7SXAwhLP3L5CrlvCB91ANUkIz40P27kUcvNfSdvyZJ9CLHiVoKSp+TTChMQMSKQEH/IQxA==
@@ -10613,12 +10613,12 @@ plist@^3.0.1:
     xmlbuilder "^9.0.7"
     xmldom "^0.5.0"
 
-plyr@3.6.4:
-  version "3.6.4"
-  resolved "https://registry.yarnpkg.com/plyr/-/plyr-3.6.4.tgz#cc77d49d831b4b0130be075872290cd5e3be5366"
-  integrity sha512-l0EKsRxhwGtzpPJhs+okusogXRiJaagNaGYlj+iiyqyNzjh0ef5bhxNLsKhpsGvvZMnfV/KbOvIva+qeNCA9ng==
+plyr@3.6.5:
+  version "3.6.5"
+  resolved "https://registry.yarnpkg.com/plyr/-/plyr-3.6.5.tgz#9d2fc55c2f528d7457cd3a132b818ae5b0c760fa"
+  integrity sha512-pQ8/Iccvwtuyk4JXchXai4afGjpe4ANM5CTJLt3bsZuNO0qGHtM8H/c43KjmEiPKc3Mo86V9IQTsuEI8gW4/Sg==
   dependencies:
-    core-js "^3.8.1"
+    core-js "^3.10.1"
     custom-event-polyfill "^1.0.7"
     loadjs "^4.2.0"
     rangetouch "^2.0.1"
