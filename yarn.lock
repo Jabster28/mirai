@@ -10619,10 +10619,10 @@ plist@^3.0.1:
     xmlbuilder "^9.0.7"
     xmldom "^0.5.0"
 
-plyr@3.6.5:
-  version "3.6.5"
-  resolved "https://registry.yarnpkg.com/plyr/-/plyr-3.6.5.tgz#9d2fc55c2f528d7457cd3a132b818ae5b0c760fa"
-  integrity sha512-pQ8/Iccvwtuyk4JXchXai4afGjpe4ANM5CTJLt3bsZuNO0qGHtM8H/c43KjmEiPKc3Mo86V9IQTsuEI8gW4/Sg==
+plyr@3.6.7:
+  version "3.6.7"
+  resolved "https://registry.yarnpkg.com/plyr/-/plyr-3.6.7.tgz#af8aceb30aeaf34bbcb8f13e2c71100f4752e4b1"
+  integrity sha512-jKuxZk3iMu7F2gDT7QlaIvODPdMbwhKl0jiF/L8tKhhZ+nXcXw24GjycYZllQSTIMOdiB8Cma22oaGjOl9EtzA==
   dependencies:
     core-js "^3.10.1"
     custom-event-polyfill "^1.0.7"
