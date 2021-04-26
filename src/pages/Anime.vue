@@ -382,7 +382,7 @@ export default defineComponent({
           {
             // @ts-ignore
             status: map[status],
-            score: score,
+            score: score.value,
           },
           {
             headers: {
