@@ -124,7 +124,7 @@ export default defineComponent({
     let initialPagination = {
       sortBy: 'watching_status',
       descending: false,
-      rowsPerPage: 5,
+      rowsPerPage: 0,
     };
     let animelist: Vue.Ref<Anime[]> = ref([]);
     let watchMap = [
