@@ -381,7 +381,7 @@ export default defineComponent({
           }`,
           {
             // @ts-ignore
-            status: map[status],
+            status: map[status.value],
             score: score.value,
           },
           {
