@@ -57,6 +57,21 @@
                     <q-tooltip> Open in MyAnimeList </q-tooltip>
                   </q-btn>
                   <q-btn
+                    rel="noopener"
+                    v-if="traktURL"
+                    class="q-ma-sm"
+                    clickable
+                    round
+                    padding="none"
+                    style="font-size: 25px"
+                    icon="img:trakt-icon-red.png"
+                    type="a"
+                    target="_blank"
+                    :href="traktURL"
+                  >
+                    <q-tooltip> Open in Trakt.tv </q-tooltip>
+                  </q-btn>
+                  <q-btn
                     v-if="anime.trailer_url"
                     rel="noopener"
                     class="q-ma-sm"
@@ -298,6 +313,7 @@ export default defineComponent({
       Dropped: 'dropped',
       'Plan to Watch': 'plan_to_watch',
     };
+    let traktURL = ref('');
     let disabled = ref(true);
     let loading = ref(false);
     let revmap: { [key: string]: string } = Object.fromEntries(
@@ -506,6 +522,25 @@ export default defineComponent({
             })
             .catch((e) => console.log(e));
           loading.value = true;
+          axios
+            .get(
+              `https://api.trakt.tv/search/${
+                data.data.type == 'TV' ? 'show' : 'movie'
+              }?query=${data.data.title_english || data.data.title}`,
+              {
+                headers: {
+                  'trakt-api-version': '2',
+                  'trakt-api-key':
+                    '1d2505a69777719260c1a952548af63fd5cd92de4a96d32b3825a32e8adbc158',
+                },
+              }
+            )
+            .then((e) => {
+              traktURL.value = `https://trakt.tv/${
+                data.data.type == 'TV' ? 'shows' : 'movies'
+              }/${e.data[0][e.data[0].type].ids.trakt}`;
+            })
+            .catch((e) => console.log(e));
           if (Cookies.get('mal_auth')) {
             axios
               .get(
@@ -598,6 +633,7 @@ export default defineComponent({
       desc,
       truncateString,
       g,
+      traktURL,
     };
   },
 });
