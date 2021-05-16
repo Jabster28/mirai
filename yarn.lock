@@ -9932,10 +9932,10 @@ qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-quasar@2.0.0-beta.16:
-  version "2.0.0-beta.16"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.0.0-beta.16.tgz#9d94329a574976037d583efff9cab23ec2a5091b"
-  integrity sha512-NHrASRVLkDO9LoNeLcT9tXOrXewL/rDquAFAOiF0kFzM/oTSx/WElGjWSnYHFLc++/buPkZLWoS/gHhJrYoxPQ==
+quasar@2.0.0-beta.17:
+  version "2.0.0-beta.17"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.0.0-beta.17.tgz#4652965f4144b8cda4a4d4c9e40ca030b9f2a717"
+  integrity sha512-TvpytNLpZZiguZHRvolQzRPMuPZPbUn84cyrmOeXlAfWccJx3tEdR2YQGMQWcyJU+hK9N/nUSurSCxwcxVctHw==
 
 query-string@^5.0.1:
   version "5.1.1"
