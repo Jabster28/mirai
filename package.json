@@ -23,7 +23,7 @@
     "quasar": "2.0.0-beta.17"
   },
   "devDependencies": {
-    "@quasar/app": "3.0.0-beta.24",
+    "@quasar/app": "3.0.0-beta.25",
     "@quasar/icongenie": "2.3.3",
     "@types/fs-extra": "9.0.11",
     "@types/node": "12.20.13",
