@@ -32,7 +32,7 @@
     "@typescript-eslint/parser": "4.26.1",
     "babel-eslint": "10.1.0",
     "devtron": "1.4.0",
-    "electron": "12.0.10",
+    "electron": "12.0.11",
     "electron-builder": "22.11.5",
     "electron-debug": "3.2.0",
     "electron-devtools-installer": "3.2.0",
