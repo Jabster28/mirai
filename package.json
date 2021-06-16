@@ -20,7 +20,7 @@
     "core-js": "3.14.0",
     "plyr": "3.6.8",
     "qs": "6.10.1",
-    "quasar": "2.0.0-rc.2"
+    "quasar": "2.0.0-rc.3"
   },
   "devDependencies": {
     "@quasar/app": "3.0.0-rc.3",
