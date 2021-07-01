@@ -42,7 +42,7 @@
     "eslint-plugin-vue": "7.12.1",
     "firebase-tools": "9.14.0",
     "typescript": "4.3.5",
-    "workbox-webpack-plugin": "5.1.4"
+    "workbox-webpack-plugin": "6.1.5"
   },
   "browserslist": [
     "ie >= 11",
