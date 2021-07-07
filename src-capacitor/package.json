@@ -5,8 +5,8 @@
   "author": "Jabster28 <justynboyer@gmail.com>",
   "private": true,
   "dependencies": {
-    "@capacitor/android": "2.4.7",
-    "@capacitor/cli": "2.4.7",
-    "@capacitor/core": "2.4.7"
+    "@capacitor/android": "2.4.8",
+    "@capacitor/cli": "2.4.8",
+    "@capacitor/core": "2.4.8"
   }
 }
