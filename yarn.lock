@@ -1565,10 +1565,10 @@
   resolved "https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@quasar/app@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-3.0.1.tgz#59629edfd4c94732a5b0e17a7a111440a1a6f0dd"
-  integrity sha512-a1hm4miFkvc9setIqtVAKyILHhJ0ZD+Xw52gtGgwwSNGQfKL6UY04837bkjzVOXQ1ybcd5Kpjv3kWPhdTL3TZA==
+"@quasar/app@3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@quasar/app/-/app-3.0.2.tgz#b138de28be40e14bd03e1bee68afd4dfa02d9689"
+  integrity sha512-4qFW3mzoW64ob2zipmcVvQhy5XMgZrgLYhwPyjN/i2agXbdgZuzNMXSqgXduoXrCJ/6a2dYPTR4i7xHESb+WXg==
   dependencies:
     "@quasar/babel-preset-app" "2.0.1"
     "@quasar/fastclick" "1.1.4"
@@ -1641,7 +1641,6 @@
     webpack-dev-server "4.0.0-beta.3"
     webpack-merge "5.8.0"
     webpack-node-externals "3.0.0"
-    zlib "1.0.5"
 
 "@quasar/babel-preset-app@2.0.1":
   version "2.0.1"
@@ -13132,8 +13131,3 @@ zip-stream@^4.1.0:
     archiver-utils "^2.1.0"
     compress-commons "^4.1.0"
     readable-stream "^3.6.0"
-
-zlib@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/zlib/-/zlib-1.0.5.tgz#6e7c972fc371c645a6afb03ab14769def114fcc0"
-  integrity sha1-bnyXL8NxxkWmr7A6sUdp3vEU/MA=
