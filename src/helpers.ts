@@ -39,9 +39,11 @@ export const getCache = (
 export type Anime = {
   title: string;
   mal_id: string;
+  rated: string;
   image_url: string;
   url: string;
   trailer_url: string;
+  type: string;
   title_english: string;
   synopsis: string;
   score: number;
@@ -52,6 +54,7 @@ export type Anime = {
 };
 export type User = {
   url: string;
+  about: string;
   username: string;
   image_url?: string;
   anime_stats: { episodes_watched: number; days_watched: number };
