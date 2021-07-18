@@ -4,7 +4,8 @@
     "target": "es5",
     "lib": [
       "DOM",
-      "ES2019"
+      "ES2019",
+      "es2021"
     ],
     "skipLibCheck": true
   },
