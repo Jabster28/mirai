@@ -183,7 +183,7 @@
                     v-for="n in reviews"
                     :key="n"
                     style="width: 400px"
-                    class="q-px-sm q-ma-md"
+                    class="q-px-sm q-ml-md q-mr-md q-mb-md q-mt-xs"
                   >
                     <q-card-section>
                       <q-btn
