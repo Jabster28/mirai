@@ -236,7 +236,7 @@
                         icon="img:mal.png"
                         type="a"
                         target="_blank"
-                        :href="anime.url"
+                        :href="n.url"
                         aria-label="Open in MyAnimeList"
                       >
                         <q-tooltip> Open in MyAnimeList </q-tooltip>
