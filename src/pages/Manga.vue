@@ -246,8 +246,8 @@ export default defineComponent({
             this.$q.loading.hide();
           }
         );
-        // @ts-ignore
         this.manga =
+          // @ts-ignore
           this.$q.localStorage.getItem('cache').manga[this.$route.params.id];
       }
       // replace `getPost` with your data fetching util / API wrapper
