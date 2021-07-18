@@ -12,6 +12,7 @@
 
             <p class="text-subtitle1 text-weight-thin">{{ anime.title }}</p>
           </div>
+          <h4 v-else>{{ anime.title }}</h4>
         </div>
         <div
           :class="[
