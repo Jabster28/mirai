@@ -22,7 +22,7 @@ export default defineComponent({
         router.replace('/me').catch((e) => console.log(e));
       } else {
         window.location.replace(
-          'https://mirai-api.glitch.me/auth?red=' +
+          'https://mirai-api.herokuapp.com/auth?red=' +
             encodeURIComponent(
               window.location.protocol + '//' + window.location.hostname
             )

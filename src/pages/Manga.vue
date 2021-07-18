@@ -172,7 +172,9 @@ export default defineComponent({
       this.loading = true;
       axios
         .delete(
-          `https://mirai-api.glitch.me/manga?id=${this.$route.params.id}&code=${
+          `https://mirai-api.herokuapp.com/manga?id=${
+            this.$route.params.id
+          }&code=${
             // @ts-ignore
             this.$q.cookies.get('mal_auth').code
           }`
@@ -193,7 +195,9 @@ export default defineComponent({
       this.removed = false;
       axios
         .post(
-          `https://mirai-api.glitch.me/manga?id=${this.$route.params.id}&code=${
+          `https://mirai-api.herokuapp.com/manga?id=${
+            this.$route.params.id
+          }&code=${
             // @ts-ignore
             this.$q.cookies.get('mal_auth').code
           }`,
@@ -271,7 +275,7 @@ export default defineComponent({
           this.$q.localStorage.set('cache', cache);
           axios
             .get(
-              'https://mirai-api.glitch.me/manga?' +
+              'https://mirai-api.herokuapp.com/manga?' +
                 qs.stringify({
                   // @ts-ignore
                   code: this.$q.cookies.get('mal_auth').code,

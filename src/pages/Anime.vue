@@ -370,7 +370,7 @@ export default defineComponent({
 
       axios
         .delete(
-          `https://mirai-api.glitch.me/anime?id=${route.params.id}&code=${
+          `https://mirai-api.herokuapp.com/anime?id=${route.params.id}&code=${
             // @ts-ignore
             Cookies.get('mal_auth').code
           }`
@@ -392,7 +392,7 @@ export default defineComponent({
 
       axios
         .post(
-          `https://mirai-api.glitch.me/anime?id=${route.params.id}&code=${
+          `https://mirai-api.herokuapp.com/anime?id=${route.params.id}&code=${
             // @ts-ignore
             Cookies.get('mal_auth').code
           }`,
@@ -545,7 +545,7 @@ export default defineComponent({
           if (Cookies.get('mal_auth')) {
             axios
               .get(
-                'https://mirai-api.glitch.me/anime?' +
+                'https://mirai-api.herokuapp.com/anime?' +
                   qs.stringify({
                     // @ts-ignore
                     code: Cookies.get('mal_auth').code,

@@ -78,7 +78,7 @@ export default defineComponent({
     if (this.$q.cookies.get('mal_auth')) {
       axios
         .get(
-          'https://mirai-api.glitch.me/suggestions?' +
+          'https://mirai-api.herokuapp.com/suggestions?' +
             // @ts-ignore
             qs.stringify({ code: this.$q.cookies.get('mal_auth').code })
         )
