@@ -243,9 +243,8 @@ export default defineComponent({
           }
         );
         // @ts-ignore
-        this.manga = this.$q.localStorage.getItem('cache').manga[
-          this.$route.params.id
-        ];
+        this.manga =
+          this.$q.localStorage.getItem('cache').manga[this.$route.params.id];
       }
       // replace `getPost` with your data fetching util / API wrapper
       axios
