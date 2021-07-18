@@ -1,0 +1,22 @@
+Heya, it's been a while.
+
+NEW NEW stuff:
+
+- /anime
+  - Reviews.
+  - Little bits of info on the side.
+  - COMPLETELY (kinda) reworked the UI with margins and what not.
+- Removed the Incidents and CHANGELOG page.
+- Vue 3 + Quasar v2
+
+NEW stuff:
+
+- /search
+  - No. of cards per row changes depending on your screen size. Tablets, you're welcome.
+- Made the AnimeCard component a bit less completely awful.
+- MAL integration works almost 100% now, so that's nice.
+
+Bug smacking:
+
+- A bunch of dependency upgrades.
+- Fixed some networking errors that would appear on /manga.

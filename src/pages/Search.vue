@@ -139,7 +139,6 @@ export default defineComponent({
           e.data.results;
           let x = e.data.results;
           x.forEach((f, i, a) => {
-            debugger;
             // @ts-ignore
             a[i] = {
               mal_id: f.mal_id,
