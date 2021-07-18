@@ -344,6 +344,8 @@ export default defineComponent({
       trailer_url: '',
       title_english: '',
       synopsis: '',
+      rated: '',
+      type: '',
       score: 0,
       members: 0,
       favorites: 0,
@@ -515,11 +517,13 @@ export default defineComponent({
           axios
             .get(`https://api.jikan.moe/v3/anime/${route.params.id}/reviews`)
             .then((data) => {
-              reviews.value = data.data.reviews.map((e: any) => {
-                e.content = e.content.replaceAll(/(\\n)|(\\r)/gm, '\n');
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-                return e;
-              });
+              reviews.value = data.data.reviews.map(
+                (e: { content: string }) => {
+                  e.content = e.content.replaceAll(/(\\n)|(\\r)/gm, '\n');
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                  return e;
+                }
+              );
             })
             .catch((e) => console.log(e));
           loading.value = true;

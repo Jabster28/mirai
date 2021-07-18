@@ -126,7 +126,7 @@ export default defineComponent({
             search.value.trim()
           )}&page=1`
         )
-        .then((e) => {
+        .then((e: { data: { results: Anime[] } }) => {
           /* @ts-ignore */
           let cache = LocalStorage.getItem('cache');
           /* @ts-ignore */
@@ -136,8 +136,22 @@ export default defineComponent({
           }
           /* @ts-ignore */
           if (!cache.search) cache.search = {};
+          e.data.results;
+          let x = e.data.results;
+          x.forEach((f, i, a) => {
+            debugger;
+            // @ts-ignore
+            a[i] = {
+              mal_id: f.mal_id,
+              image_url: f.image_url,
+              title: f.title,
+              type: f.type,
+              score: f.score,
+              rated: f.rated,
+            };
+          });
           /* @ts-ignore */
-          cache.search[search.value.trim()] = e.data.results;
+          cache.search[search.value.trim()] = x;
           /* @ts-ignore */
           cache.search[search.value.trim()].date = new Date();
           if (currentSearch.trim() != search.value.trim()) return;

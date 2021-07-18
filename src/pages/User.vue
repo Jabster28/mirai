@@ -172,6 +172,7 @@ export default defineComponent({
     let user: Vue.Ref<User> = ref({
       username: '',
       url: '',
+      about: '',
       anime_stats: {
         days_watched: 0,
         episodes_watched: 0,
@@ -213,7 +214,7 @@ export default defineComponent({
         .get(
           `https://api.jikan.moe/v3/user/${route.params.id}/animelist/${filter.value}?page=${pageNum}`
         )
-        .then((data) => {
+        .then((data: { data: { anime: Anime[] } }) => {
           if (pageNum == 1 && !cached) animelist.value = [];
           if (data.data.anime && data.data.anime.length != 0) {
             pageNum++;
@@ -244,10 +245,22 @@ export default defineComponent({
             }
             /* @ts-ignore */
             if (!cache.animelist) cache.animelist = {};
+            let x = animelist.value;
+            x.forEach((e, i, a) => {
+              // @ts-ignore
+              a[i] = {
+                title: e.title,
+                title_english: e.title_english,
+                mal_id: e.mal_id,
+                type: e.type,
+                score: e.score,
+                watching_status: e.watching_status,
+              };
+            });
             /* @ts-ignore */
             cache.animelist[
               user.value.username.toLowerCase() + '/' + filter.value
-            ] = animelist.value;
+            ] = x;
             /* @ts-ignore */
             cache.animelist[
               user.value.username.toLowerCase() + '/' + filter.value
@@ -322,7 +335,7 @@ export default defineComponent({
           /* @ts-ignore */
           if (!cache.user) cache.user = {};
           /* @ts-ignore */
-          cache.user[route.params.id] = user;
+          cache.user[route.params.id] = { ...user.value, favorites: {} };
           /* @ts-ignore */
           cache.user[route.params.id].date = new Date();
           if (currentUser != route.params.id) return;
