@@ -174,7 +174,7 @@
             <div v-if="reviews.length > 0" class="q-my-md">
               <h5 class="text-weight-thin q-mx-sm">Reviews</h5>
               <q-scroll-area
-                class="q-my-lg inset-shadow rounded-borders"
+                class="q-my-xl inset-shadow rounded-borders"
                 style="height: 250px; max-width: 1800px"
               >
                 <div class="row no-wrap">
