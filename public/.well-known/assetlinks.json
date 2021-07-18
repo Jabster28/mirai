@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.vercel.jabster28.mirai",
+      "sha256_cert_fingerprints": [
+        "6B:4E:9B:B2:46:EA:AD:CA:DA:14:1F:5F:AA:99:A6:FE:48:82:A1:29:94:11:A0:E5:BF:87:4D:29:A5:63:68:F4"
+      ]
+    }
+  }
+]
