@@ -519,7 +519,7 @@ export default defineComponent({
             .then((data) => {
               reviews.value = data.data.reviews.map(
                 (e: { content: string }) => {
-                  e.content = e.content.replaceAll(/(\\n)|(\\r)/gm, '\n');
+                  e.content = e.content.replace(/(\\n)|(\\r)/gm, '\n');
                   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                   return e;
                 }
