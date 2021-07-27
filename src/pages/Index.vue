@@ -16,7 +16,7 @@
       </q-scroll-area>
     </div>
     <div v-if="suggestions.length" class="col-10">
-      <h4>Recommeneded anime:</h4>
+      <h4>Recommended anime:</h4>
       <q-scroll-area
         horizontal
         :visible="false"
