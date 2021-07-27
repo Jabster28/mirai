@@ -463,7 +463,7 @@ export default defineComponent({
     function fetchData() {
       error = '';
       Loading.show({
-        delay: 400, // ms
+        delay: 200, // ms
       });
       const currentAnime = route.params.id;
       if (!navigator.onLine) {

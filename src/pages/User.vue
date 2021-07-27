@@ -282,7 +282,7 @@ export default defineComponent({
     let fetchData = () => {
       error.value = '';
       Loading.show({
-        delay: 400, // ms
+        delay: 200, // ms
       });
       const currentUser = route.params.id;
       if (!navigator.onLine) {

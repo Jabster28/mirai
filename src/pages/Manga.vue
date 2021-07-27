@@ -230,7 +230,7 @@ export default defineComponent({
     fetchData() {
       this.error = '';
       this.$q.loading.show({
-        delay: 400, // ms
+        delay: 200, // ms
       });
       const currentManga = this.$route.params.id;
       if (!navigator.onLine) {
