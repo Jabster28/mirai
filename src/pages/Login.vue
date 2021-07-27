@@ -6,7 +6,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { defineComponent, onMounted } from 'vue';
-import { Cookies, Loading } from 'quasar';
+import { Cookies, Loading, Platform } from 'quasar';
 import { useRouter, useRoute } from 'vue-router';
 
 export default defineComponent({
@@ -24,7 +24,12 @@ export default defineComponent({
         window.location.replace(
           'https://mirai-api.herokuapp.com/auth?red=' +
             encodeURIComponent(
-              window.location.protocol + '//' + window.location.hostname
+              window.location.protocol +
+                '//' +
+                window.location.hostname +
+                ':' +
+                window.location.port +
+                (Platform.is.electron ? '/#' : '')
             )
         );
       }
