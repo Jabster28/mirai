@@ -17,11 +17,11 @@ module.exports = {
     project: resolve(__dirname, './tsconfig.json'),
     tsconfigRootDir: __dirname,
     ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module' // Allows for the use of imports
+    sourceType: 'module', // Allows for the use of imports
   },
 
   env: {
-    browser: true
+    browser: true,
   },
 
   // Rules order is important, please avoid shuffling them
@@ -44,7 +44,7 @@ module.exports = {
 
     // https://github.com/prettier/eslint-config-prettier#installation
     // usage with Prettier, provided by 'eslint-config-prettier'.
-    'prettier'
+    'prettier',
   ],
 
   plugins: [
@@ -53,7 +53,7 @@ module.exports = {
 
     // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
     // required to lint *.vue files
-    'vue'
+    'vue',
 
     // https://github.com/typescript-eslint/typescript-eslint/issues/389#issuecomment-509292674
     // Prettier has not been included as plugin to avoid performance impact
@@ -66,7 +66,7 @@ module.exports = {
     __statics: true,
     process: true,
     Capacitor: true,
-    chrome: true
+    chrome: true,
   },
 
   // add your custom rules here
@@ -82,6 +82,6 @@ module.exports = {
     '@typescript-eslint/no-unsafe-assignment': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
     // allow debugger during development only
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
-  }
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+  },
 };

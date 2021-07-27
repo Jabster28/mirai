@@ -2,11 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es5",
-    "lib": [
-      "DOM",
-      "ES2019",
-    ],
+    "lib": ["DOM", "ES2019"],
     "skipLibCheck": true
   },
-  "extends": "@quasar/app/tsconfig-preset",
+  "extends": "@quasar/app/tsconfig-preset"
 }
