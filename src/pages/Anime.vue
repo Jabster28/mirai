@@ -150,25 +150,33 @@
                   label="Status"
                   class="q-my-md"
                 />
-                <q-badge color="secondary">
+                <q-badge color="accent">
                   Score: {{ score == 0 ? '-' : score }}
                 </q-badge>
-                <q-slider v-model="score" label :min="0" :max="10" />
+                <q-slider
+                  v-model="score"
+                  label
+                  :min="0"
+                  :max="10"
+                  color="accent"
+                />
                 <q-btn
                   label="Update"
                   :loading="loading"
+                  push
                   @click="submit"
                   class="q-ma-sm"
                   :disabled="loading || disabled"
-                  color="primary"
+                  color="secondary"
                 />
                 <q-btn
                   label="Remove"
                   :loading="loading"
+                  push
                   @click="remove"
                   class="q-ma-sm"
                   :disabled="loading || removed"
-                  color="secondary"
+                  color="negative"
                 />
               </div>
             </q-card>
@@ -206,7 +214,7 @@
                           icon-selected="star"
                           icon-half="star_half"
                           readonly
-                          color="yellow"
+                          color="warning"
                         />
                       </div>
                       {{
@@ -216,7 +224,6 @@
                     <q-card-actions>
                       <q-btn
                         v-if="n.content.length > 250"
-                        color="grey"
                         round
                         flat
                         dense
