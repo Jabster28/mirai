@@ -36,7 +36,7 @@
         />
         <q-toolbar-title> Mirai </q-toolbar-title>
 
-        <div>{{ online ? 'ONLINE' : 'OFFLINE, cached results shown.' }}</div>
+        <div v-if="!online">OFFLINE, cached results shown.</div>
         <q-btn
           flat
           dense
@@ -199,12 +199,10 @@ export default {
       ],
     };
   },
-  mounted() {
-    // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  created() {
     const incident = () => {
       this.$q.notify({
-        message: 'You might experience some issues with Mirai for now.',
+        message: 'Mirai is currently undergoing some issues.',
         icon: 'warning',
         color: 'primary',
         timeout: 30000,
@@ -213,14 +211,20 @@ export default {
             label: 'Learn More',
             color: 'white',
             handler: () => {
-              this.$router.push('/incidents');
+              window.location.href =
+                'https://github.com/Jabster28/mirai/blob/master/INCIDENTS.md';
             },
           },
         ],
       });
     };
     // i'll comment this line when things are working as intended
-    // incident();
+    incident();
+  },
+  mounted() {
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     window.addEventListener('online', this.checkConn);
     window.addEventListener('offline', this.checkConn);
     window.addEventListener('resize', this.checkFs);
