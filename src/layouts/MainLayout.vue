@@ -38,7 +38,7 @@
           <q-icon name="img:icons/safari-pinned-tab.svg" />
         </q-toolbar-title>
 
-        <div v-if="!online">OFFLINE, cached results shown.</div>
+        <div v-if="!online">offline, cached results shown.</div>
         <q-btn
           flat
           dense
@@ -124,57 +124,57 @@ export default {
       dark: this.$q.dark.isActive,
       essentialLinks: [
         {
-          title: 'Home',
-          caption: 'Home',
+          title: 'home',
+          caption: 'welcome to mirai',
           icon: 'home',
           link: '/',
         },
         {
           title: 'FAQ',
-          caption: 'Frequently asked questions',
+          caption: 'frequently asked questions',
           icon: 'help',
           link: '/faq',
         },
       ],
       animeLinks: [
         {
-          title: 'Search',
-          caption: 'Search for an anime',
+          title: 'search',
+          caption: 'search for an anime',
           icon: 'search',
           link: '/search',
         },
       ],
       mangaLinks: [
         {
-          title: 'Search Manga',
-          caption: 'Search for a manga',
+          title: 'search manga',
+          caption: 'search for a manga',
           icon: 'search',
           link: '/searchmanga',
         },
       ],
       userLinks: [
         {
-          title: 'Me',
-          caption: 'Open your MAL page',
+          title: 'me',
+          caption: 'open your MAL page',
           icon: 'person',
           link: '/me',
         },
         {
-          title: 'Search Users',
-          caption: 'Look at other profiles on MAL',
+          title: 'search users',
+          caption: 'look at other profiles on MAL',
           icon: 'person_search',
           link: '/searchusr',
         },
         this.$q.cookies.get('mal_auth')
           ? {
-              title: 'Log out',
-              caption: 'Sign out of your MAL account.',
+              title: 'log out',
+              caption: 'sign out of your MAL account.',
               icon: 'power_settings_new', // material doesn't have a proper logout icon for some reason
               link: '/logout',
             }
           : {
-              title: 'Login',
-              caption: 'Sign in with your MAL account',
+              title: 'login',
+              caption: 'sign in with your MAL account',
               icon: 'login',
               link: '/login',
             },
@@ -182,19 +182,19 @@ export default {
       links: [
         {
           title: 'GitHub repo',
-          caption: 'Source code for this application',
+          caption: 'source code for this application',
           icon: 'code',
           link: 'https://github.com/Jabster28/mirai',
         },
         {
-          title: 'Changelog',
-          caption: 'Look at new features and bugfixes',
+          title: 'changelog',
+          caption: 'look at new features and bugfixes',
           icon: 'assignment',
           link: 'https://github.com/Jabster28/mirai/blob/master/CHANGELOG.md',
         },
         {
-          title: 'Incidents',
-          caption: 'List of problems/downtimes Mirai has had.',
+          title: 'incidents',
+          caption: 'list of problems/downtimes Mirai has had.',
           icon: 'warning',
           link: 'https://github.com/Jabster28/mirai/blob/master/INCIDENTS.md',
         },
@@ -204,7 +204,7 @@ export default {
   created() {
     const incident = () => {
       this.$q.notify({
-        message: 'Mirai is currently undergoing some issues.',
+        message: 'mirai is currently undergoing some issues.',
         icon: 'warning',
         color: 'warning',
         progress: true,
@@ -233,7 +233,7 @@ export default {
     window.addEventListener('resize', this.checkFs);
     window.swupdate = () => {
       this.$q.notify({
-        message: 'Update installed! Please refresh.',
+        message: 'update installed! please refresh.',
         icon: 'cloud_download',
         color: 'accent',
         timeout: 10000,
