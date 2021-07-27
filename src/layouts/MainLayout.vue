@@ -34,7 +34,9 @@
           aria-label="Forward"
           @click="$router.go(1)"
         />
-        <q-toolbar-title> Mirai </q-toolbar-title>
+        <q-toolbar-title>
+          <q-icon name="img:icons/safari-pinned-tab.svg" />
+        </q-toolbar-title>
 
         <div v-if="!online">OFFLINE, cached results shown.</div>
         <q-btn
