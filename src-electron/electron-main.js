@@ -95,7 +95,13 @@ function createWindow() {
   });
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+
+  installExtension(VUEJS3_DEVTOOLS)
+    .then((name) => console.log(`Added Extension:  ${name}`))
+    .catch((err) => console.log('An error occurred: ', err));
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -107,9 +113,4 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
-});
-app.whenReady().then(() => {
-  installExtension(VUEJS3_DEVTOOLS)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
 });
