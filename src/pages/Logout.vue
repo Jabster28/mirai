@@ -18,7 +18,7 @@ export default defineComponent({
     this.$q.cookies.set('mal_auth', '');
     this.$q.cookies.remove('mal_auth');
     this.$q.loading.hide();
-    window.location.replace('/');
+    void this.$router.push('/');
   },
 });
 </script>

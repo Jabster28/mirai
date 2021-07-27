@@ -180,6 +180,10 @@ module.exports = configure(function (ctx) {
       },
 
       builder: {
+        protocols: {
+          name: 'mirai-protocol',
+          schemes: ['mirai'],
+        },
         // https://www.electron.build/configuration/configuration
         appId: 'mirai',
         mac: {
@@ -197,11 +201,30 @@ module.exports = configure(function (ctx) {
       },
 
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
-      nodeIntegration: true,
+      // was renamed from chainWebpack()
+      chainWebpackMain(chain) {
+        // // example for its content (adds linting)
+        // chain
+        //   .plugin('eslint-webpack-plugin')
+        //   .use(ESLintPlugin, [{ extensions: ['js'] }]);
+      },
 
-      extendWebpack(/* cfg */) {
-        // do something with Electron main process Webpack cfg
-        // chainWebpack also available besides this extendWebpack
+      // was renamed from extendWebpack()
+      extendWebpackMain(cfg) {
+        /* ... */
+      },
+
+      // New!
+      chainWebpackPreload(chain) {
+        // // example (adds linting)
+        // chain
+        //   .plugin('eslint-webpack-plugin')
+        //   .use(ESLintPlugin, [{ extensions: ['js'] }]);
+      },
+
+      // New!
+      extendWebpackPreload(cfg) {
+        /* ... */
       },
     },
   };
