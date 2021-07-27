@@ -206,8 +206,9 @@ export default {
       this.$q.notify({
         message: 'Mirai is currently undergoing some issues.',
         icon: 'warning',
-        color: 'primary',
-        timeout: 30000,
+        color: 'warning',
+        progress: true,
+        timeout: 5000,
         actions: [
           {
             label: 'Learn More',
