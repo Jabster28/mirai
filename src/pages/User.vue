@@ -425,6 +425,9 @@ export default defineComponent({
         });
     };
     onMounted(fetchData);
+    watch(filter, () => {
+      searchFilter.value = '';
+    });
     return {
       options,
       filter,
