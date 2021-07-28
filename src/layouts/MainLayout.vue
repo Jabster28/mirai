@@ -56,31 +56,31 @@
           $q.platform.is.electron && $q.platform.is.mac && !fs ? 'q-pt-md' : ''
         "
       >
-        <q-item-label header class="text-grey-8"> Main </q-item-label>
+        <q-item-label header class="text-grey-8"> mirai </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8"> Anime </q-item-label>
+        <q-item-label header class="text-grey-8"> anime </q-item-label>
         <EssentialLink
           v-for="link in animeLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8"> Manga </q-item-label>
+        <q-item-label header class="text-grey-8"> manga </q-item-label>
         <EssentialLink
           v-for="link in mangaLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8"> Users </q-item-label>
+        <q-item-label header class="text-grey-8"> users </q-item-label>
         <EssentialLink
           v-for="link in userLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8"> External Links </q-item-label>
+        <q-item-label header class="text-grey-8"> external links </q-item-label>
         <EssentialLink
           v-for="link in links"
           :key="link.title"
