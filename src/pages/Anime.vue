@@ -11,7 +11,23 @@
             <q-card-section class="row items-center q-pb-none">
               <div class="text-h6">{{ currentRev.name }}</div>
               <q-space />
+              <q-btn
+                icon="arrow_back"
+                flat
+                round
+                dense
+                :disabled="!prevrevable"
+                @click="prevrev(currentRev)"
+              />
               <q-btn icon="close" flat round dense v-close-popup />
+              <q-btn
+                icon="arrow_forward"
+                flat
+                round
+                dense
+                :disabled="!nextrevable"
+                @click="nextrev(currentRev)"
+              />
             </q-card-section>
 
             <q-card-section>
@@ -332,9 +348,11 @@ export default defineComponent({
       title_japanese: 'Japanese Title',
     };
     let sugg: Vue.Ref<Anime[]> = ref([]);
-    let reviews: Vue.Ref<any[]> = ref([]);
+    let reviews: Vue.Ref<Review[]> = ref([]);
     let removed = ref(false);
     let reviewPop = ref(false);
+    let nextrevable = ref(false);
+    let prevrevable = ref(false);
     let currentRev: Vue.Ref<{
       name: string;
       text: string;
@@ -481,11 +499,41 @@ export default defineComponent({
       }
     }
     function popout(h: Review) {
+      nextrevable.value = true;
+      prevrevable.value = true;
+      if (
+        reviews.value.findIndex((w) => w.content == h.content) + 1 ==
+        reviews.value.length
+      )
+        nextrevable.value = false;
+
+      if (reviews.value.findIndex((w) => w.content == h.content) == 0)
+        prevrevable.value = false;
       currentRev.value.name = h.reviewer.username;
       currentRev.value.text = h.content;
       currentRev.value.score = h.reviewer.scores.overall / 2;
       currentRev.value.helpful = h.helpful_count;
       reviewPop.value = true;
+    }
+    function nextrev(h: any) {
+      console.log('oo?');
+      if (
+        reviews.value.findIndex((w) => w.content == h.text) + 1 ==
+        reviews.value.length
+      )
+        return;
+
+      popout(
+        reviews.value[reviews.value.findIndex((w) => w.content == h.text) + 1]
+      );
+    }
+    function prevrev(h: any) {
+      console.log('oo?');
+      if (reviews.value.findIndex((w) => w.content == h.text) == 0) return;
+
+      popout(
+        reviews.value[reviews.value.findIndex((w) => w.content == h.text) - 1]
+      );
     }
     function norm(x: number) {
       if (!x) return;
@@ -566,8 +614,6 @@ export default defineComponent({
             .then((data) => {
               reviews.value = data.data.reviews.map(
                 (e: { content: string }) => {
-                  console.log('normal: ', JSON.stringify(e.content));
-                  console.log(JSON.stringify(e.content.replace('\n', '<br>')));
                   e.content = e.content.replace(/(\n)|(\r)/gm, '<br>');
                   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                   return e;
@@ -681,6 +727,10 @@ export default defineComponent({
       error,
       norm,
       popout,
+      nextrev,
+      prevrev,
+      nextrevable,
+      prevrevable,
       checkNotif,
       remove,
       submit,
