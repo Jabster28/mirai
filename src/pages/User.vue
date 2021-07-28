@@ -133,6 +133,19 @@
                   </div>
                 </q-td>
               </template>
+              <template v-slot:top-right>
+                <q-input
+                  borderless
+                  dense
+                  debounce="50"
+                  v-model="searchFilter"
+                  placeholder="Search"
+                >
+                  <template v-slot:append>
+                    <q-icon name="search" />
+                  </template>
+                </q-input>
+              </template>
             </q-table>
           </div>
         </div>
@@ -227,6 +240,7 @@ export default defineComponent({
     let tableLoading = ref(false);
     let error = ref('');
     let pageNum = 1;
+    let searchFilter = ref('');
     let cachedAnimeList: Anime[] = [];
     let cached = false;
     let go = (_: unknown, b: Anime) => {
@@ -426,6 +440,7 @@ export default defineComponent({
       cached,
       go,
       again,
+      searchFilter,
       norm,
       isUser,
       fetchData,
