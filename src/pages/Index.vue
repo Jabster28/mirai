@@ -91,7 +91,7 @@ export default defineComponent({
           `https://api.jikan.moe/v3/user/${
             // @ts-ignore
             this.$q.cookies.get('mal_auth').name
-          }/animelist/OnHold`
+          }/animelist/onhold`
         )
         .then((data) => {
           if (Array.isArray(data.data.anime)) this.hold = data.data.anime;
