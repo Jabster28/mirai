@@ -42,6 +42,7 @@ export type Anime = {
   rated: string;
   image_url: string;
   url: string;
+  name?: string;
   trailer_url: string;
   type: string;
   title_english: string;
