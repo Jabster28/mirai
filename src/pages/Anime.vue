@@ -195,7 +195,7 @@
             <div v-if="reviews.length > 0" class="q-my-md">
               <h5 class="text-weight-thin q-mx-sm">Reviews</h5>
               <q-scroll-area
-                class="q-ma-md q-mb-xl rounded-borders"
+                class="q-ma-md q-mb-xl q-py-none rounded-borders"
                 style="height: 250px"
               >
                 <div class="row no-wrap">
@@ -233,7 +233,7 @@
                         g[n.url] ? n.content : truncateString(n.content, 250)
                       }}
                     </q-card-section>
-                    <q-card-actions>
+                    <q-card-actions class="q-pb-none">
                       <q-btn
                         v-if="n.content.length > 250"
                         round
