@@ -93,7 +93,8 @@
               title="Anime List"
               :pagination="initialPagination"
               dense
-              no-data-label="I didn't find anything for you"
+              :filter="searchFilter"
+              :no-data-label="nodata"
               :rows="
                 animelist.reduce((a, e) => {
                   if (
@@ -163,7 +164,7 @@
 import axios from 'axios';
 import { LocalStorage, Loading, Notify, Cookies, Screen } from 'quasar';
 import { User, Anime } from '../helpers';
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, ref, watch } from 'vue';
 import Vue from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 
@@ -240,6 +241,7 @@ export default defineComponent({
     let tableLoading = ref(false);
     let error = ref('');
     let pageNum = 1;
+    let nodata = ref('');
     let searchFilter = ref('');
     let cachedAnimeList: Anime[] = [];
     let cached = false;
@@ -336,7 +338,10 @@ export default defineComponent({
             cachedAnimeList = [];
           }
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          console.log(e);
+          tableLoading.value = false;
+        });
     };
     let norm = (x: number) => {
       if (!x) return;
@@ -352,6 +357,15 @@ export default defineComponent({
         // @ts-ignore
         Cookies.get('mal_auth').name == route.params.id
       );
+    };
+    let nodataref = () => {
+      nodata.value =
+        [
+          'Nothing but tumbleweeds...',
+          'Nothing to see here, folks!',
+          "Guess they don't watch that much anime...",
+          '*cricket noises*',
+        ].find((_, i, ar) => Math.random() < 1 / (ar.length - i)) || '';
     };
     let fetchData = () => {
       error.value = '';
@@ -426,8 +440,10 @@ export default defineComponent({
     };
     onMounted(fetchData);
     watch(filter, () => {
+      nodataref();
       searchFilter.value = '';
     });
+    watch(searchFilter, nodataref);
     return {
       options,
       filter,
@@ -436,6 +452,8 @@ export default defineComponent({
       watchMap,
       columns,
       user,
+      nodata,
+      nodataref,
       tableLoading,
       error,
       pageNum,
