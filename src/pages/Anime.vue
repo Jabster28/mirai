@@ -183,8 +183,8 @@
             <div v-if="reviews.length > 0" class="q-my-md">
               <h5 class="text-weight-thin q-mx-sm">Reviews</h5>
               <q-scroll-area
-                class="q-my-xl inset-shadow rounded-borders"
-                style="height: 250px; max-width: 1800px"
+                class="q-ma-md q-mb-xl rounded-borders"
+                style="height: 250px"
               >
                 <div class="row no-wrap">
                   <q-card
@@ -192,7 +192,7 @@
                     v-for="n in reviews"
                     :key="n"
                     style="width: 400px"
-                    class="q-px-sm q-ml-md q-mr-md q-mb-md q-mt-xs"
+                    class="q-px-sm q-mx-md q-my-none"
                   >
                     <q-card-section>
                       <q-btn
