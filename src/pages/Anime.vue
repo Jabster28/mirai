@@ -125,22 +125,34 @@
             <q-card class="q-pa-md q-my-lg">
               <h5>
                 <div class="float-left q-mx-sm">
-                  <q-icon name="stars" />&nbsp;{{
+                  <q-icon name="stars" /> &nbsp;{{
                     anime.score ? anime.score.toPrecision(3) : '-'
                   }}
                   / 10
+                  <q-tooltip>Average rating out of 10</q-tooltip>
                 </div>
 
                 <div class="float-left q-mx-sm">
-                  <q-icon name="visibility" />&nbsp;{{
+                  <q-icon name="visibility" /> &nbsp;{{
                     norm(anime.members) || '0'
                   }}
+                  <q-tooltip
+                    >Number of people with this anime in their list</q-tooltip
+                  >
                 </div>
                 <div class="float-left q-mx-sm">
-                  <q-icon name="star" />&nbsp;{{ norm(anime.favorites) || '0' }}
+                  <q-icon name="star" /> &nbsp;{{
+                    norm(anime.favorites) || '0'
+                  }}
+                  <q-tooltip
+                    >Number of people who favorited this anime</q-tooltip
+                  >
                 </div>
                 <div class="q-mx-sm">
                   #&nbsp;{{ anime.rank ? ordinal_suffix_of(anime.rank) : '-' }}
+                  <q-tooltip
+                    >Official ranking in MAL's Top Anime list</q-tooltip
+                  >
                 </div>
               </h5>
               <div v-if="$q.cookies.get('mal_auth')">
