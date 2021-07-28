@@ -19,10 +19,10 @@
             'q-mx-lg',
             'items-start',
             'justify-evenly',
-            $q.screen.gt.sm ? 'row' : 'col',
+            $q.screen.width > 700 ? 'row' : 'col',
           ]"
         >
-          <div :class="[`q-ma-${$q.screen.gt.sm ? 'xl' : 'sm'}`, 'col']">
+          <div :class="[`q-ma-${$q.screen.width > 700 ? 'xl' : 'sm'}`, 'col']">
             <q-card>
               <q-card-section horizontal>
                 <q-img :src="anime.image_url" style="max-width: 300px" />
@@ -107,7 +107,7 @@
             </div>
           </div>
           <div class="col-8 q-mx-lg">
-            <div v-if="$q.screen.gt.sm">
+            <div v-if="$q.screen.width > 700">
               <div
                 v-if="anime.title_english && anime.title_english != anime.title"
               >

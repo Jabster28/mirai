@@ -15,7 +15,7 @@
             'items-center',
             'justify-evenly',
             'q-my-md',
-            $q.screen.gt.sm ? 'row' : 'col',
+            $q.screen.width > 700 ? 'row' : 'col',
           ]"
         >
           <q-card flat class="col-3 q-ma-md">
