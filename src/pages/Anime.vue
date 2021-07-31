@@ -290,7 +290,7 @@
                           color="warning"
                         />
                       </div>
-                      {{ truncateString(n.content, 250) }}
+                      {{ truncateString(n.content, 200) }}
                     </q-card-section>
                     <q-card-actions class="q-pb-none">
                       <q-btn
