@@ -28,7 +28,7 @@ export default defineComponent({
     };
   },
   mounted() {
-    document.title = 'Search for users | Mirai';
+    document.title = 'search for users | mirai';
   },
   methods: {
     onSubmit() {

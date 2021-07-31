@@ -54,7 +54,7 @@
               days wasted.
             </h6>
             <div v-if="user.about && user.about.trim() != ''">
-              <p>User Description:</p>
+              <p>user description:</p>
               <q-card class="q-pa-sm q-ma-md">
                 <div v-html="user.about.trim()" />
               </q-card>
@@ -86,11 +86,11 @@
             <q-select
               v-model="filter"
               :options="options"
-              label="Show"
+              label="show"
               class="q-ma-md"
             />
             <q-table
-              title="Anime List"
+              title="anime list"
               :pagination="initialPagination"
               dense
               :filter="searchFilter"
@@ -98,11 +98,11 @@
               :rows="
                 animelist.reduce((a, e) => {
                   if (
-                    filter != 'All' &&
+                    filter != 'all' &&
                     watchMap[e.watching_status]
                       .split(' ')
                       .join('')
-                      .toLowerCase() != filter.toLowerCase()
+                      .toLowerCase() != filter.replace(/ /g, '').toLowerCase()
                   ) {
                     return a;
                   }
@@ -140,7 +140,7 @@
                   dense
                   debounce="50"
                   v-model="searchFilter"
-                  placeholder="Search"
+                  placeholder="search"
                 >
                   <template v-slot:append>
                     <q-icon name="search" />
@@ -177,10 +177,10 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
 
-    let options = 'All Completed OnHold Watching Dropped PlanToWatch'.split(
-      ' '
+    let options = 'all,completed,on hold,watching,dropped,plan to watch'.split(
+      ','
     );
-    let filter = ref('All');
+    let filter = ref('all');
     let initialPagination = {
       sortBy: 'watching_status',
       descending: false,
@@ -189,39 +189,39 @@ export default defineComponent({
     let animelist: Vue.Ref<Anime[]> = ref([]);
     let watchMap = [
       '-',
-      'Watching',
-      'Completed',
-      'On Hold',
-      'Dropped',
+      'watching',
+      'completed',
+      'on hold',
+      'dropped',
       '3',
-      'Plan to watch',
-      'Dropped',
+      'plan to watch',
+      'dropped',
     ];
     let columns = [
       {
         name: 'name',
-        label: 'Title',
+        label: 'title',
         field: 'name',
         align: 'left',
         sortable: true,
       },
       {
         name: 'type',
-        label: 'Type',
+        label: 'type',
         field: 'type',
         align: 'center',
         sortable: true,
       },
       {
         name: 'score',
-        label: 'Score (out of 10)',
+        label: 'score (out of 10)',
         field: 'score',
         format: (val: number | null) => (val ? val : '-'),
         sortable: true,
       },
       {
         name: 'watching_status',
-        label: 'Status',
+        label: 'status',
         field: 'watching_status',
         // @ts-ignore
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -274,7 +274,7 @@ export default defineComponent({
       }
       axios
         .get(
-          `https://api.jikan.moe/v3/user/${route.params.id}/animelist/${filter.value}?page=${pageNum}`
+          `https://api.jikan.moe/v3/user/${route.params.id}/animelist/all?page=${pageNum}`
         )
         .then((data: { data: { anime: Anime[] } }) => {
           if (pageNum == 1 && !cached) animelist.value = [];
@@ -412,7 +412,7 @@ export default defineComponent({
         .then((data) => {
           Loading.hide();
           user.value = data.data;
-          document.title = `${user.value.username} | Mirai`;
+          document.title = `${user.value.username} | mirai`;
           /* @ts-ignore */
           let cache = LocalStorage.getItem('cache');
           /* @ts-ignore */

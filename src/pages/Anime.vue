@@ -28,10 +28,10 @@
                 :disabled="!prevrevable"
                 @click="prevrev(currentRev)"
               >
-                <q-tooltip>Previous Review</q-tooltip></q-btn
+                <q-tooltip>previous review</q-tooltip></q-btn
               >
               <q-btn icon="close" flat round dense v-close-popup>
-                <q-tooltip>Close</q-tooltip>
+                <q-tooltip>close</q-tooltip>
               </q-btn>
               <q-btn
                 icon="arrow_forward"
@@ -41,7 +41,7 @@
                 :disabled="!nextrevable"
                 @click="nextrev(currentRev)"
               >
-                <q-tooltip>Next Review</q-tooltip>
+                <q-tooltip>next review</q-tooltip>
               </q-btn>
             </q-card-section>
 
@@ -101,9 +101,9 @@
                     :href="`https://www25.gogoanimes.tv/search.html?keyword=${encodeURIComponent(
                       anime.title
                     )}`"
-                    aria-label="Watch on gogo anime"
+                    aria-label="watch on gogo anime"
                   >
-                    <q-tooltip>Watch on GOGO</q-tooltip>
+                    <q-tooltip>watch on GOGO</q-tooltip>
                   </q-btn>
                   <q-btn
                     rel="noopener"
@@ -116,7 +116,7 @@
                     target="_blank"
                     :href="anime.url"
                   >
-                    <q-tooltip> Open in MyAnimeList </q-tooltip>
+                    <q-tooltip> open in MyAnimeList </q-tooltip>
                   </q-btn>
                   <q-btn
                     rel="noopener"
@@ -131,7 +131,7 @@
                     target="_blank"
                     :href="traktURL"
                   >
-                    <q-tooltip> Open in Trakt.tv </q-tooltip>
+                    <q-tooltip> open in Trakt.tv </q-tooltip>
                   </q-btn>
                   <q-btn
                     v-if="anime.trailer_url"
@@ -143,10 +143,10 @@
                     clickable
                     type="a"
                     icon="theaters"
-                    aria-label="Watch trailer on YouTube"
+                    aria-label="watch trailer on YouTube"
                     :href="anime.trailer_url.replace('embed/', 'watch?v=')"
                   >
-                    <q-tooltip> Watch trailer on YouTube </q-tooltip>
+                    <q-tooltip> watch trailer on YouTube </q-tooltip>
                   </q-btn>
                 </q-card-actions>
               </q-card-section>
@@ -163,7 +163,7 @@
               v-for="i in Object.keys(desc).filter((e) => anime[e])"
               :key="i"
             >
-              <span class="text-weight-bold">{{ desc[i] }}:</span>
+              <span class="text-weight-bold">{{ desc[i].toLowerCase() }}:</span>
               {{ anime[i] }}
             </div>
           </div>
@@ -190,7 +190,7 @@
                     anime.score ? anime.score.toPrecision(3) : '-'
                   }}
                   / 10
-                  <q-tooltip>Average rating out of 10</q-tooltip>
+                  <q-tooltip>average rating out of 10</q-tooltip>
                 </div>
 
                 <div class="float-left q-mx-sm">
@@ -198,7 +198,7 @@
                     norm(anime.members) || '0'
                   }}
                   <q-tooltip
-                    >Number of people with this anime in their list</q-tooltip
+                    >number of people with this anime in their list</q-tooltip
                   >
                 </div>
                 <div class="float-left q-mx-sm">
@@ -206,13 +206,13 @@
                     norm(anime.favorites) || '0'
                   }}
                   <q-tooltip
-                    >Number of people who favorited this anime</q-tooltip
+                    >number of people who favorited this anime</q-tooltip
                   >
                 </div>
                 <div class="q-mx-sm">
                   #&nbsp;{{ anime.rank ? ordinal_suffix_of(anime.rank) : '-' }}
                   <q-tooltip
-                    >Official ranking in MAL's Top Anime list</q-tooltip
+                    >official ranking in MAL's Top Anime list</q-tooltip
                   >
                 </div>
               </h5>
@@ -220,11 +220,11 @@
                 <q-select
                   v-model="status"
                   :options="options"
-                  label="Status"
+                  label="status"
                   class="q-my-md"
                 />
                 <q-badge color="accent">
-                  Score: {{ score == 0 ? '-' : score }}
+                  score: {{ score == 0 ? '-' : score }}
                 </q-badge>
                 <q-slider
                   v-model="score"
@@ -254,7 +254,7 @@
               </div>
             </q-card>
             <div v-if="reviews.length > 0" class="q-my-md">
-              <h5 class="text-weight-thin q-mx-sm">Reviews</h5>
+              <h5 class="text-weight-thin q-mx-sm">reviews</h5>
               <q-scroll-area
                 class="q-ma-md q-mb-xl q-py-none rounded-borders"
                 style="height: 250px"
@@ -301,10 +301,10 @@
                         icon="
                           keyboard_arrow_down
                         "
-                        aria-label="Expand"
+                        aria-label="expand"
                         @click="popout(n)"
                       >
-                        <q-tooltip>Expand</q-tooltip>
+                        <q-tooltip>expand</q-tooltip>
                       </q-btn>
                       <q-btn
                         rel="noopener"
@@ -315,9 +315,9 @@
                         type="a"
                         target="_blank"
                         :href="n.url"
-                        aria-label="Open in MyAnimeList"
+                        aria-label="open in MyAnimeList"
                       >
-                        <q-tooltip> Open in MyAnimeList </q-tooltip>
+                        <q-tooltip> open in MyAnimeList </q-tooltip>
                       </q-btn>
                     </q-card-actions>
                   </q-card>
@@ -328,7 +328,7 @@
           <br />
           <div v-if="sugg.length > 0" class="row col-12 q-my-md">
             <p class="text-body1 text-weight-thin col-10 q-mx-xl">
-              More like this
+              more like this
             </p>
             <q-scroll-area
               :visible="false"
@@ -400,11 +400,11 @@ export default defineComponent({
     });
     let g: Vue.Ref<{ [key: string]: boolean }> = ref({});
     let map = {
-      'On Hold': 'on_hold',
-      Completed: 'completed',
-      'Currently Watching': 'watching',
-      Dropped: 'dropped',
-      'Plan to Watch': 'plan_to_watch',
+      'on hold': 'on_hold',
+      completed: 'completed',
+      'currently watching': 'watching',
+      dropped: 'dropped',
+      'plan to watch': 'plan_to_watch',
     };
     let traktURL = ref('');
     let disabled = ref(true);
@@ -413,11 +413,11 @@ export default defineComponent({
       Object.entries(map).map((e) => e.reverse())
     );
     let options = [
-      'On Hold',
-      'Completed',
-      'Currently Watching',
-      'Dropped',
-      'Plan to Watch',
+      'on hold',
+      'completed',
+      'currently watching',
+      'dropped',
+      'plan to watch',
     ];
     let status: Vue.Ref<
       'on_hold' | 'completed' | 'watching' | 'dropped' | 'plan_to_watch' | null
@@ -617,7 +617,7 @@ export default defineComponent({
           }, 1000);
           document.title = `${
             anime.value.title_english || anime.value.title
-          } | Mirai`;
+          } | mirai`;
           /* @ts-ignore */
           let cache = LocalStorage.getItem('cache');
           /* @ts-ignore */

@@ -1,7 +1,10 @@
 <template>
   <q-page class="row items-center justify-evenly">
     <div v-if="top" class="col-10">
-      <h4>Top 10 anime for {{ top.season_name }}, {{ top.season_year }}</h4>
+      <h4>
+        top ten anime of {{ top.season_name.toLowerCase() }},
+        {{ top.season_year }}
+      </h4>
       <q-scroll-area horizontal class="q-ma-md" style="height: 400px">
         <div class="row no-wrap" style="height: 400px">
           <AnimeCard
@@ -16,7 +19,7 @@
       </q-scroll-area>
     </div>
     <div v-if="suggestions.length" class="col-10">
-      <h4>Recommended anime:</h4>
+      <h4>recommended anime:</h4>
       <q-scroll-area
         horizontal
         :visible="false"
@@ -36,7 +39,7 @@
       </q-scroll-area>
     </div>
     <div v-if="hold.length" class="col-10">
-      <h4>Animes you've paused:</h4>
+      <h4>animes you've paused:</h4>
       <q-scroll-area
         horizontal
         :visible="false"
@@ -68,7 +71,7 @@ export default defineComponent({
   components: { AnimeCard },
   name: 'PageIndex',
   mounted() {
-    document.title = 'Mirai';
+    document.title = 'mirai';
     axios
       .get('https://api.jikan.moe/v3/season')
       .then((data) => {

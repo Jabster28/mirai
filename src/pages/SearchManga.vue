@@ -65,8 +65,8 @@ export default defineComponent({
     watch(searchmanga, () => {
       document.title =
         searchmanga.value && searchmanga.value.trim()
-          ? `"${searchmanga.value}" | Search Mirai`
-          : 'Search Mirai';
+          ? `"${searchmanga.value}" | search mirai`
+          : 'search mirai';
       if (!route.params.query || route.params.query != searchmanga.value) {
         router
 

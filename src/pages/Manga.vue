@@ -256,7 +256,7 @@ export default defineComponent({
         .then((data) => {
           this.$q.loading.hide();
           this.manga = data.data;
-          document.title = `${this.manga.title} | Mirai`;
+          document.title = `${this.manga.title} | mirai`;
           /* @ts-ignore */
           let cache = this.$q.localStorage.getItem('cache');
           /* @ts-ignore */
