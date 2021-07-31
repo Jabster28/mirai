@@ -6,7 +6,68 @@
       </div>
 
       <div v-if="anime.mal_id" class="content">
-        <div v-if="$q.screen.lt.sm" class="col-7 q-mx-lg">
+        <q-dialog v-model="reviewPop">
+          <q-card>
+            <q-card-section class="row items-center q-pb-none">
+              <q-btn
+                class="text-h6 q-ma-sm"
+                clickable
+                flat
+                dense
+                type="a"
+                :to="'/user/' + currentRev.name"
+              >
+                {{ currentRev.name }}
+              </q-btn>
+              <q-space />
+              <q-btn
+                icon="arrow_back"
+                flat
+                round
+                dense
+                :disabled="!prevrevable"
+                @click="prevrev(currentRev)"
+              >
+                <q-tooltip>Previous Review</q-tooltip></q-btn
+              >
+              <q-btn icon="close" flat round dense v-close-popup>
+                <q-tooltip>Close</q-tooltip>
+              </q-btn>
+              <q-btn
+                icon="arrow_forward"
+                flat
+                round
+                dense
+                :disabled="!nextrevable"
+                @click="nextrev(currentRev)"
+              >
+                <q-tooltip>Next Review</q-tooltip>
+              </q-btn>
+            </q-card-section>
+
+            <q-card-section>
+              <q-rating
+                :modelValue="currentRev.score"
+                :max="5"
+                no-dimming
+                icon="star_border"
+                icon-selected="star"
+                icon-half="star_half"
+                readonly
+                color="warning"
+              />
+            </q-card-section>
+            <q-card-section>
+              <p v-html="currentRev.text"></p>
+              <p class="text-weight-thin">
+                {{ currentRev.helpful }}
+                {{ currentRev.helpful == 1 ? 'person' : 'people' }} found this
+                helpful
+              </p>
+            </q-card-section>
+          </q-card>
+        </q-dialog>
+        <div v-if="$q.screen.width < 700" class="col-7 q-mx-lg">
           <div v-if="anime.title_english && anime.title_english != anime.title">
             <h4>{{ anime.title_english }}</h4>
 
@@ -209,9 +270,7 @@
                           color="yellow"
                         />
                       </div>
-                      {{
-                        g[n.url] ? n.content : truncateString(n.content, 250)
-                      }}
+                      {{ truncateString(n.content, 250) }}
                     </q-card-section>
                     <q-card-actions>
                       <q-btn
@@ -220,11 +279,11 @@
                         round
                         flat
                         dense
-                        :icon="
-                          g[n.url] ? 'keyboard_arrow_up' : 'keyboard_arrow_down'
+                        icon="
+                          keyboard_arrow_down
                         "
                         aria-label="Expand"
-                        @click="g[n.url] = !g[n.url]"
+                        @click="popout(n)"
                       >
                         <q-tooltip>Expand</q-tooltip>
                       </q-btn>
@@ -282,8 +341,8 @@
 import axios from 'axios';
 import AnimeCard from 'components/AnimeCard.vue';
 import qs from 'qs';
-import { getCache, Anime } from '../helpers';
-import { useRouter, useRoute } from 'vue-router';
+import { getCache, Anime, Review } from '../helpers';
+import { useRoute } from 'vue-router';
 import { defineComponent, onMounted, watch, ref, onBeforeUpdate } from 'vue';
 import { Loading, Notify, LocalStorage, Dialog, Cookies } from 'quasar';
 import Vue from 'vue';
@@ -304,8 +363,22 @@ export default defineComponent({
       title_japanese: 'Japanese Title',
     };
     let sugg: Vue.Ref<Anime[]> = ref([]);
-    let reviews: Vue.Ref<any[]> = ref([]);
+    let reviews: Vue.Ref<Review[]> = ref([]);
     let removed = ref(false);
+    let reviewPop = ref(false);
+    let nextrevable = ref(false);
+    let prevrevable = ref(false);
+    let currentRev: Vue.Ref<{
+      name: string;
+      text: string;
+      score: number;
+      helpful: number;
+    }> = ref({
+      name: '',
+      text: '',
+      score: 0,
+      helpful: 0,
+    });
     let g: Vue.Ref<{ [key: string]: boolean }> = ref({});
     let map = {
       'On Hold': 'on_hold',
@@ -440,6 +513,43 @@ export default defineComponent({
         });
       }
     }
+    function popout(h: Review) {
+      nextrevable.value = true;
+      prevrevable.value = true;
+      if (
+        reviews.value.findIndex((w) => w.content == h.content) + 1 ==
+        reviews.value.length
+      )
+        nextrevable.value = false;
+
+      if (reviews.value.findIndex((w) => w.content == h.content) == 0)
+        prevrevable.value = false;
+      currentRev.value.name = h.reviewer.username;
+      currentRev.value.text = h.content;
+      currentRev.value.score = h.reviewer.scores.overall / 2;
+      currentRev.value.helpful = h.helpful_count;
+      reviewPop.value = true;
+    }
+    function nextrev(h: any) {
+      console.log('oo?');
+      if (
+        reviews.value.findIndex((w) => w.content == h.text) + 1 ==
+        reviews.value.length
+      )
+        return;
+
+      popout(
+        reviews.value[reviews.value.findIndex((w) => w.content == h.text) + 1]
+      );
+    }
+    function prevrev(h: any) {
+      console.log('oo?');
+      if (reviews.value.findIndex((w) => w.content == h.text) == 0) return;
+
+      popout(
+        reviews.value[reviews.value.findIndex((w) => w.content == h.text) - 1]
+      );
+    }
     function norm(x: number) {
       if (!x) return;
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -519,7 +629,7 @@ export default defineComponent({
             .then((data) => {
               reviews.value = data.data.reviews.map(
                 (e: { content: string }) => {
-                  e.content = e.content.replace(/(\\n)|(\\r)/gm, '\n');
+                  e.content = e.content.replace(/(\n)|(\r)/gm, '<br>');
                   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                   return e;
                 }
@@ -627,14 +737,21 @@ export default defineComponent({
       player,
       score,
       oldscore,
+      reviewPop,
       anime,
       error,
       norm,
+      popout,
+      nextrev,
+      prevrev,
+      nextrevable,
+      prevrevable,
       checkNotif,
       remove,
       submit,
       ordinal_suffix_of,
       reviews,
+      currentRev,
       desc,
       truncateString,
       g,
