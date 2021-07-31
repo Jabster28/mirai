@@ -9,7 +9,16 @@
         <q-dialog v-model="reviewPop">
           <q-card>
             <q-card-section class="row items-center q-pb-none">
-              <div class="text-h6">{{ currentRev.name }}</div>
+              <q-btn
+                class="text-h6 q-ma-sm"
+                clickable
+                flat
+                dense
+                type="a"
+                :to="'/user/' + currentRev.name"
+              >
+                {{ currentRev.name }}
+              </q-btn>
               <q-space />
               <q-btn
                 icon="arrow_back"
