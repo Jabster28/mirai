@@ -18,8 +18,12 @@
                 dense
                 :disabled="!prevrevable"
                 @click="prevrev(currentRev)"
-              />
-              <q-btn icon="close" flat round dense v-close-popup />
+              >
+                <q-tooltip>Previous Review</q-tooltip></q-btn
+              >
+              <q-btn icon="close" flat round dense v-close-popup>
+                <q-tooltip>Close</q-tooltip>
+              </q-btn>
               <q-btn
                 icon="arrow_forward"
                 flat
@@ -27,7 +31,9 @@
                 dense
                 :disabled="!nextrevable"
                 @click="nextrev(currentRev)"
-              />
+              >
+                <q-tooltip>Next Review</q-tooltip>
+              </q-btn>
             </q-card-section>
 
             <q-card-section>
