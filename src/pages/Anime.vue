@@ -294,7 +294,6 @@
                     </q-card-section>
                     <q-card-actions class="q-pb-none">
                       <q-btn
-                        v-if="n.content.length > 250"
                         round
                         flat
                         dense
