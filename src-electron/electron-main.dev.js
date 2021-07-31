@@ -17,14 +17,14 @@ app
   .whenReady()
   .then(() => {
     installExtension(VUEJS_DEVTOOLS)
-      .then(ext => {
+      .then((ext) => {
         console.log(`Added Extension: ${ext}`);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('An error occurred: ', err);
       });
   })
-  .catch(err => {
+  .catch((err) => {
     console.log('An error occurred: ', err);
   });
 

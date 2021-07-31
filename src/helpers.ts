@@ -60,3 +60,13 @@ export type User = {
   image_url?: string;
   anime_stats: { episodes_watched: number; days_watched: number };
 };
+export type Review = {
+  content: string;
+  reviewer: {
+    username: string;
+    scores: {
+      overall: number;
+    };
+  };
+  helpful_count: number;
+};
