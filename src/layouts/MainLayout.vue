@@ -43,10 +43,12 @@
           flat
           dense
           round
-          :icon="dark ? 'brightness_4' : 'brightness_2'"
+          :icon="['light_mode', 'dark_mode', 'brightness_4'][theme]"
           aria-label="Menu"
-          @click="toggle"
-        />
+          @click="shift"
+        >
+          <q-tooltip>{{ ['Light', 'Dark', 'System'][theme] }}</q-tooltip>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -120,8 +122,11 @@ export default {
       fs: false,
       online: navigator.onLine,
       leftDrawerOpen: false,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      dark: this.$q.dark.isActive,
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      theme: Number.isNaN(this.$q.localStorage.getItem('theme') + 1)
+        ? 2
+        : this.$q.localStorage.getItem('theme'),
       essentialLinks: [
         {
           title: 'home',
@@ -225,6 +230,7 @@ export default {
     // incident();
   },
   mounted() {
+    // TODO: allow for 'auto' as one of the modes to cycle through
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -246,6 +252,15 @@ export default {
         ],
       });
     };
+    if (!Number.isInteger(this.$q.localStorage.getItem('theme'))) {
+      this.$q.localStorage.set('theme', 1);
+      this.theme = 1;
+      // if all else fails, return to the dark side.
+      // better to have a dark UI when you want it
+      // light, rather than burning someone's retinas :)
+    }
+    this.$q.dark.set([false, true, 'auto'][this.theme]);
+
     this.checkFs();
   },
   beforeDestroy() {
@@ -342,10 +357,11 @@ export default {
         this.fs = true;
       }
     },
-    toggle() {
-      this.$q.dark.toggle();
-      this.dark = !this.dark;
-      this.$q.localStorage.set('theme', this.dark);
+    shift() {
+      this.theme += 1;
+      this.theme = this.theme % 3;
+      this.$q.localStorage.set('theme', this.theme);
+      this.$q.dark.set([false, true, 'auto'][this.theme]);
     },
     checkConn() {
       if (navigator.onLine) {
