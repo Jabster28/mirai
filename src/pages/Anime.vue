@@ -338,6 +338,28 @@
             </div>
           </div>
           <br />
+          <div v-if="related.length > 0" class="row col-12 q-my-md">
+            <p class="text-body1 text-weight-thin col-10 q-mx-xl">
+              linked anime
+            </p>
+            <q-scroll-area
+              :visible="false"
+              class="q-px-md col-12"
+              style="height: 400px"
+            >
+              <div class="row no-wrap">
+                <AnimeCard
+                  :trunc="30"
+                  v-for="anime in related"
+                  :key="anime.node.mal_id"
+                  :anime="anime.node"
+                  :sub="anime.relation_type_formatted.toLowerCase()"
+                  home
+                  suggestions
+                />
+              </div>
+            </q-scroll-area>
+          </div>
           <div v-if="sugg.length > 0" class="row col-12 q-my-md">
             <p class="text-body1 text-weight-thin col-10 q-mx-xl">
               more like this
@@ -393,6 +415,13 @@ export default defineComponent({
       episodes: 'Episodes',
       title_japanese: 'Japanese Title',
     };
+    let related: Vue.Ref<
+      {
+        relation_type: string;
+        relation_type_formatted: string;
+        node: Anime;
+      }[]
+    > = ref([]);
     let sugg: Vue.Ref<Anime[]> = ref([]);
     let reviews: Vue.Ref<Review[]> = ref([]);
     let removed = ref(false);
@@ -701,6 +730,7 @@ export default defineComponent({
                   })
               )
               .then((e) => {
+                related.value = e.data.related_anime;
                 loading.value = false;
                 console.log('status', e);
 
@@ -762,6 +792,7 @@ export default defineComponent({
       sugg,
       removed,
       map,
+      related,
       disabled,
       loading,
       revmap,
