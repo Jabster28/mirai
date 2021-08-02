@@ -265,7 +265,7 @@
                     v-for="n in reviews"
                     :key="n"
                     style="width: 400px"
-                    class="q-px-sm q-mx-md q-my-none"
+                    class="q-px-sm q-mx-md q-my-none q-pb-xs"
                   >
                     <q-card-section>
                       <q-btn
