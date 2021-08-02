@@ -64,6 +64,19 @@
                 {{ currentRev.helpful == 1 ? 'person' : 'people' }} found this
                 helpful
               </p>
+              <q-btn
+                rel="noopener"
+                clickable
+                dense
+                flat
+                icon="img:mal.png"
+                type="a"
+                target="_blank"
+                :href="currentRev.url"
+                aria-label="open in MyAnimeList"
+              >
+                <q-tooltip> open in MyAnimeList </q-tooltip>
+              </q-btn>
             </q-card-section>
           </q-card>
         </q-dialog>
@@ -389,11 +402,13 @@ export default defineComponent({
     let currentRev: Vue.Ref<{
       name: string;
       text: string;
+      url: string;
       score: number;
       helpful: number;
     }> = ref({
       name: '',
       text: '',
+      url: '',
       score: 0,
       helpful: 0,
     });
@@ -543,6 +558,7 @@ export default defineComponent({
       if (reviews.value.findIndex((w) => w.content == h.content) == 0)
         prevrevable.value = false;
       currentRev.value.name = h.reviewer.username;
+      currentRev.value.url = h.url;
       currentRev.value.text = h.content;
       currentRev.value.score = h.reviewer.scores.overall / 2;
       currentRev.value.helpful = h.helpful_count;

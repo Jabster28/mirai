@@ -62,6 +62,7 @@ export type User = {
 };
 export type Review = {
   content: string;
+  url: string;
   reviewer: {
     username: string;
     scores: {
