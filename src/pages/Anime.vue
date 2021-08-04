@@ -717,9 +717,13 @@ export default defineComponent({
               }
             )
             .then((e) => {
-              traktURL.value = `https://trakt.tv/${
-                data.data.type == 'TV' ? 'shows' : 'movies'
-              }/${e.data[0][e.data[0].type].ids.trakt}`;
+              if (e.data[0]) {
+                traktURL.value = `https://trakt.tv/${
+                  data.data.type == 'TV' ? 'shows' : 'movies'
+                }/${e.data[0][e.data[0].type].ids.trakt}`;
+              } else {
+                console.log('trakt not found, skipping');
+              }
             })
             .catch((e) => console.log(e));
           if (Cookies.get('mal_auth')) {
