@@ -249,7 +249,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'PageIndex',
   mounted() {
-    document.title = 'Mirai';
+    document.title = 'mirai';
   },
   data() {
     return {};

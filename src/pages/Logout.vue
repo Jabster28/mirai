@@ -13,7 +13,7 @@ export default defineComponent({
   },
   mounted() {
     this.$q.loading.show({
-      delay: 400,
+      delay: 200,
     });
     this.$q.cookies.set('mal_auth', '');
     this.$q.cookies.remove('mal_auth');

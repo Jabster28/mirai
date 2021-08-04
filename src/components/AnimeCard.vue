@@ -20,6 +20,7 @@
             {{ anime.type }}, {{ Math.round(anime.score) }} stars
             {{ anime.rated ? `(${anime.rated})` : '' }}
           </div>
+          <div v-else-if="sub">{{ sub }}</div>
         </div>
       </q-img>
     </q-card>
@@ -54,6 +55,10 @@ export default defineComponent({
     trunc: {
       type: Number,
       default: 45,
+    },
+    sub: {
+      type: String,
+      default: '',
     },
   },
   setup(props) {

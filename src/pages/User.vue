@@ -11,88 +11,143 @@
       <div v-if="user.username" class="content">
         <div
           :class="[
-            'q-mx-lg',
-            'items-center',
+            'q-mx-xl',
+            'items-top',
             'justify-evenly',
             'q-my-md',
-            $q.screen.gt.sm ? 'row' : 'col',
+            $q.screen.width > 700 ? 'row' : 'col',
           ]"
         >
-          <q-card flat class="col-3 q-ma-md">
-            <q-card-section>
-              <q-img v-if="user.image_url" :src="user.image_url" />
-              <q-card-actions class="justify-around">
-                <q-btn
-                  class="q-ma-sm"
-                  color="primary"
-                  clickable
-                  round
-                  style="background: #2e51a2"
-                  icon="img:mal.png"
-                  type="a"
-                  target="_blank"
-                  :href="user.url"
-                />
-                <q-btn
-                  v-if="isUser()"
-                  class="q-ma-sm"
-                  color="secondary"
-                  clickable
-                  tag="a"
-                  to="/login?f=y"
-                >
-                  Not you?</q-btn
-                >
-              </q-card-actions>
-            </q-card-section>
-          </q-card>
-          <div class="col-6">
+          <div class="col-4">
             <h2>{{ user.username }}</h2>
-
-            <h6 class="disabled">
+            <q-card flat class="q-ma-md">
+              <q-card-section>
+                <q-img v-if="user.image_url" :src="user.image_url" />
+                <q-card-actions class="justify-around">
+                  <q-btn
+                    class="q-ma-sm"
+                    style="background: #2e51a2"
+                    clickable
+                    round
+                    icon="img:mal.png"
+                    type="a"
+                    target="_blank"
+                    :href="user.url"
+                  />
+                  <q-btn
+                    v-if="isUser()"
+                    class="q-ma-sm"
+                    color="secondary"
+                    clickable
+                    push
+                    tag="a"
+                    to="/login?f=y"
+                  >
+                    Not you?</q-btn
+                  >
+                </q-card-actions>
+              </q-card-section>
+            </q-card>
+            <h6 class="text-grey">
               {{ norm(user.anime_stats.episodes_watched) }} episodes watched,
               {{ norm(user.anime_stats.days_watched) }}
               days wasted.
             </h6>
+            <div v-if="user.about && user.about.trim() != ''">
+              <p>user description:</p>
+              <q-card class="q-pa-sm q-ma-md">
+                <div v-html="user.about.trim()" />
+              </q-card>
+            </div>
+
+            <!-- <div class="col-6">
+            <h2>{{ user.username }}</h2>
+            <h6 class="text-grey">
+              {{ norm(user.anime_stats.episodes_watched) }} episodes watched,
+              {{ norm(user.anime_stats.days_watched) }}
+              days wasted.
+            </h6>
+            <div class="col-12" v-if="user.about.trim() != ''">
+              <p>User Description:</p>
+              <q-card class="q-pa-sm q-ma-md bg-grey-3">
+                <div v-html="user.about.trim()" />
+              </q-card>
+            </div>
             <q-select
               v-model="filter"
               :options="options"
               label="Show"
               class="q-my-md"
             />
+          </div> -->
+            <br />
           </div>
-          <br />
-          <div class="row">
+          <div class="col-8">
+            <q-select
+              v-model="filter"
+              :options="options"
+              label="show"
+              class="q-ma-md"
+            />
             <q-table
-              title="Anime List"
+              title="anime list"
               :pagination="initialPagination"
               dense
-              no-data-label="I didn't find anything for you"
+              :filter="searchFilter"
+              :no-data-label="nodata"
               :rows="
-                animelist.filter((e) =>
-                  filter == 'All'
-                    ? e
-                    : watchMap[e.watching_status]
-                        .split(' ')
-                        .join('')
-                        .toLowerCase() == filter.toLowerCase()
-                    ? e
-                    : undefined
-                )
+                animelist.reduce((a, e) => {
+                  if (
+                    filter != 'all' &&
+                    watchMap[e.watching_status]
+                      .split(' ')
+                      .join('')
+                      .toLowerCase() != filter.replace(/ /g, '').toLowerCase()
+                  ) {
+                    return a;
+                  }
+                  a.push({ ...e, name: e.title });
+                  return a;
+                }, [])
               "
-              @row-click="go"
               :loading="tableLoading"
               :columns="columns"
-              row-key="title"
-              color="amber"
+              row-key="name"
+              color="accent"
             >
-              <template v-slot:no-data="{ icon, message, filter }">
-                <div class="full-width row flex-center text-accent q-gutter-sm">
-                  <q-icon size="2em" name="sentiment_dissatisfied" />
-                  <span> Well this is sad... {{ message }} </span>
-                  <q-icon size="2em" :name="filter ? 'filter_b_and_w' : icon" />
-                </div> </template
-            ></q-table>
+              <template v-slot:body-cell-name="props">
+                <q-td :props="props">
+                  <q-btn
+                    class="q-ma-none q-py-none"
+                    flat
+                    dense
+                    type="a"
+                    :to="`/anime/${props.row.mal_id}`"
+                    aria-label="Open"
+                  >
+                    <div>
+                      {{ props.value }}
+                    </div>
+                  </q-btn>
+                  <div>
+                    {{ props.row.details }}
+                  </div>
+                </q-td>
+              </template>
+              <template v-slot:top-right>
+                <q-input
+                  borderless
+                  dense
+                  debounce="50"
+                  v-model="searchFilter"
+                  placeholder="search"
+                >
+                  <template v-slot:append>
+                    <q-icon name="search" />
+                  </template>
+                </q-input>
+              </template>
+            </q-table>
           </div>
         </div>
       </div>
@@ -102,66 +157,71 @@
 
 <script lang="ts">
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import axios from 'axios';
-import { LocalStorage, Loading, Notify, Cookies } from 'quasar';
+import { LocalStorage, Loading, Notify, Cookies, Screen } from 'quasar';
 import { User, Anime } from '../helpers';
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, ref, watch } from 'vue';
 import Vue from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+
+Screen.setSizes({ sm: 200 });
+const truncateString = (string = '', maxLength = 50) =>
+  string.length > maxLength ? `${string.substring(0, maxLength)}…` : string;
 export default defineComponent({
   name: 'PageUser',
   setup() {
     const router = useRouter();
     const route = useRoute();
 
-    let options = 'All Completed OnHold Watching Dropped PlanToWatch'.split(
-      ' '
+    let options = 'all,completed,on hold,watching,dropped,plan to watch'.split(
+      ','
     );
-    let filter = ref('All');
+    let filter = ref('all');
     let initialPagination = {
       sortBy: 'watching_status',
       descending: false,
-      rowsPerPage: 0,
+      rowsPerPage: 50,
     };
     let animelist: Vue.Ref<Anime[]> = ref([]);
     let watchMap = [
       '-',
-      'Watching',
-      'Completed',
-      'On Hold',
-      'Dropped',
+      'watching',
+      'completed',
+      'on hold',
+      'dropped',
       '3',
-      'Plan to watch',
-      'Dropped',
+      'plan to watch',
+      'dropped',
     ];
     let columns = [
       {
-        name: 'title',
-        label: 'Title',
-        field: 'title',
+        name: 'name',
+        label: 'title',
+        field: 'name',
         align: 'left',
         sortable: true,
       },
       {
         name: 'type',
-        label: 'Type',
+        label: 'type',
         field: 'type',
         align: 'center',
         sortable: true,
       },
       {
         name: 'score',
-        label: 'Score (out of 10)',
+        label: 'score (out of 10)',
         field: 'score',
         format: (val: number | null) => (val ? val : '-'),
         sortable: true,
       },
       {
         name: 'watching_status',
-        label: 'Status',
+        label: 'status',
         field: 'watching_status',
         // @ts-ignore
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -181,6 +241,8 @@ export default defineComponent({
     let tableLoading = ref(false);
     let error = ref('');
     let pageNum = 1;
+    let nodata = ref('');
+    let searchFilter = ref('');
     let cachedAnimeList: Anime[] = [];
     let cached = false;
     let go = (_: unknown, b: Anime) => {
@@ -212,7 +274,7 @@ export default defineComponent({
       }
       axios
         .get(
-          `https://api.jikan.moe/v3/user/${route.params.id}/animelist/${filter.value}?page=${pageNum}`
+          `https://api.jikan.moe/v3/user/${route.params.id}/animelist/all?page=${pageNum}`
         )
         .then((data: { data: { anime: Anime[] } }) => {
           if (pageNum == 1 && !cached) animelist.value = [];
@@ -221,7 +283,13 @@ export default defineComponent({
             // @ts-ignore
             if (cached) {
               // @ts-ignore
-              cachedAnimeList.push(...data.data.anime);
+              cachedAnimeList.push(
+                ...data.data.anime.map((e) => {
+                  return {
+                    ...e,
+                  };
+                })
+              );
             } else {
               // @ts-ignore
               animelist.value.push(...data.data.anime);
@@ -250,6 +318,7 @@ export default defineComponent({
               // @ts-ignore
               a[i] = {
                 title: e.title,
+                name: e.title,
                 title_english: e.title_english,
                 mal_id: e.mal_id,
                 type: e.type,
@@ -269,7 +338,10 @@ export default defineComponent({
             cachedAnimeList = [];
           }
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          console.log(e);
+          tableLoading.value = false;
+        });
     };
     let norm = (x: number) => {
       if (!x) return;
@@ -277,12 +349,28 @@ export default defineComponent({
     };
     let isUser = () => {
       // @ts-ignore
-      return Cookies.get('mal_auth').name == route.params.id;
+      return (
+        // @ts-ignore
+        Cookies.get('mal_auth') &&
+        // @ts-ignore
+        Cookies.get('mal_auth').name &&
+        // @ts-ignore
+        Cookies.get('mal_auth').name == route.params.id
+      );
+    };
+    let nodataref = () => {
+      nodata.value =
+        [
+          'Nothing but tumbleweeds...',
+          'Nothing to see here, folks!',
+          "Guess they don't watch that much anime...",
+          '*cricket noises*',
+        ].find((_, i, ar) => Math.random() < 1 / (ar.length - i)) || '';
     };
     let fetchData = () => {
       error.value = '';
       Loading.show({
-        delay: 400, // ms
+        delay: 200, // ms
       });
       const currentUser = route.params.id;
       if (!navigator.onLine) {
@@ -324,7 +412,7 @@ export default defineComponent({
         .then((data) => {
           Loading.hide();
           user.value = data.data;
-          document.title = `${user.value.username} | Mirai`;
+          document.title = `${user.value.username} | mirai`;
           /* @ts-ignore */
           let cache = LocalStorage.getItem('cache');
           /* @ts-ignore */
@@ -351,6 +439,11 @@ export default defineComponent({
         });
     };
     onMounted(fetchData);
+    watch(filter, () => {
+      nodataref();
+      searchFilter.value = '';
+    });
+    watch(searchFilter, nodataref);
     return {
       options,
       filter,
@@ -359,6 +452,8 @@ export default defineComponent({
       watchMap,
       columns,
       user,
+      nodata,
+      nodataref,
       tableLoading,
       error,
       pageNum,
@@ -366,6 +461,7 @@ export default defineComponent({
       cached,
       go,
       again,
+      searchFilter,
       norm,
       isUser,
       fetchData,

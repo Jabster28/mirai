@@ -16,7 +16,7 @@ export default defineComponent({
     const route = useRoute();
     onMounted(() => {
       Loading.show({
-        delay: 400,
+        delay: 200,
       });
       if (Cookies.get('mal_auth') && !route.query.f) {
         router.replace('/me').catch((e) => console.log(e));

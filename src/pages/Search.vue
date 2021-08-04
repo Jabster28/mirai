@@ -70,8 +70,8 @@ export default defineComponent({
     watch(search, () => {
       document.title =
         search.value && search.value.trim()
-          ? `"${search.value}" | Search Mirai`
-          : 'Search Mirai';
+          ? `"${search.value}" | search mirai`
+          : 'search mirai';
       if (!route.params.query || route.params.query != search.value) {
         router
           .replace('/search/' + encodeURIComponent(search.value || ''))

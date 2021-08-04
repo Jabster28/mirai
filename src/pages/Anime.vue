@@ -28,10 +28,10 @@
                 :disabled="!prevrevable"
                 @click="prevrev(currentRev)"
               >
-                <q-tooltip>Previous Review</q-tooltip></q-btn
+                <q-tooltip>previous review</q-tooltip></q-btn
               >
               <q-btn icon="close" flat round dense v-close-popup>
-                <q-tooltip>Close</q-tooltip>
+                <q-tooltip>close</q-tooltip>
               </q-btn>
               <q-btn
                 icon="arrow_forward"
@@ -41,7 +41,7 @@
                 :disabled="!nextrevable"
                 @click="nextrev(currentRev)"
               >
-                <q-tooltip>Next Review</q-tooltip>
+                <q-tooltip>next review</q-tooltip>
               </q-btn>
             </q-card-section>
 
@@ -64,6 +64,19 @@
                 {{ currentRev.helpful == 1 ? 'person' : 'people' }} found this
                 helpful
               </p>
+              <q-btn
+                rel="noopener"
+                clickable
+                dense
+                flat
+                icon="img:mal.png"
+                type="a"
+                target="_blank"
+                :href="currentRev.url"
+                aria-label="open in MyAnimeList"
+              >
+                <q-tooltip> open in MyAnimeList </q-tooltip>
+              </q-btn>
             </q-card-section>
           </q-card>
         </q-dialog>
@@ -80,10 +93,10 @@
             'q-mx-lg',
             'items-start',
             'justify-evenly',
-            $q.screen.gt.sm ? 'row' : 'col',
+            $q.screen.width > 700 ? 'row' : 'col',
           ]"
         >
-          <div :class="[`q-ma-${$q.screen.gt.sm ? 'xl' : 'sm'}`, 'col']">
+          <div :class="[`q-ma-${$q.screen.width > 700 ? 'xl' : 'sm'}`, 'col']">
             <q-card>
               <q-card-section horizontal>
                 <q-img :src="anime.image_url" style="max-width: 300px" />
@@ -101,9 +114,9 @@
                     :href="`https://www25.gogoanimes.tv/search.html?keyword=${encodeURIComponent(
                       anime.title
                     )}`"
-                    aria-label="Watch on gogo anime"
+                    aria-label="watch on gogo anime"
                   >
-                    <q-tooltip>Watch on GOGO</q-tooltip>
+                    <q-tooltip>watch on GOGO</q-tooltip>
                   </q-btn>
                   <q-btn
                     rel="noopener"
@@ -116,7 +129,7 @@
                     target="_blank"
                     :href="anime.url"
                   >
-                    <q-tooltip> Open in MyAnimeList </q-tooltip>
+                    <q-tooltip> open in MyAnimeList </q-tooltip>
                   </q-btn>
                   <q-btn
                     rel="noopener"
@@ -131,7 +144,7 @@
                     target="_blank"
                     :href="traktURL"
                   >
-                    <q-tooltip> Open in Trakt.tv </q-tooltip>
+                    <q-tooltip> open in Trakt.tv </q-tooltip>
                   </q-btn>
                   <q-btn
                     v-if="anime.trailer_url"
@@ -143,10 +156,10 @@
                     clickable
                     type="a"
                     icon="theaters"
-                    aria-label="Watch trailer on YouTube"
+                    aria-label="watch trailer on YouTube"
                     :href="anime.trailer_url.replace('embed/', 'watch?v=')"
                   >
-                    <q-tooltip> Watch trailer on YouTube </q-tooltip>
+                    <q-tooltip> watch trailer on YouTube </q-tooltip>
                   </q-btn>
                 </q-card-actions>
               </q-card-section>
@@ -163,12 +176,12 @@
               v-for="i in Object.keys(desc).filter((e) => anime[e])"
               :key="i"
             >
-              <span class="text-weight-bold">{{ desc[i] }}:</span>
+              <span class="text-weight-bold">{{ desc[i].toLowerCase() }}:</span>
               {{ anime[i] }}
             </div>
           </div>
           <div class="col-8 q-mx-lg">
-            <div v-if="$q.screen.gt.sm">
+            <div v-if="$q.screen.width > 700">
               <div
                 v-if="anime.title_english && anime.title_english != anime.title"
               >
@@ -186,58 +199,78 @@
             <q-card class="q-pa-md q-my-lg">
               <h5>
                 <div class="float-left q-mx-sm">
-                  <q-icon name="stars" />&nbsp;{{
+                  <q-icon name="stars" /> &nbsp;{{
                     anime.score ? anime.score.toPrecision(3) : '-'
                   }}
                   / 10
+                  <q-tooltip>average rating out of 10</q-tooltip>
                 </div>
 
                 <div class="float-left q-mx-sm">
-                  <q-icon name="visibility" />&nbsp;{{
+                  <q-icon name="visibility" /> &nbsp;{{
                     norm(anime.members) || '0'
                   }}
+                  <q-tooltip
+                    >number of people with this anime in their list</q-tooltip
+                  >
                 </div>
                 <div class="float-left q-mx-sm">
-                  <q-icon name="star" />&nbsp;{{ norm(anime.favorites) || '0' }}
+                  <q-icon name="star" /> &nbsp;{{
+                    norm(anime.favorites) || '0'
+                  }}
+                  <q-tooltip
+                    >number of people who favorited this anime</q-tooltip
+                  >
                 </div>
                 <div class="q-mx-sm">
                   #&nbsp;{{ anime.rank ? ordinal_suffix_of(anime.rank) : '-' }}
+                  <q-tooltip
+                    >official ranking in MAL's Top Anime list</q-tooltip
+                  >
                 </div>
               </h5>
               <div v-if="$q.cookies.get('mal_auth')">
                 <q-select
                   v-model="status"
                   :options="options"
-                  label="Status"
+                  label="status"
                   class="q-my-md"
                 />
-                <q-badge color="secondary">
-                  Score: {{ score == 0 ? '-' : score }}
+                <q-badge color="accent">
+                  score: {{ score == 0 ? '-' : score }}
                 </q-badge>
-                <q-slider v-model="score" label :min="0" :max="10" />
+                <q-slider
+                  v-model="score"
+                  label
+                  :min="0"
+                  :max="10"
+                  color="accent"
+                />
                 <q-btn
                   label="Update"
                   :loading="loading"
+                  push
                   @click="submit"
                   class="q-ma-sm"
                   :disabled="loading || disabled"
-                  color="primary"
+                  color="secondary"
                 />
                 <q-btn
                   label="Remove"
                   :loading="loading"
+                  push
                   @click="remove"
                   class="q-ma-sm"
                   :disabled="loading || removed"
-                  color="secondary"
+                  color="negative"
                 />
               </div>
             </q-card>
             <div v-if="reviews.length > 0" class="q-my-md">
-              <h5 class="text-weight-thin q-mx-sm">Reviews</h5>
+              <h5 class="text-weight-thin q-mx-sm">reviews</h5>
               <q-scroll-area
-                class="q-my-xl inset-shadow rounded-borders"
-                style="height: 250px; max-width: 1800px"
+                class="q-ma-md q-mb-xl q-py-none rounded-borders"
+                style="height: 250px"
               >
                 <div class="row no-wrap">
                   <q-card
@@ -245,7 +278,7 @@
                     v-for="n in reviews"
                     :key="n"
                     style="width: 400px"
-                    class="q-px-sm q-ml-md q-mr-md q-mb-md q-mt-xs"
+                    class="q-px-sm q-mx-md q-my-none q-pb-xs"
                   >
                     <q-card-section>
                       <q-btn
@@ -267,25 +300,23 @@
                           icon-selected="star"
                           icon-half="star_half"
                           readonly
-                          color="yellow"
+                          color="warning"
                         />
                       </div>
-                      {{ truncateString(n.content, 250) }}
+                      {{ truncateString(n.content, 200) }}
                     </q-card-section>
-                    <q-card-actions>
+                    <q-card-actions class="q-pb-none">
                       <q-btn
-                        v-if="n.content.length > 250"
-                        color="grey"
                         round
                         flat
                         dense
                         icon="
                           keyboard_arrow_down
                         "
-                        aria-label="Expand"
+                        aria-label="expand"
                         @click="popout(n)"
                       >
-                        <q-tooltip>Expand</q-tooltip>
+                        <q-tooltip>expand</q-tooltip>
                       </q-btn>
                       <q-btn
                         rel="noopener"
@@ -296,9 +327,9 @@
                         type="a"
                         target="_blank"
                         :href="n.url"
-                        aria-label="Open in MyAnimeList"
+                        aria-label="open in MyAnimeList"
                       >
-                        <q-tooltip> Open in MyAnimeList </q-tooltip>
+                        <q-tooltip> open in MyAnimeList </q-tooltip>
                       </q-btn>
                     </q-card-actions>
                   </q-card>
@@ -307,9 +338,31 @@
             </div>
           </div>
           <br />
+          <div v-if="related.length > 0" class="row col-12 q-my-md">
+            <p class="text-body1 text-weight-thin col-10 q-mx-xl">
+              linked anime
+            </p>
+            <q-scroll-area
+              :visible="false"
+              class="q-px-md col-12"
+              style="height: 400px"
+            >
+              <div class="row no-wrap">
+                <AnimeCard
+                  :trunc="30"
+                  v-for="anime in related"
+                  :key="anime.node.mal_id"
+                  :anime="anime.node"
+                  :sub="anime.relation_type_formatted.toLowerCase()"
+                  home
+                  suggestions
+                />
+              </div>
+            </q-scroll-area>
+          </div>
           <div v-if="sugg.length > 0" class="row col-12 q-my-md">
             <p class="text-body1 text-weight-thin col-10 q-mx-xl">
-              More like this
+              more like this
             </p>
             <q-scroll-area
               :visible="false"
@@ -362,6 +415,13 @@ export default defineComponent({
       episodes: 'Episodes',
       title_japanese: 'Japanese Title',
     };
+    let related: Vue.Ref<
+      {
+        relation_type: string;
+        relation_type_formatted: string;
+        node: Anime;
+      }[]
+    > = ref([]);
     let sugg: Vue.Ref<Anime[]> = ref([]);
     let reviews: Vue.Ref<Review[]> = ref([]);
     let removed = ref(false);
@@ -371,21 +431,23 @@ export default defineComponent({
     let currentRev: Vue.Ref<{
       name: string;
       text: string;
+      url: string;
       score: number;
       helpful: number;
     }> = ref({
       name: '',
       text: '',
+      url: '',
       score: 0,
       helpful: 0,
     });
     let g: Vue.Ref<{ [key: string]: boolean }> = ref({});
     let map = {
-      'On Hold': 'on_hold',
-      Completed: 'completed',
-      'Currently Watching': 'watching',
-      Dropped: 'dropped',
-      'Plan to Watch': 'plan_to_watch',
+      'on hold': 'on_hold',
+      completed: 'completed',
+      'currently watching': 'watching',
+      dropped: 'dropped',
+      'plan to watch': 'plan_to_watch',
     };
     let traktURL = ref('');
     let disabled = ref(true);
@@ -394,11 +456,11 @@ export default defineComponent({
       Object.entries(map).map((e) => e.reverse())
     );
     let options = [
-      'On Hold',
-      'Completed',
-      'Currently Watching',
-      'Dropped',
-      'Plan to Watch',
+      'on hold',
+      'completed',
+      'currently watching',
+      'dropped',
+      'plan to watch',
     ];
     let status: Vue.Ref<
       'on_hold' | 'completed' | 'watching' | 'dropped' | 'plan_to_watch' | null
@@ -525,6 +587,7 @@ export default defineComponent({
       if (reviews.value.findIndex((w) => w.content == h.content) == 0)
         prevrevable.value = false;
       currentRev.value.name = h.reviewer.username;
+      currentRev.value.url = h.url;
       currentRev.value.text = h.content;
       currentRev.value.score = h.reviewer.scores.overall / 2;
       currentRev.value.helpful = h.helpful_count;
@@ -566,7 +629,7 @@ export default defineComponent({
     function fetchData() {
       error = '';
       Loading.show({
-        delay: 400, // ms
+        delay: 200, // ms
       });
       const currentAnime = route.params.id;
       if (!navigator.onLine) {
@@ -598,7 +661,7 @@ export default defineComponent({
           }, 1000);
           document.title = `${
             anime.value.title_english || anime.value.title
-          } | Mirai`;
+          } | mirai`;
           /* @ts-ignore */
           let cache = LocalStorage.getItem('cache');
           /* @ts-ignore */
@@ -667,6 +730,7 @@ export default defineComponent({
                   })
               )
               .then((e) => {
+                related.value = e.data.related_anime;
                 loading.value = false;
                 console.log('status', e);
 
@@ -728,6 +792,7 @@ export default defineComponent({
       sugg,
       removed,
       map,
+      related,
       disabled,
       loading,
       revmap,

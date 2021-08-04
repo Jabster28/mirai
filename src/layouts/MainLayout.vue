@@ -34,17 +34,21 @@
           aria-label="Forward"
           @click="$router.go(1)"
         />
-        <q-toolbar-title> Mirai </q-toolbar-title>
+        <q-toolbar-title>
+          <q-icon name="img:icons/safari-pinned-tab.svg" />
+        </q-toolbar-title>
 
-        <div v-if="!online">OFFLINE, cached results shown.</div>
+        <div v-if="!online">offline, cached results shown.</div>
         <q-btn
           flat
           dense
           round
-          :icon="dark ? 'brightness_4' : 'brightness_2'"
+          :icon="['light_mode', 'dark_mode', 'brightness_4'][theme]"
           aria-label="Menu"
-          @click="toggle"
-        />
+          @click="shift"
+        >
+          <q-tooltip>{{ ['Light', 'Dark', 'System'][theme] }}</q-tooltip>
+        </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -54,31 +58,31 @@
           $q.platform.is.electron && $q.platform.is.mac && !fs ? 'q-pt-md' : ''
         "
       >
-        <q-item-label header class="text-grey-8"> Main </q-item-label>
+        <q-item-label header class="text-grey-8"> mirai </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8"> Anime </q-item-label>
+        <q-item-label header class="text-grey-8"> anime </q-item-label>
         <EssentialLink
           v-for="link in animeLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8"> Manga </q-item-label>
+        <q-item-label header class="text-grey-8"> manga </q-item-label>
         <EssentialLink
           v-for="link in mangaLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8"> Users </q-item-label>
+        <q-item-label header class="text-grey-8"> users </q-item-label>
         <EssentialLink
           v-for="link in userLinks"
           :key="link.title"
           v-bind="link"
         />
-        <q-item-label header class="text-grey-8"> External Links </q-item-label>
+        <q-item-label header class="text-grey-8"> external links </q-item-label>
         <EssentialLink
           v-for="link in links"
           :key="link.title"
@@ -118,61 +122,64 @@ export default {
       fs: false,
       online: navigator.onLine,
       leftDrawerOpen: false,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      dark: this.$q.dark.isActive,
+      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      theme: Number.isNaN(this.$q.localStorage.getItem('theme') + 1)
+        ? 2
+        : this.$q.localStorage.getItem('theme'),
       essentialLinks: [
         {
-          title: 'Home',
-          caption: 'Home',
+          title: 'home',
+          caption: 'welcome to mirai',
           icon: 'home',
           link: '/',
         },
         {
           title: 'FAQ',
-          caption: 'Frequently asked questions',
+          caption: 'frequently asked questions',
           icon: 'help',
           link: '/faq',
         },
       ],
       animeLinks: [
         {
-          title: 'Search',
-          caption: 'Search for an anime',
+          title: 'search',
+          caption: 'search for an anime',
           icon: 'search',
           link: '/search',
         },
       ],
       mangaLinks: [
         {
-          title: 'Search Manga',
-          caption: 'Search for a manga',
+          title: 'search manga',
+          caption: 'search for a manga',
           icon: 'search',
           link: '/searchmanga',
         },
       ],
       userLinks: [
         {
-          title: 'Me',
-          caption: 'Open your MAL page',
+          title: 'me',
+          caption: 'open your MAL page',
           icon: 'person',
           link: '/me',
         },
         {
-          title: 'Search Users',
-          caption: 'Look at other profiles on MAL',
+          title: 'search users',
+          caption: 'look at other profiles on MAL',
           icon: 'person_search',
           link: '/searchusr',
         },
         this.$q.cookies.get('mal_auth')
           ? {
-              title: 'Log out',
-              caption: 'Sign out of your MAL account.',
+              title: 'log out',
+              caption: 'sign out of your MAL account.',
               icon: 'power_settings_new', // material doesn't have a proper logout icon for some reason
               link: '/logout',
             }
           : {
-              title: 'Login',
-              caption: 'Sign in with your MAL account',
+              title: 'login',
+              caption: 'sign in with your MAL account',
               icon: 'login',
               link: '/login',
             },
@@ -180,19 +187,19 @@ export default {
       links: [
         {
           title: 'GitHub repo',
-          caption: 'Source code for this application',
+          caption: 'source code for this application',
           icon: 'code',
           link: 'https://github.com/Jabster28/mirai',
         },
         {
-          title: 'Changelog',
-          caption: 'Look at new features and bugfixes',
+          title: 'changelog',
+          caption: 'look at new features and bugfixes',
           icon: 'assignment',
           link: 'https://github.com/Jabster28/mirai/blob/master/CHANGELOG.md',
         },
         {
-          title: 'Incidents',
-          caption: 'List of problems/downtimes Mirai has had.',
+          title: 'incidents',
+          caption: 'list of problems/downtimes Mirai has had.',
           icon: 'warning',
           link: 'https://github.com/Jabster28/mirai/blob/master/INCIDENTS.md',
         },
@@ -202,10 +209,11 @@ export default {
   created() {
     const incident = () => {
       this.$q.notify({
-        message: 'Mirai is currently undergoing some issues.',
+        message: 'mirai is currently undergoing some issues.',
         icon: 'warning',
-        color: 'primary',
-        timeout: 30000,
+        color: 'warning',
+        progress: true,
+        timeout: 5000,
         actions: [
           {
             label: 'Learn More',
@@ -222,6 +230,7 @@ export default {
     // incident();
   },
   mounted() {
+    // TODO: allow for 'auto' as one of the modes to cycle through
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -230,7 +239,7 @@ export default {
     window.addEventListener('resize', this.checkFs);
     window.swupdate = () => {
       this.$q.notify({
-        message: 'Update installed! Please refresh.',
+        message: 'update installed! please refresh.',
         icon: 'cloud_download',
         color: 'accent',
         timeout: 10000,
@@ -243,6 +252,15 @@ export default {
         ],
       });
     };
+    if (!Number.isInteger(this.$q.localStorage.getItem('theme'))) {
+      this.$q.localStorage.set('theme', 1);
+      this.theme = 1;
+      // if all else fails, return to the dark side.
+      // better to have a dark UI when you want it
+      // light, rather than burning someone's retinas :)
+    }
+    this.$q.dark.set([false, true, 'auto'][this.theme]);
+
     this.checkFs();
   },
   beforeDestroy() {
@@ -264,15 +282,25 @@ export default {
           'Overclocking the particle accelerator...',
           'You know, you could be doing something more productive right now.',
           'Loading, Press Alt+F4 for a quick IQ test while you wait.',
+          'Turning back time...',
+          'Finding Waldo...',
           // website tips
           "TIP: If you're on a modern browser, you can access this website offline!",
-          "TIP: You can see your friends' most favourited anime by typing their name into the user box and sorting by ratings.",
+          "TIP: You can see your friends' favourite anime by heading to their user page and pressing 'Score'.",
+          'TIP: You can hold ctrl (or cmd on macOS) to open links in a new tab.',
+          'TIP: We have android releases too! Check our GitHub page.',
+          'TIP: You can click on the name of a reviewer to go to their profile.',
+          'TIP: You can switch between light/dark mode by pressing the icon in the top-right.',
+          'TIP: Almost every page on mirai has a button to take you to the corresponding MAL page.',
+          'TIP: If you log in, you can see and edit animes/mangas in your list.',
+          'TIP: Having problems? Create an issue on our GitHub page!',
           // more dumb ones
           '"Are we there yet?"',
           'INSERT COIN',
           "I know the data's around here somewhere...",
           'Searching for brain cells...',
           'Waiting for your friend to press start...',
+          '"Controller 4 has disconnected. Please reconnect and press A."',
           // stupid facts i stole off the internet, might be fake idk and idrc
           'The official pronunciation for a PNG file is "ping"',
           'The average American spends about 2.5 days a year looking for lost items.',
@@ -294,6 +322,10 @@ export default {
           "I have three tests today, and instead of praciticing for them, I'm here writing loading screens.",
           "Writing these messages isn't easy, you know",
           'Come on, at least one of these are funny!',
+          'Did you do something with your hair?',
+          'Uhh, meow?',
+          "If you have the time to read this while it's loading, either your internet isn't good or something's broken.",
+          "Lovely weather we're having, eh?",
         ].find((_, i, ar) => Math.random() < 1 / (ar.length - i)),
       });
     },
@@ -325,10 +357,11 @@ export default {
         this.fs = true;
       }
     },
-    toggle() {
-      this.$q.dark.toggle();
-      this.dark = !this.dark;
-      this.$q.localStorage.set('theme', this.dark);
+    shift() {
+      this.theme += 1;
+      this.theme = this.theme % 3;
+      this.$q.localStorage.set('theme', this.theme);
+      this.$q.dark.set([false, true, 'auto'][this.theme]);
     },
     checkConn() {
       if (navigator.onLine) {

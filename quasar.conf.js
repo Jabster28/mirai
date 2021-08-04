@@ -93,6 +93,15 @@ module.exports = configure(function (ctx) {
       lang: 'en-US', // Quasar language pack
       config: {
         dark: true,
+        brand: {
+          primary: '#18C918',
+          secondary: '#007F8C',
+          accent: '#837DAF',
+          dark: '#1F1B22',
+          positive: '#00a56e',
+          warning: '#e8b951',
+          negative: '#d7263d',
+        },
       },
       // Possible values for "importStrategy":
       // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives

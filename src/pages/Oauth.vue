@@ -15,7 +15,7 @@ export default defineComponent({
     const router = useRouter();
     onMounted(() => {
       Loading.show({
-        delay: 400, // ms
+        delay: 200, // ms
       });
       console.log('h', router.currentRoute);
       Cookies.set(
