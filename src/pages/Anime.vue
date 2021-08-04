@@ -679,6 +679,9 @@ export default defineComponent({
 
           LocalStorage.set('cache', cache);
 
+          sugg.value = [];
+          reviews.value = [];
+          related.value = [];
           axios
             .get(
               `https://api.jikan.moe/v3/anime/${route.params.id}/recommendations`
