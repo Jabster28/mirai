@@ -6816,10 +6816,10 @@ find-versions@^3.0.0:
   dependencies:
     semver-regex "^2.0.0"
 
-firebase-tools@9.19.0:
-  version "9.19.0"
-  resolved "https://registry.yarnpkg.com/firebase-tools/-/firebase-tools-9.19.0.tgz#f2684ba19cb1fb0a8d44de6554e96ab2178afc9c"
-  integrity sha512-jo9IhtddYBXEwO5m99oPZ53H4KInfhyYWD5+j6LD1bCsT9M95u+hNx+oXnRBVNTJjbwvlv/stF+zDy1WrpU1FA==
+firebase-tools@9.21.0:
+  version "9.21.0"
+  resolved "https://registry.yarnpkg.com/firebase-tools/-/firebase-tools-9.21.0.tgz#1895563f67f16d505541a0933cd48c27fc776f6e"
+  integrity sha512-/Zp9dHhofgKhCSfeLmlecNQ7YX1//db80sFHDHonBxJMqThju8LVpeppHvszJF2WmlkyV3PWeikmB2zB8jvdmg==
   dependencies:
     "@google-cloud/pubsub" "^2.7.0"
     "@types/archiver" "^5.1.0"
