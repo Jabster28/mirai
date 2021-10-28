@@ -141,7 +141,7 @@
       <div class="col-10">
         <h4 class="text-italic">Really?</h4>
         <p class="text-body1">
-          Yes, we don't use any data collection tools or analytics.
+          Yes, we don't use any data collection tools or analytics aside from Panelbear.
         </p>
       </div>
 
