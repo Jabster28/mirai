@@ -21,7 +21,7 @@
     "plyr": "3.6.9",
     "prettier": "2.4.1",
     "qs": "6.10.1",
-    "quasar": "2.2.1",
+    "quasar": "2.2.2",
     "semver": "7.3.5"
   },
   "devDependencies": {
