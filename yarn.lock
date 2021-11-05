@@ -2435,10 +2435,10 @@
   resolved "https://registry.npmjs.org/@quasar/fastclick/-/fastclick-1.1.4.tgz"
   integrity sha512-i9wbyV4iT+v4KhtHJynUFhH5LiEPvAEgSnwMqPN4hf/8uRe82nDl5qP5agrp2el1h0HzyBpbvHaW7NB0BPrtvA==
 
-"@quasar/icongenie@2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@quasar/icongenie/-/icongenie-2.4.0.tgz#f6f05619eaf58bf47053a1b805aa12ca8ccd9419"
-  integrity sha512-DQBPWRmlChj3GHymbtPcS4uNE2s8N2hpjjLNwuVf6nxGygeDoExZVLWpexwOhZiIpEp1EyzO6Q72frLyN2tZ5Q==
+"@quasar/icongenie@2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@quasar/icongenie/-/icongenie-2.4.1.tgz#9c67798f3b3c0375e47b8e42f611200706bcc6db"
+  integrity sha512-K7+PyFUJV/b+vmngb3sRXmUiserqK0JjFHXmQF7TP/UskIbwxA8q9HFZe/GNQnnXuGFh+Kk/ZVKng82/GK9UCA==
   dependencies:
     "@hapi/joi" "^17.1.1"
     chalk "^4.0.0"
