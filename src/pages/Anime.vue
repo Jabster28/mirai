@@ -229,10 +229,12 @@
                   >
                 </div>
               </h5>
-              <div v-if="$q.cookies.get('mal_auth')">
+              <div :style="$q.cookies.get('mal_auth') ? '' : '-webkit-filter: blur(5px); -moz-filter: blur(5px); -o-filter: blur(5px); -ms-filter: blur(5px);'"
+              >
                 <q-select
                   v-model="status"
                   :options="options"
+                  :disable="!$q.cookies.get('mal_auth')"
                   label="status"
                   class="q-my-md"
                 />
@@ -241,6 +243,7 @@
                 </q-badge>
                 <q-slider
                   v-model="score"
+                  :disable="!$q.cookies.get('mal_auth')"
                   label
                   :min="0"
                   :max="10"
@@ -248,23 +251,24 @@
                 />
                 <q-btn
                   label="Update"
-                  :loading="loading"
+                  :loading="$q.cookies.get('mal_auth') ? loading : false"
                   push
                   @click="submit"
                   class="q-ma-sm"
-                  :disabled="loading || disabled"
+                  :disable="$q.cookies.get('mal_auth') ?  (loading || disabled) : true"
                   color="secondary"
                 />
                 <q-btn
                   label="Remove"
-                  :loading="loading"
+                  :loading="$q.cookies.get('mal_auth') ? loading : false"
                   push
                   @click="remove"
                   class="q-ma-sm"
-                  :disabled="loading || removed"
+                  :disable="$q.cookies.get('mal_auth') ? (loading || removed) : true"
                   color="negative"
                 />
               </div>
+              <p v-if="!$q.cookies.get('mal_auth')">You must <a href="/login" style="color: inherit; text-decoration: none"><strong>Sign in</strong></a> to edit your MAL entries</p>
             </q-card>
             <div v-if="reviews.length > 0" class="q-my-md">
               <h5 class="text-weight-thin q-mx-sm">reviews</h5>
