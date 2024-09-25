@@ -22,7 +22,7 @@
     "prettier": "2.4.1",
     "qs": "6.10.1",
     "quasar": "2.3.1",
-    "semver": "7.3.5"
+    "semver": "7.3.6"
   },
   "devDependencies": {
     "@quasar/app": "3.2.1",
